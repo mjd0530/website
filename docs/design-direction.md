@@ -29,7 +29,7 @@ Poppins and Roboto were considered and rejected: both read as template defaults 
 | Personal photo | Replace with the new portrait, cropped tighter |
 | Brand blue #1074bc | Keep as accent lineage, retuned per theme |
 | Thumbnail grid and lightbox | Retire |
-| Bronto / Intuit projects | Open: archive or retire |
+| Bronto / Intuit projects | Retired (2026-11-09). Not shown on the site; no "Earlier work" section |
 | jQuery, Skeleton, Shadowbox, Universal Analytics, zoom-blocking viewport | Retire |
 
 ## From charleshonig.design (inspiration, not a spec)

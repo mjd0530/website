@@ -2,6 +2,8 @@
 
 _Status: skeleton. Values are filled in during Phase 3 from Mike's design images._
 
+_`src/styles/tokens.css` exists with every token name below and **placeholder** values (neutral greys, legacy blue `#1074bc` as accent) that pass axe in all three themes. Phase 3 replaces the values; names stay._
+
 ## Token architecture
 Primitive tokens (raw values) → semantic tokens (purpose) → components. Components use **semantic tokens only**.
 

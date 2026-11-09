@@ -1,0 +1,108 @@
+/*
+ * PLACEHOLDER VALUES. Phase 3 replaces colour, type scale and easing values
+ * from Mike's design images (docs/design-system.md). Names are final; values are not.
+ * Components use semantic tokens only; primitives are never referenced outside this file.
+ */
+
+:root {
+  /* Primitives */
+  --neutral-0: #ffffff;
+  --neutral-50: #f6f6f4;
+  --neutral-100: #ebebe8;
+  --neutral-300: #c5c5c0;
+  --neutral-500: #6b6b66;
+  --neutral-600: #5a5a55;
+  --neutral-700: #3d3d3a;
+  --neutral-800: #262624;
+  --neutral-900: #171716;
+  --neutral-950: #0b0b0c;
+  --blue-300: #7cb8ec;
+  --blue-600: #1074bc;
+  --yellow-300: #ffd84d;
+
+  /* Typography */
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-text: 'Instrument Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-display: clamp(3rem, 2rem + 5vw, 7rem);
+  --text-h1: clamp(2.5rem, 1.75rem + 3.5vw, 4.5rem);
+  --text-h2: clamp(1.875rem, 1.5rem + 1.75vw, 3rem);
+  --text-h3: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --text-h4: clamp(1.1875rem, 1.125rem + 0.3vw, 1.375rem);
+  --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-small: 0.9375rem;
+  --text-meta: 0.8125rem;
+
+  --leading-tight: 1.05;
+  --leading-heading: 1.2;
+  --leading-body: 1.55;
+  --leading-meta: 1.3;
+
+  --measure: 68ch;
+
+  /* Spacing: 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 10rem;
+  --space-12: 12rem;
+
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --content-max: 80rem;
+  --tap-target: 2.75rem;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Focus */
+  --focus-width: 2px;
+  --focus-offset: 3px;
+}
+
+/* Light (default) */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --color-surface: var(--neutral-50);
+  --color-surface-raised: var(--neutral-0);
+  --color-text: var(--neutral-900);
+  --color-text-muted: var(--neutral-600);
+  --color-border: var(--neutral-500);
+  --color-accent: var(--blue-600);
+  --color-focus: var(--blue-600);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-surface: var(--neutral-950);
+  --color-surface-raised: var(--neutral-900);
+  --color-text: var(--neutral-50);
+  --color-text-muted: var(--neutral-300);
+  --color-border: var(--neutral-500);
+  --color-accent: var(--blue-300);
+  --color-focus: var(--blue-300);
+}
+
+[data-theme='contrast'] {
+  color-scheme: dark;
+  --color-surface: #000000;
+  --color-surface-raised: #000000;
+  --color-text: #ffffff;
+  --color-text-muted: #ffffff;
+  --color-border: #ffffff;
+  --color-accent: var(--yellow-300);
+  --color-focus: var(--yellow-300);
+  --focus-width: 4px;
+}

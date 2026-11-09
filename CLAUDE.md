@@ -13,7 +13,7 @@ Source of truth: `docs/` (brief, design direction, design system, components, si
 - Branch per phase/feature; commit or push only when asked.
 
 ## Stack
-- Astro 5, static output, TypeScript strict. Deployed to GitHub Pages via `withastro/action` (custom domain `mikedemar.com`).
+- Astro 7, static output, TypeScript strict. Deployed to GitHub Pages via `withastro/action` (custom domain `mikedemar.com`).
 - Plain CSS: tokens as custom properties, `@layer reset, tokens, base, layout, components, utilities`. No Tailwind, no CSS-in-JS.
 - Zero client JS by default. Interactivity = small vanilla scripts in components; a framework island needs a documented reason.
 - No new dependency without stating why and the alternative.

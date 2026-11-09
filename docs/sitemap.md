@@ -6,7 +6,7 @@ _Last updated: 2026-11-09_
 | URL | Page | Template | Content |
 | --- | --- | --- | --- |
 | `/` | Home | PageLayout | Hero (positioning line, current role, Cary NC), 3 featured projects, About teaser, contact CTA |
-| `/work/` | Work | PageLayout | All projects; featured first, then "Earlier work" (if kept) |
+| `/work/` | Work | PageLayout | All projects, featured first |
 | `/work/magic-move/` | Case study | CaseStudyLayout | Magic Move |
 | `/work/hello-design-system/` | Case study | CaseStudyLayout | Hello Design System |
 | `/work/vantage/` | Case study | CaseStudyLayout | Vantage |

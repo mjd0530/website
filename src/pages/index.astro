@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Mike DeMar"
+  description="Mike DeMar is a UX and product designer in Cary, North Carolina."
+>
+  <div class="container placeholder">
+    <p class="meta">Under construction</p>
+    <h1>Mike DeMar</h1>
+    <p>UX and product designer in Cary, North Carolina. A new portfolio is on the way.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: var(--space-10);
+  }
+
+  .placeholder .meta {
+    color: var(--color-text-muted);
+  }
+</style>

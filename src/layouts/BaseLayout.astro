@@ -1,0 +1,87 @@
+---
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource-variable/instrument-sans/wght.css';
+import '@fontsource-variable/geist-mono/wght.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const siteName = 'Mike DeMar';
+const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <!--
+      Theme resolution before first paint: saved choice → prefers-contrast: more
+      → prefers-color-scheme → light. Must stay inline to avoid a flash.
+    -->
+    <script is:inline>
+      (() => {
+        const themes = ['light', 'dark', 'contrast'];
+        let saved = null;
+        try {
+          saved = localStorage.getItem('theme');
+        } catch {
+          // Storage blocked (private mode, policy): fall back to system preferences.
+        }
+        const theme = themes.includes(saved)
+          ? saved
+          : matchMedia('(prefers-contrast: more)').matches
+            ? 'contrast'
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <slot name="header" />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--space-2);
+    z-index: 100;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    border: var(--focus-width) solid var(--color-focus);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

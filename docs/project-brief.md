@@ -37,6 +37,5 @@ Replace the 2019 mikedemar.com with a modern, minimal, editorial portfolio that 
 - Mike would be proud to send the link to a design leader.
 
 ## Open questions
-- Domain registrar and DNS owner for mikedemar.com.
+_Resolved 2026-11-09: domain is at Gandi with DNS in Route 53 (see ADR-003); Bronto and Intuit work is retired._
 - Monogram as SVG; new portrait at full resolution.
-- Bronto and Intuit work: "Earlier work" archive, or retire?

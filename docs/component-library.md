@@ -72,6 +72,6 @@ Example: <ComponentName … />
 ## Layouts — `src/layouts/`
 | Layout | Purpose |
 | --- | --- |
-| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions |
+| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions. **Built (Phase 4, bare).** Props: `title: string`, `description: string`. Slots: default (inside `<main id="main">`), `header`, `footer`. Includes skip link and canonical URL. Header/footer components and View Transitions come in Phase 5. |
 | PageLayout | Standard page |
 | CaseStudyLayout | Header + TOC + MDX body + NextProject |

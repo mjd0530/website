@@ -1,0 +1,86 @@
+html {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: 100%;
+  line-height: var(--leading-body);
+}
+
+body {
+  font-size: var(--text-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  text-wrap: balance;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: var(--text-h4);
+  font-weight: 600;
+}
+
+p {
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+[data-theme='contrast'] a {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

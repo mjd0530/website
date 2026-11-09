@@ -1,6 +1,6 @@
 # Implementation plan
 
-_Last updated: 2026-11-09 · Current phase: **2 → 3** (foundation docs done; waiting on design images)_
+_Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `phase-4-setup`; Phase 3 waiting on design images)_
 
 ## Phase 1 — Discovery ✅
 - [x] Inspect repos (`website` empty; `md-portfolio-website` = Next.js chat experiment; mikedemar.com = 2019 S3 site)
@@ -21,10 +21,12 @@ _Last updated: 2026-11-09 · Current phase: **2 → 3** (foundation docs done; w
 - [ ] Case study page design (desktop + mobile)
 
 ## Phase 4 — Technical setup
-- [ ] Scaffold Astro (TypeScript strict), Prettier, `astro check`
-- [ ] Fontsource fonts
-- [ ] Playwright + axe, Lighthouse CI
-- [ ] GitHub Actions deploy to Pages; `CNAME`; DNS cut-over plan
+- [x] Scaffold Astro 7 (TypeScript strict), Prettier, ESLint, `astro check`
+- [x] Fontsource fonts
+- [x] Playwright + axe, Lighthouse CI
+- [x] GitHub Actions deploy to Pages; `CNAME`; DNS cut-over plan (ADR-003)
+- [x] Mike: set Pages source to GitHub Actions (2026-11-09)
+- [ ] Merge `phase-4-setup` to `main` for first deploy
 
 ## Phase 5 — Implementation
 - [ ] Tokens + three themes + ThemeSwitcher
