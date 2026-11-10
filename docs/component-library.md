@@ -52,7 +52,7 @@ Example: <ComponentName … />
 | Figure | Image + caption, neutral tile, responsive sizes |
 | MediaGrid | **Built.** Props: `items` (media), `ratio?`. 2 columns from 640px, 1 below. |
 | Lightbox | **Built.** No props; rendered once by BaseLayout. Native `<dialog>` full-screen viewer for every `[data-lightbox]` card: full-resolution WebP (up to 3200px), caption = label, "n of N", previous/next (buttons and arrow keys) across all images on the page, Fit ⇄ Actual size (button, image click or Z) with scroll panning, Escape/close returns focus to the card. Dark scrim in every theme (`--color-scrim`, `--color-on-scrim*`). |
-| Gallery | **Built.** Props: `label`, `items` (media), `ratio?` (default `"auto"`: each card takes its image's shape, so nothing is cropped). Horizontal scroller with next-item peek, prev/next buttons, "n of N" live count; focusable labelled region; native swipe; controls hidden without JS. |
+| Gallery | **Built.** Props: `label`, `items` (media), `ratio?` (default 3/1). All cards in a gallery share one size; images fill and crop from the centre. Horizontal scroller with next-item peek, prev/next buttons, "n of N" live count; focusable labelled region; native swipe; controls hidden without JS. |
 | Stat | Impact number + label (final value in HTML) |
 | Quote | Testimonial or pull quote with attribution |
 | Callout | Annotated note / key decision |

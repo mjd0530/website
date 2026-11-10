@@ -51,3 +51,17 @@ test('work cards fill the column on phones', async ({ page }) => {
   // 375 minus two 16px gutters
   expect(box!.width).toBeGreaterThan(330);
 });
+
+test('cards in a gallery are all the same size', async ({ page }) => {
+  await page.goto('/work/magic-move/');
+  for (const gallery of await page.locator('[data-gallery]').all()) {
+    const boxes = await gallery
+      .locator('[data-item] .media')
+      .evaluateAll((els) =>
+        els
+          .map((e) => e.getBoundingClientRect())
+          .map((r) => [Math.round(r.width), Math.round(r.height)]),
+      );
+    for (const b of boxes) expect(b).toEqual(boxes[0]);
+  }
+});
