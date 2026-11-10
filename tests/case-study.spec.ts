@@ -25,9 +25,11 @@ test('gallery next button advances the count', async ({ page }) => {
   // First gallery that has controls (more than one item)
   const gallery = page.locator('[data-gallery]:has([data-count])').first();
   await gallery.scrollIntoViewIfNeeded();
-  await expect(gallery.locator('[data-count]')).toHaveText('1 of 2');
+  const count = gallery.locator('[data-count]');
+  await expect(count).toHaveText(/^1 of \d+$/);
+  const total = (await count.textContent())!.split(' of ')[1];
   await gallery.getByRole('button', { name: 'Next image' }).click();
-  await expect(gallery.locator('[data-count]')).toHaveText('2 of 2');
+  await expect(count).toHaveText(`2 of ${total}`);
   await expect(gallery.getByRole('button', { name: 'Previous image' })).toBeEnabled();
 });
 
@@ -64,4 +66,11 @@ test('cards in a gallery are all the same size', async ({ page }) => {
       );
     for (const b of boxes) expect(b).toEqual(boxes[0]);
   }
+});
+
+test('Magic Move header lists its key user experiences', async ({ page }) => {
+  await page.goto('/work/magic-move/');
+  const block = page.getByRole('region', { name: 'Key user experiences' });
+  await expect(block.getByRole('listitem')).toHaveCount(3);
+  await expect(block.getByRole('heading', { name: 'Tap to Launch' })).toBeVisible();
 });

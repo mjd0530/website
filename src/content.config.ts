@@ -19,6 +19,13 @@ const projects = defineCollection({
       title: z.string(),
       subtitle: z.string(),
       summary: z.string(),
+      // Extra overview paragraph(s) shown only in the case study header, after the summary
+      intro: z.array(z.string()).optional(),
+      // Key user experiences: short title + one line each, shown in the case study header
+      experiences: z
+        .array(z.object({ title: z.string(), text: z.string() }))
+        .max(4)
+        .optional(),
       client: z.string(),
       years: z.string(),
       role: z.string(),

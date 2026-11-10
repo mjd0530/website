@@ -1,7 +1,11 @@
 ---
-/** Label / value pairs (Role, Scope, Awards) as a description list. */
+/**
+ * Label / value pairs for a case study header, laid out by shape:
+ * short text values share a row (the first takes only the width it needs,
+ * the last takes the rest); list values span the full width as wrapping tags.
+ */
 interface Props {
-  items: { label: string; value: string }[];
+  items: { label: string; value: string | string[] }[];
 }
 
 const { items } = Astro.props;
@@ -9,24 +13,71 @@ const { items } = Astro.props;
 
 <dl class="meta-list">
   {items.map((i) => (
-    <div>
+    <div class:list={{ wide: Array.isArray(i.value) }}>
       <dt class="meta">{i.label}</dt>
-      <dd>{i.value}</dd>
+      <dd>
+        {Array.isArray(i.value) ? (
+          <ul class="tags">
+            {i.value.map((v) => (
+              <li>{v}</li>
+            ))}
+          </ul>
+        ) : (
+          i.value
+        )}
+      </dd>
     </div>
   ))}
 </dl>
 
 <style>
   .meta-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-5) var(--space-9);
-    max-width: var(--measure);
+    display: grid;
+    gap: var(--space-5) var(--space-8);
+    margin: var(--space-2) 0 0;
+    max-width: 60rem;
+  }
+
+  @media (min-width: 40em) {
+    .meta-list {
+      grid-template-columns: max-content minmax(0, 1fr);
+    }
+  }
+
+  .wide {
+    grid-column: 1 / -1;
   }
 
   dd {
+    max-width: 52ch;
     margin: var(--space-1) 0 0;
     font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+
+  .wide dd {
+    max-width: none;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-block-start: var(--space-1);
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags li {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-small);
     line-height: var(--leading-ui);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 999px;
+  }
+
+  :global([data-theme='contrast']) .tags li {
+    border-color: var(--color-border);
   }
 </style>

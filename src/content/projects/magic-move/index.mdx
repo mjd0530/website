@@ -1,12 +1,28 @@
 ---
 title: Smart Share / Magic Move
-subtitle: 'Placeholder headline: one line on what Smart Share / Magic Move does'
-# TODO(mike): outcome-first summary, 2–3 sentences
-summary: Placeholder summary. Lead with the outcome, then what the project is and your part in it. This text appears on the home spotlight and at the top of the case study.
+subtitle: Designing Lenovo’s cross-device interaction model
+summary: I helped evolve a simple idea, physically tapping a phone to a PC, from an early Fuji concept into a broader cross-device interaction model spanning Magic Move, Smart Share, Smart Connect, Tap to Launch, and Smart Tap.
+intro:
+  - The challenge wasn’t simply transferring files. It was reducing the software friction between a person’s intent and what they wanted to accomplish across devices.
+experiences:
+  - title: Multi-platform
+    text: Both mobile (Android + iOS) and PC (Windows) app experiences.
+  - title: Transfer photos
+    text: Easily drag and drop photos between the phone and PC.
+  - title: Tap to Launch
+    text: Tap the side of the PC with your phone to launch the Magic Move application.
 client: Lenovo UXD · Project Fuji
-years: TBD # TODO(mike)
+years: 2023–2026
 role: Lead UX Designer
-scope: [Strategy, Hardware, Software, Research, UI/UX Design]
+scope:
+  [
+    Experience strategy,
+    Interaction design,
+    Prototyping,
+    Research,
+    UX specifications,
+    Cross-functional leadership,
+  ]
 awards: FY24/25 Lenovo Corporate Award winner in the Team Excellence category as part of Project Fuji Aura experience
 # TODO(mike): a dedicated cover with the project name in the art
 cover:
@@ -63,6 +79,7 @@ import CaseStudySection from '../../../components/sections/CaseStudySection.astr
 import Gallery from '../../../components/patterns/Gallery.astro';
 import MediaGrid from '../../../components/patterns/MediaGrid.astro';
 import Video from '../../../components/primitives/Video.astro';
+import StatGrid from '../../../components/patterns/StatGrid.astro';
 import earlyConceptPoster from './images/early-concept-poster.jpg';
 import processMapping from './images/process-mapping.png';
 import midFlows from './images/mid-fidelity-flows.png';
@@ -74,13 +91,48 @@ import deliveryBoard from './images/delivery-board.png';
 
 <CaseStudySection id="impact">
 
-## Challenge
+## The challenge
 
-Placeholder. What problem were users and the business facing, and why did it matter?
+Moving content between a phone and PC was already possible, but rarely effortless.
+
+People relied on email, chat, cloud storage, cables, and other workarounds. In later Smart Share research, 81% of participants used email for phone-to-PC photo transfer, while 69% used chat and 69% used cloud applications.
+
+<StatGrid
+  items={[
+    { value: '81%', label: 'used email to move photos from phone to PC' },
+    { value: '69%', label: 'used chat apps' },
+    { value: '69%', label: 'used cloud applications' },
+  ]}
+/>
+
+We saw an opportunity to rethink the interaction entirely:
+
+> Could moving between devices feel as natural as physically moving something from one place to another?
+
+{/* TODO(mike): before/after journey image */}
+
+<Gallery
+  label="Before and after"
+  items={[
+    {
+      alt: 'The existing multi-step phone-to-PC transfer workflow beside the new one: phone, tap, PC',
+      label: 'Before / after journey: today’s multi-step transfer vs. Phone → Tap → PC',
+    },
+  ]}
+/>
 
 ## Impact
 
-Placeholder. What changed because of this work: numbers, adoption, recognition.
+<StatGrid
+  items={[
+    { value: '~40%', label: 'of 1,484 Aura owners studied had used Smart Share' },
+    { value: '~70%', label: 'of active users engaged with it weekly' },
+    { value: '80–88%', label: 'of repeat launches came through the tap interaction' },
+    { value: '86', label: 'overall System Usability Scale score' },
+  ]}
+/>
+
+Smart Share launched across an 11-device Aura Edition portfolio and later expanded to additional consumer, commercial, and all-in-one PCs. In a study of 1,484 Aura owners, roughly 40% had used Smart Share. Among active users, about 70% engaged with it weekly, and telemetry showed that 80% to 88% of repeat launches happened through the tap interaction rather than menus or keyboard shortcuts. The experience earned an overall System Usability Scale score of 86, while research also revealed an opportunity to improve feature awareness and first-use guidance.
 
 ## Collaboration
 
@@ -90,17 +142,59 @@ Placeholder. Who you worked with (PM, engineering, hardware, research) and how y
 
 <CaseStudySection id="process">
 
-## Design process mapping, competitive analysis, user journey mapping
+## Defining the experience
 
-Placeholder. How you framed the problem: the process map, what the competitive analysis showed, and the key user journeys.
+We started with the experience rather than the technology.
+
+Early Magic Move work explored customer journeys, competitive experiences, physical Tap to Launch, photo sharing, drag and drop, links, messages, and calls. Our design principles emphasized clarity, familiarity, cross-platform support, simplicity, trust, and security.
+
+{/* TODO(mike): workshop material, sketches and 2–3 early Figma concepts */}
 
 <Gallery
-  label="Process mapping and competitive analysis"
+  label="Early exploration"
   items={[
     {
       src: processMapping,
       alt: 'Planning board with sections for design process and next steps, key user experiences, competitive analysis, and key user journeys',
-      label: 'Process mapping and competitive analysis',
+      label: 'Journey and competitive mapping board',
+    },
+    { alt: 'Workshop material and sketches', label: 'Workshop material and sketches' },
+    { alt: 'Early Figma concepts for Magic Move', label: 'Early Figma concepts' },
+  ]}
+/>
+
+{/* TODO(mike): 3–5 polished frames */}
+
+<Gallery
+  label="Tap, launch, gallery, drag, transfer"
+  ratio="16 / 9"
+  items={[
+    { alt: 'Magic Move frame: tap', label: '1 · Tap' },
+    { alt: 'Magic Move frame: launch', label: '2 · Launch' },
+    { alt: 'Magic Move frame: gallery', label: '3 · Gallery' },
+    { alt: 'Magic Move frame: drag', label: '4 · Drag' },
+    { alt: 'Magic Move frame: transfer', label: '5 · Transfer' },
+  ]}
+/>
+
+> The UI wasn’t the core idea. The interaction between the physical devices was the product.
+
+## Designing beyond the screen
+
+Magic Move couldn’t be designed as UI alone.
+
+The experience depended on hardware sensing, Intel Unison, Elliptic Labs’ virtual tap technology, physical tap targets, phone orientation, device state, and the software response to a real-world gesture.
+
+I helped translate that experience into the Magic Move UXD Specification, defining interaction behavior and giving engineering teams a shared reference for implementation and tradeoffs.
+
+{/* TODO(mike): one annotated spec example */}
+
+<Gallery
+  label="UX specification"
+  items={[
+    {
+      alt: 'Annotated UX specification example: physical gesture, sensor, recognition, software response, with notes on tap location, angle, orientation and application response',
+      label: 'UX spec: gesture → sensor → recognition → software response',
     },
   ]}
 />
