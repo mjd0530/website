@@ -5,6 +5,7 @@ import '@fontsource-variable/geist-mono/wght.css';
 import '../styles/global.css';
 import SiteHeader from '../components/sections/SiteHeader.astro';
 import SiteFooter from '../components/sections/SiteFooter.astro';
+import Lightbox from '../components/patterns/Lightbox.astro';
 
 interface Props {
   title: string;
@@ -63,6 +64,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <SiteFooter />
+    <Lightbox />
   </body>
 </html>
 

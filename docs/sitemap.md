@@ -82,7 +82,12 @@ src/content/projects/magic-move/
 - **One large file per image, no `@2x` suffix.** Export at 2× the largest display size; Astro generates the smaller sizes and modern formats at build.
 - **Export widths:** cover 1000px (16:9-ish, 458:258) · hero 2000px (950:528) · spotlight wide 2000px (950:378) · spotlight pair 1000px (16:9) · process galleries 2000px (3:1) · delivery grid 1000px (16:9). Other ratios are cropped to fit (`object-fit: cover`).
 - **Formats:** PNG for UI screenshots, JPG for photos. Lowercase-hyphen names.
-- **Frontmatter images:** `hero: { src: ./images/hero.png, alt: "…" }`.
+- **Frontmatter images:** `hero: { src: ./images/hero.png, alt: "…", label: "…" }`.
+- **Two texts per image:** `alt` is the full description for screen readers; `label` is a 2–5 word descriptor shown as the hover tooltip and the full-screen caption.
+- **Originals:** keep full-resolution exports in `design/source/<project>/` (git-ignored). Make web copies in `images/` with:
+  - boards and flows: `npm run image -- design/source/<project>/<file>.png src/content/projects/<slug>/images/<name>.png` (trims built-in white/grey margins so the content fills the card, adds an even 2% margin, caps at 3200px)
+  - photos and renders: add `--photo` (no trim; 2400px JPG)
+- **Cards are full bleed:** images fill their card. Galleries keep each image's own shape (no crop); grids and spotlights use fixed shapes and crop from the centre. Clicking any image opens the full-screen viewer.
 - **Body images (galleries, grids):** import at the top of the MDX, then pass the import:
   `import flow1 from './images/flow-1.png';` and `{ src: flow1, alt: '…' }`.
 - **Portrait:** `src/assets/portrait.jpg`, square, at least 400px.

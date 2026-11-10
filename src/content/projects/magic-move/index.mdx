@@ -8,12 +8,35 @@ years: TBD # TODO(mike)
 role: Lead UX Designer
 scope: [Strategy, Hardware, Software, Research, UI/UX Design]
 awards: FY24/25 Lenovo Corporate Award winner in the Team Excellence category as part of Project Fuji Aura experience
-cover: { alt: 'Smart Share / Magic Move cover', label: 'Cover art (shows the project name)' }
-hero: { alt: 'Magic Move window on a Windows desktop', label: 'Hero: Magic Move on the desktop' }
+# TODO(mike): a dedicated cover with the project name in the art
+cover:
+  {
+    src: ./images/tap-and-share.jpg,
+    alt: 'Smart Share on a Lenovo laptop beside a phone, with a Tap and share label',
+    label: 'Tap and share',
+  }
+hero:
+  {
+    src: ./images/tap-and-share.jpg,
+    alt: 'Smart Share open on a Lenovo laptop next to a phone showing the same photos, with a Tap and share label between them',
+    label: 'Tap and share, laptop to phone',
+  }
 spotlight:
-  - { alt: 'Smart Share key visual', label: 'Wide key visual' }
-  - { alt: 'Laptop and phone sharing a photo', label: 'Laptop to phone' }
-  - { alt: 'Synchronize galleries between devices', label: 'Synchronize galleries' }
+  - {
+      src: ./images/tap-and-share.jpg,
+      alt: 'Smart Share open on a Lenovo laptop next to a phone showing the same photos',
+      label: 'Tap and share, laptop to phone',
+    }
+  - {
+      src: ./images/high-fidelity-mockups.png,
+      alt: 'High-fidelity Magic Move mockups showing photo selection and multi-photo drag states',
+      label: 'High-fidelity mockups',
+    }
+  - {
+      src: ./images/mid-fidelity-flows.png,
+      alt: 'Mid-fidelity experience flows for tap to launch, drag and drop, and proximity detection',
+      label: 'Mid-fidelity experience flows',
+    }
 sections:
   - { id: overview, label: Overview }
   - { id: impact, label: Impact }
@@ -27,6 +50,13 @@ order: 1
 import CaseStudySection from '../../../components/sections/CaseStudySection.astro';
 import Gallery from '../../../components/patterns/Gallery.astro';
 import MediaGrid from '../../../components/patterns/MediaGrid.astro';
+import processMapping from './images/process-mapping.png';
+import midFlows from './images/mid-fidelity-flows.png';
+import highFlows from './images/high-fidelity-flows.png';
+import benchmark from './images/benchmark-testing.png';
+import tapShare from './images/tap-and-share.jpg';
+import hiFiMockups from './images/high-fidelity-mockups.png';
+import deliveryBoard from './images/delivery-board.png';
 
 <CaseStudySection id="impact">
 
@@ -53,9 +83,11 @@ Placeholder. How you framed the problem: the process map, what the competitive a
 <Gallery
   label="Process mapping and competitive analysis"
   items={[
-    { alt: 'Design process and next steps board', label: 'Process mapping board' },
-    { alt: 'Competitive analysis board', label: 'Competitive analysis board' },
-    { alt: 'Key user journeys board', label: 'User journey board' },
+    {
+      src: processMapping,
+      alt: 'Planning board with sections for design process and next steps, key user experiences, competitive analysis, and key user journeys',
+      label: 'Process mapping and competitive analysis',
+    },
   ]}
 />
 
@@ -66,8 +98,16 @@ Placeholder. The flows you explored and how the experience map shaped the direct
 <Gallery
   label="User flows and experience mapping"
   items={[
-    { alt: 'Low-fidelity user flow', label: 'User flow 1' },
-    { alt: 'Low-fidelity user flow, alternate path', label: 'User flow 2' },
+    {
+      src: midFlows,
+      alt: 'Mid-fidelity flows for tap to launch, drag and drop, proximity detection, and sharing photos and hyperlinks',
+      label: 'Mid-fidelity experience flows',
+    },
+    {
+      src: highFlows,
+      alt: 'High-fidelity end-to-end flow, including ultrasound tap to launch and the mobile app',
+      label: 'High-fidelity end-to-end flow',
+    },
   ]}
 />
 
@@ -78,7 +118,11 @@ Placeholder. What you tested, with whom, and what changed as a result.
 <Gallery
   label="Prototyping and user research"
   items={[
-    { alt: 'Low-fidelity prototype', label: 'Prototype 1' },
+    {
+      src: benchmark,
+      alt: 'Low-fidelity benchmark testing flow: phone and laptop connection, first-run experience, tap to launch and photo transfer steps',
+      label: 'Benchmark testing flow',
+    },
     { alt: 'Research findings', label: 'Research findings' },
   ]}
 />
@@ -93,9 +137,21 @@ Placeholder. What shipped, and how design supported engineering through launch.
 
 <MediaGrid
   items={[
-    { alt: 'Tap and share from laptop to phone', label: 'Tap and share' },
-    { alt: 'Delivery image 2', label: 'Delivery image 2' },
-    { alt: 'Delivery image 3', label: 'Delivery image 3' },
+    {
+      src: tapShare,
+      alt: 'Tap and share: photos move from a phone to Smart Share on a Lenovo laptop',
+      label: 'Tap and share',
+    },
+    {
+      src: hiFiMockups,
+      alt: 'High-fidelity mockups of the Magic Move photo view, selection mode and drag states, with annotations',
+      label: 'High-fidelity mockups',
+    },
+    {
+      src: deliveryBoard,
+      alt: 'Delivery board of final desktop screens and laptop renders for each step of the flow',
+      label: 'Delivery screens',
+    },
     { alt: 'Delivery image 4', label: 'Delivery image 4' },
   ]}
 />
