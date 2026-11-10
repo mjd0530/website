@@ -44,8 +44,8 @@ Example: <ComponentName … />
 ## Patterns — `src/components/patterns/`
 | Component | Purpose |
 | --- | --- |
-| ThemeSwitcher | Radio group: Light / Dark / High contrast; persists the choice |
-| NavMenu | Primary nav; mobile disclosure |
+| ThemeSwitcher | **Built.** No props. Disclosure button (`aria-expanded`, accessible name "Theme: Light" etc.; visible "Theme" label from 640px up, icon-only below) opening a `fieldset` radio group Light / Dark / High contrast. Choosing applies `html[data-theme]` and saves to `localStorage`. Closes on Escape (focus returns to the button), outside click or focus leaving. Hidden until JS runs. Token-styled radios (3:1 ring in every theme); native radios under `forced-colors`. |
+| NavMenu | **Built.** Props: `items: {label, href}[]`, `current: string` (pathname), `label?` (default "Primary"). Inline text links at every width (no hamburger); current page bold + `aria-current="page"` (underlined in high contrast); 44px tall targets. |
 | ProjectCard | Cover, title, outcome, MetaList; variants `featured`, `compact`, `archive` |
 | MetaList | Role / Years / Scope as a `<dl>` in mono |
 | Figure | Image + caption, neutral tile, responsive sizes |
@@ -60,8 +60,8 @@ Example: <ComponentName … />
 ## Sections — `src/components/sections/`
 | Component | Purpose |
 | --- | --- |
-| SiteHeader | NavMenu (Home · About · Resume · Contact), ThemeSwitcher at row end |
-| SiteFooter | Contact links, resume, copyright |
+| SiteHeader | **Built.** Props: `current: string`. NavMenu (items from `src/data/site.ts`) left, ThemeSwitcher right. |
+| SiteFooter | **Built.** No props. Hairline rule within the content column, © year, LinkedIn · Dribbble · Resume (from `src/data/site.ts`). TODO(mike): public email. |
 | Hero | Home positioning statement |
 | FeaturedWork | "Work" heading + 2×2 grid of ProjectCards |
 | ProjectSpotlight | Per-project home section: rail (title, subtitle, summary, "View case study →") + column (one wide image over two 2-up images). One per project, in `order` |
@@ -73,6 +73,6 @@ Example: <ComponentName … />
 ## Layouts — `src/layouts/`
 | Layout | Purpose |
 | --- | --- |
-| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions. **Built (Phase 4, bare).** Props: `title: string`, `description: string`. Slots: default (inside `<main id="main">`), `header`, `footer`. Includes skip link and canonical URL. Header/footer components and View Transitions come in Phase 5. |
+| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions. **Built (Phase 4, bare).** Props: `title: string`, `description: string`. Slot: default (inside `<main id="main">`). Renders skip link, SiteHeader (current = `Astro.url.pathname`) and SiteFooter on every page; canonical URL. View Transitions still to come. |
 | PageLayout | Standard page |
 | CaseStudyLayout | Header + TOC + MDX body + NextProject |

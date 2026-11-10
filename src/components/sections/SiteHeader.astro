@@ -1,0 +1,28 @@
+---
+import NavMenu from '../patterns/NavMenu.astro';
+import ThemeSwitcher from '../patterns/ThemeSwitcher.astro';
+import { primaryNav } from '../../data/site';
+
+interface Props {
+  current: string;
+}
+
+const { current } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <NavMenu items={primaryNav} current={current} />
+    <ThemeSwitcher />
+  </div>
+</header>
+
+<style>
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: clamp(var(--space-3), 2.5vw, var(--space-6));
+  }
+</style>

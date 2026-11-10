@@ -29,8 +29,8 @@ _Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `
 - [ ] Merge `phase-4-setup` to `main` for first deploy
 
 ## Phase 5 — Implementation
-- [ ] Tokens + three themes + ThemeSwitcher
-- [ ] BaseLayout, SiteHeader, SiteFooter, NavMenu
+- [x] Tokens + three themes + ThemeSwitcher
+- [x] BaseLayout, SiteHeader, SiteFooter, NavMenu (+ ThemeSwitcher; stub About / Resume / Contact pages)
 - [ ] Primitives and layout components
 - [ ] Home
 - [ ] Content collection + CaseStudyLayout

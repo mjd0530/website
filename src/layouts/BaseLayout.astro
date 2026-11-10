@@ -3,6 +3,8 @@ import '@fontsource/instrument-serif/latin-400.css';
 import '@fontsource-variable/instrument-sans/wght.css';
 import '@fontsource-variable/geist-mono/wght.css';
 import '../styles/global.css';
+import SiteHeader from '../components/sections/SiteHeader.astro';
+import SiteFooter from '../components/sections/SiteFooter.astro';
 
 interface Props {
   title: string;
@@ -56,11 +58,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <a class="skip-link" href="#main">
       Skip to content
     </a>
-    <slot name="header" />
+    <SiteHeader current={Astro.url.pathname} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <slot name="footer" />
+    <SiteFooter />
   </body>
 </html>
 
