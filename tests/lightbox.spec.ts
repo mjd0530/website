@@ -57,15 +57,18 @@ test('hover shows the short label tooltip; Escape hides it', async ({ page, isMo
   await expect(tip).toHaveCSS('opacity', '0');
 });
 
-test('viewer has no axe violations when open', async ({ page }) => {
-  await page.goto(page_);
-  await page.locator('[data-lightbox]').first().click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
-});
+for (const theme of ['light', 'dark', 'contrast']) {
+  test(`viewer has no axe violations when open (${theme})`, async ({ page }) => {
+    await page.addInitScript((t) => localStorage.setItem('theme', t), theme);
+    await page.goto(page_);
+    await page.locator('[data-lightbox]').first().click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+}
 
 test('image cards fill edge to edge', async ({ page }) => {
   await page.goto(page_);

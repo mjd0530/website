@@ -139,6 +139,10 @@
     border: 0;
     color: var(--color-on-scrim);
     background: var(--color-scrim);
+    color-scheme: light;
+  }
+
+  :global([data-theme='contrast']) .lightbox {
     color-scheme: dark;
   }
 
@@ -146,8 +150,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(var(--color-scrim-blur)) saturate(1.2);
+    backdrop-filter: blur(var(--color-scrim-blur)) saturate(1.2);
     animation: fade var(--duration-base) var(--ease-out);
   }
 
@@ -243,6 +247,7 @@
     width: auto;
     height: auto;
     object-fit: contain;
+    border: 1px solid var(--color-on-scrim-image-edge);
     border-radius: var(--radius-control);
     cursor: zoom-in;
   }

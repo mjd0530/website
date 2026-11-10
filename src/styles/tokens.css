@@ -103,14 +103,16 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* ── Full-screen viewer (dark in every theme) ──────────── */
-  --color-scrim: rgb(8 9 13 / 0.97);
-  --color-on-scrim: var(--ink-50);
-  --color-on-scrim-muted: var(--ink-300);
-  --color-on-scrim-control: rgb(255 255 255 / 0.08);
-  --color-on-scrim-control-hover: rgb(255 255 255 / 0.16);
-  --color-on-scrim-border: rgb(255 255 255 / 0.45);
-  --color-on-scrim-focus: var(--yellow-300);
+  /* ── Full-screen viewer: frosted white in light and dark ─ */
+  --color-scrim: rgb(255 255 255 / 0.88);
+  --color-scrim-blur: 24px;
+  --color-on-scrim: var(--black);
+  --color-on-scrim-muted: var(--slate-600);
+  --color-on-scrim-control: rgb(255 255 255 / 0.7);
+  --color-on-scrim-control-hover: var(--white);
+  --color-on-scrim-border: var(--slate-500);
+  --color-on-scrim-focus: var(--violet-600);
+  --color-on-scrim-image-edge: var(--slate-200);
 
   /* ── Focus ──────────────────────────────────────────────── */
   --focus-width: 2px;
@@ -177,4 +179,13 @@
   --color-accent: var(--yellow-300);
   --color-focus: var(--yellow-300);
   --focus-width: 4px;
+  --color-scrim: var(--black);
+  --color-scrim-blur: 0px;
+  --color-on-scrim: var(--white);
+  --color-on-scrim-muted: var(--white);
+  --color-on-scrim-control: var(--black);
+  --color-on-scrim-control-hover: var(--black);
+  --color-on-scrim-border: var(--white);
+  --color-on-scrim-focus: var(--yellow-300);
+  --color-on-scrim-image-edge: var(--white);
 }
