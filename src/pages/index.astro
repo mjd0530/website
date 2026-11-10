@@ -1,26 +1,154 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/patterns/ProjectCard.astro';
+import ProjectSpotlight from '../components/sections/ProjectSpotlight.astro';
+
+const projects = (await getCollection('projects', (p) => p.data.status === 'public')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <BaseLayout
   title="Mike DeMar"
-  description="Mike DeMar is a UX and product designer in Cary, North Carolina."
+  description="Mike DeMar is a UX and product designer in Cary, North Carolina, leading a team of designers on Lenovo's Software UXD team."
 >
-  <div class="container placeholder">
-    <p class="meta">Under construction</p>
-    <h1>Mike DeMar</h1>
-    <p>UX and product designer in Cary, North Carolina. A new portfolio is on the way.</p>
+  <div class="container home">
+    <div class="rail-layout top">
+      <section class="intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">Hi, I'm Mike DeMar</h1>
+        <!-- TODO(mike): replace with the new portrait (src/assets/portrait.jpg) -->
+        <div
+          class="portrait"
+          role="img"
+          aria-label="Image placeholder: portrait of Mike DeMar"
+        ></div>
+        <div class="bio">
+          <p>A designer from the Concentrated Area of Relocated Yankees, Cary NC.</p>
+          <p>I enjoy crafting intuitive and beautiful product experiences for users.</p>
+          <p>Currently I'm leading a team of designers on the Software UXD team @ Lenovo.</p>
+        </div>
+      </section>
+
+      <section class="work" aria-labelledby="work-title">
+        <h2 id="work-title">Work</h2>
+        <div class="work-grid">
+          {projects.map((p, i) => (
+            <ProjectCard
+              href={`/work/${p.id}/`}
+              title={p.data.title}
+              client={p.data.client}
+              cover={p.data.cover}
+              priority={i < 2}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+
+    {projects.map((p) => (
+      <ProjectSpotlight project={p} />
+    ))}
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder {
+  .home {
     display: grid;
-    gap: var(--space-5);
-    padding-block: var(--space-10);
+    gap: var(--section-gap);
+    padding-block: var(--space-6) 0;
   }
 
-  .placeholder .meta {
-    color: var(--color-text-muted);
+  .intro {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4) var(--space-4);
+    align-items: center;
+    align-content: start;
+  }
+
+  .intro h1 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: var(--text-h2);
+  }
+
+  .portrait {
+    grid-column: 1;
+    grid-row: 1;
+    width: 4rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 8px,
+      var(--color-surface) 8px 9px
+    );
+  }
+
+  .bio {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-4);
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+
+  /* Tablet: portrait left, name and bio right */
+  @media (min-width: 40em) and (max-width: 63.99em) {
+    .intro {
+      grid-template-columns: 6rem 1fr;
+      align-items: start;
+    }
+
+    .portrait {
+      width: 6rem;
+      grid-row: 1 / span 2;
+    }
+
+    .bio {
+      grid-column: 2;
+    }
+  }
+
+  /* Desktop: everything stacked in the rail, which stays put while Work scrolls */
+  @media (min-width: 64em) {
+    .intro {
+      grid-template-columns: 1fr;
+      position: sticky;
+      inset-block-start: var(--sticky-top);
+      align-self: start;
+      gap: var(--space-6);
+    }
+
+    .intro h1,
+    .portrait,
+    .bio {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .portrait {
+      width: 5rem;
+    }
+  }
+
+  .work {
+    display: grid;
+    gap: var(--space-6);
+    align-content: start;
+  }
+
+  .work-grid {
+    display: grid;
+    gap: var(--card-gap);
+  }
+
+  @media (min-width: 40em) {
+    .work-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

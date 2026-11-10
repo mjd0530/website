@@ -32,8 +32,8 @@ _Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `
 - [x] Tokens + three themes + ThemeSwitcher
 - [x] BaseLayout, SiteHeader, SiteFooter, NavMenu (+ ThemeSwitcher; stub About / Resume / Contact pages)
 - [ ] Primitives and layout components
-- [ ] Home
-- [ ] Content collection + CaseStudyLayout
+- [x] Home (placeholder images and copy)
+- [x] Content collection + case study template (placeholder images and copy)
 - [ ] Case studies: Magic Move, Hello Design System, Vantage
 - [ ] Work, About, Contact, Resume, 404
 - [ ] Motion polish

@@ -92,6 +92,9 @@
   --radius-card: clamp(1.25rem, 1.03rem + 0.94vw, 1.75rem); /* 20 → 28 */
   --radius-control: 0.5rem;
   --tap-target: 2.75rem; /* 44 */
+  --header-pad-block: clamp(0.75rem, 2.5vw, 2rem); /* 12 → 32 */
+  --header-height: calc(var(--tap-target) + 2 * var(--header-pad-block) + 1px); /* sticky offset */
+  --sticky-top: calc(var(--header-height) + var(--space-5)); /* rails below the header */
 
   /* ── Motion ─────────────────────────────────────────────── */
   --duration-fast: 150ms;

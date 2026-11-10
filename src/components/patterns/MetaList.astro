@@ -1,0 +1,32 @@
+---
+/** Label / value pairs (Role, Scope, Awards) as a description list. */
+interface Props {
+  items: { label: string; value: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="meta-list">
+  {items.map((i) => (
+    <div>
+      <dt class="meta">{i.label}</dt>
+      <dd>{i.value}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .meta-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5) var(--space-9);
+    max-width: var(--measure);
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-ui);
+    line-height: var(--leading-ui);
+  }
+</style>

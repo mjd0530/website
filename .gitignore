@@ -6,3 +6,6 @@ dist/
 playwright-report/
 test-results/
 .lighthouseci/
+
+# Full-resolution design originals (too large for the repo; web copies live next to each case study)
+/design/source/

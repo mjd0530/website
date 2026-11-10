@@ -10,19 +10,73 @@ interface Props {
 const { current } = Astro.props;
 ---
 
-<header class="site-header">
+<header class="site-header" data-site-header>
   <div class="container bar">
     <NavMenu items={primaryNav} current={current} />
     <ThemeSwitcher />
   </div>
 </header>
 
+<script>
+  // Show the hairline only once content has scrolled under the header.
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  if (header) {
+    const update = () => header.toggleAttribute('data-scrolled', scrollY > 4);
+    addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>
+
 <style>
+  /*
+   * Sticky header with a frosted backdrop. 80% surface + blur keeps nav text
+   * well above 4.5:1 whatever scrolls beneath. Solid when blur is unsupported,
+   * when the user asks for reduced transparency, and in high contrast.
+   */
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 40;
+    background: var(--color-surface);
+    border-block-end: 1px solid transparent;
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .site-header {
+      background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      backdrop-filter: blur(16px) saturate(1.4);
+    }
+  }
+
+  .site-header[data-scrolled] {
+    border-block-end-color: var(--color-border-subtle);
+  }
+
+  :global([data-theme='contrast']) .site-header {
+    background: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  :global([data-theme='contrast']) .site-header[data-scrolled] {
+    border-block-end-color: var(--color-border);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .site-header {
+      background: var(--color-surface);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+
   .bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding-block: clamp(var(--space-3), 2.5vw, var(--space-6));
+    padding-block: var(--header-pad-block);
   }
 </style>

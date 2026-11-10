@@ -1,0 +1,109 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Media from '../../components/primitives/Media.astro';
+import MetaList from '../../components/patterns/MetaList.astro';
+import TOC from '../../components/patterns/TOC.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', (p) => p.data.status === 'public');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { title, subtitle, summary, role, scope, awards, hero, sections } = project.data;
+const { Content } = await render(project);
+
+const meta = [
+  { label: 'Role', value: role },
+  { label: 'Scope', value: scope.join(', ') },
+];
+---
+
+<BaseLayout title={title} description={summary}>
+  <div class="container rail-layout case-study">
+    <aside class="rail">
+      <a class="back" href="/#work-title">
+        <span aria-hidden="true">←&nbsp;</span>Back
+      </a>
+      <TOC sections={sections} />
+    </aside>
+
+    <article class="body">
+      <header id="section-overview" class="cs-header" data-toc-target>
+        <h1>{title}</h1>
+        <p class="subtitle">{subtitle}</p>
+        <p>{summary}</p>
+        <MetaList items={meta} />
+        {awards && <MetaList items={[{ label: 'Awards', value: awards }]} />}
+        <Media {...hero} ratio="950 / 528" priority sizes="(min-width: 64em) 66vw, 100vw" />
+      </header>
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding-block-start: var(--space-6);
+  }
+
+  /* Below desktop the rail dissolves so the compact TOC can stick for the whole page */
+  .rail {
+    display: contents;
+  }
+
+  @media (min-width: 64em) {
+    .rail {
+      display: grid;
+      gap: var(--space-5);
+      align-content: start;
+      position: sticky;
+      inset-block-start: var(--sticky-top);
+      align-self: start;
+    }
+  }
+
+  .back {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-size: var(--text-ui);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .back:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--section-gap);
+    min-width: 0;
+  }
+
+  .cs-header {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cs-header h1 + .subtitle {
+    margin-block-start: calc(var(--space-2) * -1);
+  }
+
+  .cs-header :global(.media) {
+    margin-block-start: var(--space-5);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--section-gap);
+  }
+</style>

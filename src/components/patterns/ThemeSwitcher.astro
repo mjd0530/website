@@ -99,9 +99,13 @@ const options = [
       }
     });
 
-    // Close when focus or a click leaves the switcher.
+    // Close when focus moves to something outside the switcher (e.g. Tab away).
+    // A null relatedTarget means a mouse press on non-focusable content, such as
+    // a radio's label text; that must not close the panel before the click lands.
+    // Outside clicks are handled by the pointerdown listener below.
     root.addEventListener('focusout', (e) => {
-      if (!root.contains(e.relatedTarget as Node | null)) setOpen(false);
+      const next = e.relatedTarget as Node | null;
+      if (next && !root.contains(next)) setOpen(false);
     });
     document.addEventListener('pointerdown', (e) => {
       if (isOpen() && !root.contains(e.target as Node)) setOpen(false);

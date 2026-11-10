@@ -1,0 +1,147 @@
+---
+/**
+ * Case-study table of contents. Desktop (≥1024px): a list in the left rail,
+ * current section in bold. Smaller screens: a sticky "On this page" disclosure.
+ * Works without JS (plain anchor links); JS adds current-section tracking.
+ */
+interface Props {
+  sections: { id: string; label: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<nav class="toc" aria-label="On this page" data-toc>
+  <ul class="toc-list">
+    {sections.map((s) => (
+      <li>
+        <a href={`#section-${s.id}`} data-toc-link={`section-${s.id}`}>
+          {s.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <details class="toc-compact">
+    <summary>On this page</summary>
+    <ul>
+      {sections.map((s) => (
+        <li>
+          <a href={`#section-${s.id}`} data-toc-link={`section-${s.id}`}>
+            {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+</nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-toc]');
+  if (nav) {
+    const links = [...nav.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+    const ids = [...new Set(links.map((l) => l.dataset.tocLink!))];
+    const targets = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el);
+    const details = nav.querySelector('details');
+
+    const setCurrent = (id: string) => {
+      for (const l of links) {
+        if (l.dataset.tocLink === id) l.setAttribute('aria-current', 'true');
+        else l.removeAttribute('aria-current');
+      }
+    };
+
+    // Current = the last section whose top has passed 30% of the viewport.
+    const update = () => {
+      const line = window.innerHeight * 0.3;
+      let current = targets[0]?.id;
+      for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t.id;
+      if (current) setCurrent(current);
+    };
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+
+    // Close the compact menu after choosing a section.
+    details?.addEventListener('click', (e) => {
+      if ((e.target as Element).closest('a')) details.open = false;
+    });
+  }
+</script>
+
+<style>
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-size: var(--text-ui);
+    line-height: var(--leading-ui);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  a[aria-current='true'] {
+    font-weight: 600;
+  }
+
+  :global([data-theme='contrast']) a[aria-current='true'] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Desktop list; rows tighter than 44px is fine with a pointer, but keep 32px */
+  .toc-list a {
+    min-height: 2rem;
+  }
+
+  .toc-compact {
+    display: none;
+  }
+
+  @media (max-width: 63.99em) {
+    .toc-list {
+      display: none;
+    }
+
+    .toc {
+      position: sticky;
+      inset-block-start: var(--header-height);
+      z-index: 30;
+    }
+
+    :global(html:has(.toc-compact)) {
+      scroll-padding-block-start: calc(var(--header-height) + var(--tap-target) + var(--space-5));
+    }
+
+    .toc-compact {
+      display: block;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      background: var(--color-surface);
+      border-block-end: 1px solid var(--color-border-subtle);
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      min-height: var(--tap-target);
+      font-size: var(--text-ui);
+      cursor: pointer;
+    }
+
+    .toc-compact ul {
+      padding-block-end: var(--space-3);
+    }
+  }
+</style>

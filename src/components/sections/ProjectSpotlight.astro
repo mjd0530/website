@@ -1,0 +1,116 @@
+---
+/**
+ * Home spotlight for one project: rail text (title, subtitle, summary, link)
+ * beside one wide image over two smaller ones. Stacks below 1024px; on mobile
+ * the two smaller images become a swipe row.
+ */
+import Media from '../primitives/Media.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, subtitle, summary, spotlight } = project.data;
+const href = `/work/${project.id}/`;
+const [wide, a, b] = spotlight;
+const headingId = `spotlight-${project.id}`;
+---
+
+<section class="spotlight rail-layout" aria-labelledby={headingId}>
+  <div class="text">
+    <h2 id={headingId}>{title}</h2>
+    <p class="subtitle">{subtitle}</p>
+    <p class="summary">{summary}</p>
+    <a class="more" href={href}>
+      View case study<span class="visually-hidden">: {title}</span>
+      <span aria-hidden="true">&nbsp;→</span>
+    </a>
+  </div>
+  <div class="images">
+    <Media {...wide} ratio="950 / 378" sizes="(min-width: 64em) 66vw, 100vw" />
+    <div class="pair" role="region" aria-label={`${title} images`} tabindex="0">
+      <Media
+        {...a}
+        ratio="458 / 258"
+        sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
+      />
+      <Media
+        {...b}
+        ratio="458 / 258"
+        sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .text {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+
+  .text h2 {
+    font-size: var(--text-h2);
+  }
+
+  /* Smaller than a page subtitle, as in the reference spotlight */
+  .text .subtitle {
+    font-size: var(--text-ui);
+  }
+
+  .summary {
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+
+  .more {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-size: var(--text-ui);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .more:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  :global([data-theme='contrast']) .more {
+    text-decoration: underline;
+  }
+
+  .images {
+    display: grid;
+    gap: var(--card-gap);
+  }
+
+  /* Mobile: swipe row with a peek */
+  .pair {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 85%;
+    gap: var(--card-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: var(--radius-card);
+  }
+
+  .pair > :global(*) {
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 40em) {
+    .pair {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      overflow: visible;
+    }
+  }
+</style>

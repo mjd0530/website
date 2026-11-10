@@ -62,3 +62,49 @@ test('header fits at 320px without horizontal scroll', async ({ page }) => {
   );
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('theme switcher works with real mouse clicks on option labels', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('seeded')) {
+      localStorage.setItem('theme', 'light');
+      sessionStorage.setItem('seeded', '1');
+    }
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Theme: Light' }).click();
+  const group = page.getByRole('group', { name: 'Theme' });
+  // Click the visible label text, not the radio itself.
+  await group.getByText('Dark', { exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await group.getByText('High contrast', { exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'contrast');
+  await expect(group).toBeVisible();
+});
+
+test('theme panel closes when tabbing away', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: /^Theme/ }).click();
+  const group = page.getByRole('group', { name: 'Theme' });
+  await expect(group).toBeVisible();
+  // Focus is on the checked radio; Tab leaves the radio group and the switcher.
+  await page.keyboard.press('Tab');
+  await expect(group).toBeHidden();
+});
+
+test('header stays visible while scrolling', async ({ page }) => {
+  await page.goto('/work/magic-move/');
+  const header = page.locator('[data-site-header]');
+  await expect(header).not.toHaveAttribute('data-scrolled');
+  await page.mouse.wheel(0, 1500);
+  await expect(header).toHaveAttribute('data-scrolled', '');
+  const box = await header.boundingBox();
+  expect(box!.y).toBe(0);
+  await expect(page.getByRole('navigation', { name: 'Primary' })).toBeInViewport();
+});
+
+test('anchored sections land below the sticky header', async ({ page }) => {
+  await page.goto('/work/magic-move/#section-delivery');
+  const header = await page.locator('[data-site-header]').boundingBox();
+  const heading = await page.getByRole('heading', { name: 'Delivery' }).boundingBox();
+  expect(heading!.y).toBeGreaterThanOrEqual(header!.height);
+});

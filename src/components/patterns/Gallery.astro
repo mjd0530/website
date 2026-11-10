@@ -1,0 +1,170 @@
+---
+/**
+ * Horizontal gallery with a visible peek of the next item, prev/next buttons
+ * and an "n of N" count. The scroller is a focusable, labelled region so it can
+ * be scrolled with arrow keys; on touch it swipes natively. No autoplay.
+ */
+import Media from '../primitives/Media.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Item {
+  src?: ImageMetadata;
+  alt: string;
+  label?: string;
+}
+
+interface Props {
+  label: string;
+  items: Item[];
+  ratio?: string;
+}
+
+const { label, items, ratio = '3 / 1' } = Astro.props;
+const many = items.length > 1;
+---
+
+<div class="gallery" data-gallery>
+  <div
+    class="scroller"
+    role="region"
+    aria-label={label}
+    tabindex={many ? 0 : undefined}
+    data-scroller
+  >
+    {items.map((item) => (
+      <div class="item" data-item>
+        <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
+      </div>
+    ))}
+  </div>
+  {many && (
+    <div class="controls" hidden data-controls>
+      <span class="count meta" aria-live="polite" data-count>
+        1 of {items.length}
+      </span>
+      <button type="button" aria-label="Previous image" data-prev>
+        <span aria-hidden="true">←</span>
+      </button>
+      <button type="button" aria-label="Next image" data-next>
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  )}
+</div>
+
+<script>
+  for (const g of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+    const scroller = g.querySelector<HTMLElement>('[data-scroller]')!;
+    const controls = g.querySelector<HTMLElement>('[data-controls]');
+    if (!controls) continue;
+    const items = [...g.querySelectorAll<HTMLElement>('[data-item]')];
+    const count = g.querySelector<HTMLElement>('[data-count]')!;
+    const prev = g.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = g.querySelector<HTMLButtonElement>('[data-next]')!;
+    let index = 0;
+
+    const update = () => {
+      count.textContent = `${index + 1} of ${items.length}`;
+      prev.disabled = index === 0;
+      next.disabled = index === items.length - 1;
+    };
+
+    const go = (i: number) => {
+      const target = items[Math.max(0, Math.min(items.length - 1, i))];
+      scroller.scrollTo({ left: target.offsetLeft - items[0].offsetLeft, behavior: 'smooth' });
+    };
+
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+
+    // Track the item nearest the start of the scroller.
+    scroller.addEventListener(
+      'scroll',
+      () => {
+        const left = scroller.scrollLeft;
+        let best = 0;
+        items.forEach((el, i) => {
+          const d = Math.abs(el.offsetLeft - items[0].offsetLeft - left);
+          const bd = Math.abs(items[best].offsetLeft - items[0].offsetLeft - left);
+          if (d < bd) best = i;
+        });
+        if (best !== index) {
+          index = best;
+          update();
+        }
+      },
+      { passive: true },
+    );
+
+    update();
+    controls.hidden = false;
+  }
+</script>
+
+<style>
+  .scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% - var(--space-8));
+    gap: var(--card-gap);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: var(--radius-card);
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroller:not(:has(> :nth-child(2))) {
+    grid-auto-columns: 100%;
+  }
+
+  .item {
+    scroll-snap-align: start;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    margin-block-start: var(--space-3);
+  }
+
+  .count {
+    margin-inline-end: var(--space-2);
+  }
+
+  button {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    font-size: var(--text-ui);
+    color: var(--color-text);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    color: var(--color-text-muted);
+    border-color: var(--color-border-subtle);
+    cursor: default;
+  }
+
+  :global([data-theme='contrast']) button:disabled {
+    border-style: dashed;
+    border-color: var(--color-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroller {
+      scroll-behavior: auto;
+    }
+  }
+</style>
