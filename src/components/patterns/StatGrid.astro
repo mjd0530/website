@@ -1,0 +1,58 @@
+---
+/**
+ * Headline impact numbers. Each stat reads as one phrase ("40% of 1,484 Aura
+ * owners used Smart Share"), so it is a list item with the value first.
+ * Final values are in the HTML: no count-up animation.
+ */
+interface Props {
+  items: { value: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="stats">
+  {items.map((s) => (
+    <li>
+      <span class="value">{s.value}</span> <span class="label">{s.label}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  /* 2–4 cards share the row evenly; 2 columns on phones */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(9.5rem, 100%), 1fr));
+    gap: var(--card-gap);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+  }
+
+  :global([data-theme='contrast']) li {
+    border: 2px solid var(--color-border);
+  }
+
+  .value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .label {
+    font-size: var(--text-small);
+    line-height: var(--leading-ui);
+    color: var(--color-text-muted);
+  }
+</style>

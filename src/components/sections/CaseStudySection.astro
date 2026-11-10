@@ -27,9 +27,31 @@ const { id } = Astro.props;
     margin-block-start: var(--stack-gap);
   }
 
+  .cs-section > :global(* + .stats),
+  .cs-section > :global(.stats + p),
   .cs-section > :global(* + .gallery),
   .cs-section > :global(* + .media-grid),
   .cs-section > :global(* + .video) {
+    margin-block-start: var(--space-6);
+  }
+
+  /* Pull quote (MDX "> …"): a line in the display face, no decoration */
+  .cs-section > :global(blockquote) {
+    max-width: 30ch;
+    margin-inline: 0;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .cs-section > :global(blockquote p) {
+    max-width: none;
+  }
+
+  .cs-section > :global(* + blockquote),
+  .cs-section > :global(blockquote + *) {
     margin-block-start: var(--space-6);
   }
 </style>

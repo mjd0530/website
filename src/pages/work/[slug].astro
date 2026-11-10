@@ -12,12 +12,14 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, subtitle, summary, role, scope, awards, hero, video, sections } = project.data;
+const { title, subtitle, summary, intro, experiences, role, scope, awards, hero, video, sections } =
+  project.data;
 const { Content } = await render(project);
 
 const meta = [
   { label: 'Role', value: role },
-  { label: 'Scope', value: scope.join(', ') },
+  ...(awards ? [{ label: 'Awards', value: awards }] : []),
+  { label: 'Focus', value: scope },
 ];
 ---
 
@@ -35,10 +37,27 @@ const meta = [
         <h1>{title}</h1>
         <p class="subtitle">{subtitle}</p>
         <p>{summary}</p>
+        {intro?.map((para) => (
+          <p>{para}</p>
+        ))}
+        {experiences && (
+          <section class="experiences" aria-labelledby="experiences-title">
+            <h2 id="experiences-title" class="meta">
+              Key user experiences
+            </h2>
+            <ul>
+              {experiences.map((x) => (
+                <li>
+                  <h3>{x.title}</h3>
+                  <p>{x.text}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <MetaList items={meta} />
-        {awards && <MetaList items={[{ label: 'Awards', value: awards }]} />}
         {video ? (
-          <Video {...video} />
+          <Video {...video} ratio="16 / 9" />
         ) : (
           <Media {...hero} ratio="950 / 528" priority sizes="(min-width: 64em) 66vw, 100vw" />
         )}
@@ -100,6 +119,37 @@ const meta = [
 
   .cs-header h1 + .subtitle {
     margin-block-start: calc(var(--space-2) * -1);
+  }
+
+  .experiences {
+    margin-block: var(--space-4) var(--space-2);
+  }
+
+  .experiences h2 {
+    font-family: var(--font-text);
+    letter-spacing: normal;
+  }
+
+  .experiences ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+    gap: var(--space-5) var(--space-7);
+    margin-block-start: var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .experiences h3 {
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: var(--leading-ui);
+  }
+
+  .experiences p {
+    margin-block-start: var(--space-1);
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+    color: var(--color-text-muted);
   }
 
   .cs-header :global(.media),
