@@ -1,0 +1,262 @@
+---
+/**
+ * Full-screen image viewer shared by every page (rendered once in BaseLayout).
+ * Opens from any `[data-lightbox]` card (see Media). Native <dialog> gives a
+ * focus trap, Escape to close and an inert page behind it.
+ * - Fit / actual size toggle (click the image or press Z); pan by scrolling.
+ * - Previous / next through every zoomable image on the page (arrow keys too).
+ * - Focus returns to the card that opened it.
+ */
+---
+
+<dialog class="lightbox" aria-labelledby="lightbox-caption" data-lightbox-dialog>
+  <div class="bar">
+    <p class="caption" id="lightbox-caption" data-caption></p>
+    <span class="count" aria-live="polite" data-count></span>
+    <div class="actions">
+      <button type="button" class="btn" data-zoom aria-pressed="false">
+        <span data-zoom-label>Actual size</span>
+      </button>
+      <button type="button" class="btn icon" aria-label="Previous image" data-prev>
+        <span aria-hidden="true">←</span>
+      </button>
+      <button type="button" class="btn icon" aria-label="Next image" data-next>
+        <span aria-hidden="true">→</span>
+      </button>
+      <button type="button" class="btn icon" aria-label="Close" data-close autofocus>
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="stage" data-stage>
+    <img alt="" data-image decoding="async" />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox-dialog]');
+  if (dialog) {
+    const img = dialog.querySelector<HTMLImageElement>('[data-image]')!;
+    const stage = dialog.querySelector<HTMLElement>('[data-stage]')!;
+    const caption = dialog.querySelector<HTMLElement>('[data-caption]')!;
+    const count = dialog.querySelector<HTMLElement>('[data-count]')!;
+    const prev = dialog.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = dialog.querySelector<HTMLButtonElement>('[data-next]')!;
+    const zoom = dialog.querySelector<HTMLButtonElement>('[data-zoom]')!;
+    const zoomLabel = dialog.querySelector<HTMLElement>('[data-zoom-label]')!;
+    const close = dialog.querySelector<HTMLButtonElement>('[data-close]')!;
+
+    const triggers = () => [...document.querySelectorAll<HTMLElement>('[data-lightbox]')];
+    let index = 0;
+    let opener: HTMLElement | null = null;
+
+    const setZoom = (on: boolean) => {
+      dialog.toggleAttribute('data-zoomed', on);
+      zoom.setAttribute('aria-pressed', String(on));
+      zoomLabel.textContent = on ? 'Fit to screen' : 'Actual size';
+      if (!on) stage.scrollTo({ top: 0, left: 0 });
+    };
+
+    const show = (i: number) => {
+      const list = triggers();
+      index = (i + list.length) % list.length;
+      const t = list[index];
+      img.src = t.dataset.full!;
+      img.alt = t.dataset.alt ?? '';
+      img.width = Number(t.dataset.width);
+      img.height = Number(t.dataset.height);
+      caption.textContent = t.dataset.label || t.dataset.alt || '';
+      count.textContent = list.length > 1 ? `${index + 1} of ${list.length}` : '';
+      prev.hidden = next.hidden = list.length < 2;
+      setZoom(false);
+    };
+
+    const open = (t: HTMLElement) => {
+      opener = t;
+      show(triggers().indexOf(t));
+      dialog.showModal();
+    };
+
+    document.addEventListener('click', (e) => {
+      const t = (e.target as Element).closest<HTMLElement>('[data-lightbox]');
+      if (t) open(t);
+    });
+
+    // Tooltip: Escape hides it while the pointer/focus stays on the card (WCAG 1.4.13)
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || dialog.open) return;
+      const t = (document.activeElement as Element | null)?.closest('[data-lightbox]');
+      document
+        .querySelectorAll('[data-lightbox]:hover')
+        .forEach((el) => el.setAttribute('data-tip-dismissed', ''));
+      t?.setAttribute('data-tip-dismissed', '');
+    });
+    for (const ev of ['pointerleave', 'blur'] as const) {
+      document.addEventListener(
+        ev,
+        (e) => (e.target as Element)?.removeAttribute?.('data-tip-dismissed'),
+        true,
+      );
+    }
+
+    prev.addEventListener('click', () => show(index - 1));
+    next.addEventListener('click', () => show(index + 1));
+    close.addEventListener('click', () => dialog.close());
+    zoom.addEventListener('click', () => setZoom(!dialog.hasAttribute('data-zoomed')));
+    img.addEventListener('click', () => setZoom(!dialog.hasAttribute('data-zoomed')));
+
+    // Click on the empty stage (not the image) closes, like a backdrop
+    stage.addEventListener('click', (e) => {
+      if (e.target === stage && !dialog.hasAttribute('data-zoomed')) dialog.close();
+    });
+
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(index + 1);
+      else if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'z' || e.key === 'Z') setZoom(!dialog.hasAttribute('data-zoomed'));
+      else return;
+      e.preventDefault();
+    });
+
+    dialog.addEventListener('close', () => {
+      img.removeAttribute('src');
+      opener?.focus();
+      opener = null;
+    });
+  }
+</script>
+
+<style>
+  .lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--color-on-scrim);
+    background: var(--color-scrim);
+    color-scheme: dark;
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    animation: fade var(--duration-base) var(--ease-out);
+  }
+
+  .lightbox::backdrop {
+    background: transparent;
+  }
+
+  :global(html:has(.lightbox[open])) {
+    overflow: hidden;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-3) var(--gutter);
+  }
+
+  .caption {
+    flex: 1 1 12rem;
+    max-width: none;
+    font-size: var(--text-ui);
+  }
+
+  .count {
+    font-size: var(--text-label);
+    color: var(--color-on-scrim-muted);
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .btn {
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--tap-target);
+    height: var(--tap-target);
+    padding-inline: var(--space-4);
+    font: inherit;
+    font-size: var(--text-ui);
+    color: inherit;
+    background: var(--color-on-scrim-control);
+    border: 1px solid var(--color-on-scrim-border);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .btn.icon {
+    padding: 0;
+  }
+
+  .btn:hover {
+    background: var(--color-on-scrim-control-hover);
+  }
+
+  .btn[hidden] {
+    display: none;
+  }
+
+  .btn svg {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+  }
+
+  .lightbox :focus-visible {
+    outline: 3px solid var(--color-on-scrim-focus);
+    outline-offset: 2px;
+  }
+
+  .stage {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: var(--space-4) var(--gutter) var(--space-6);
+  }
+
+  .stage img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-control);
+    cursor: zoom-in;
+  }
+
+  /* Actual size: natural pixels, pan by scrolling */
+  .lightbox[data-zoomed] .stage {
+    display: block;
+    overflow: auto;
+    place-items: initial;
+  }
+
+  .lightbox[data-zoomed] .stage img {
+    max-width: none;
+    max-height: none;
+    cursor: zoom-out;
+  }
+</style>

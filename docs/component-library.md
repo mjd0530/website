@@ -28,7 +28,7 @@ Example: <ComponentName … />
 | Icon | Inline SVG icon set, `aria-hidden` unless labelled |
 | Logo | _Parked:_ monogram not used in v1 |
 | Tag | Scope/skill chips (static, not buttons) |
-| Media | **Built.** Props: `src?` (ImageMetadata), `alt`, `label?`, `ratio?` (default 16/9), `sizes?`, `priority?`, `decorative?`. Rounded neutral tile. With `src`: optimized `<Image>` (AVIF/WebP widths 480–2000). Without: striped placeholder showing `label`, announced as "Image placeholder: {alt}". |
+| Media | **Built.** Props: `src?`, `alt` (full description), `label?` (short descriptor), `ratio?` (default 16/9; `"auto"` = the image's own shape), `sizes?`, `priority?`, `decorative?`, `zoom?` (default true). Image fills the card edge to edge (cropped to `ratio`). With an image and not decorative: the card is a button that opens the Lightbox, and `label` shows as a tooltip on hover/focus (Escape hides it). Without `src`: striped placeholder showing `label`, announced as "Image placeholder: {alt}". |
 | Heading | Level vs visual size decoupled (`as="h2" size="h1"`) |
 | Prose | Long-form typography wrapper for MDX |
 | VisuallyHidden | Screen-reader-only text |
@@ -51,7 +51,8 @@ Example: <ComponentName … />
 | MetaList | **Built.** Props: `items: {label, value}[]`. `<dl>` of muted sans labels over values; wraps. |
 | Figure | Image + caption, neutral tile, responsive sizes |
 | MediaGrid | **Built.** Props: `items` (media), `ratio?`. 2 columns from 640px, 1 below. |
-| Gallery | **Built.** Props: `label`, `items` (media), `ratio?` (default 3/1). Horizontal scroller with next-item peek, prev/next buttons, "n of N" live count; focusable labelled region; native swipe; controls hidden without JS. |
+| Lightbox | **Built.** No props; rendered once by BaseLayout. Native `<dialog>` full-screen viewer for every `[data-lightbox]` card: full-resolution WebP (up to 3200px), caption = label, "n of N", previous/next (buttons and arrow keys) across all images on the page, Fit ⇄ Actual size (button, image click or Z) with scroll panning, Escape/close returns focus to the card. Dark scrim in every theme (`--color-scrim`, `--color-on-scrim*`). |
+| Gallery | **Built.** Props: `label`, `items` (media), `ratio?` (default `"auto"`: each card takes its image's shape, so nothing is cropped). Horizontal scroller with next-item peek, prev/next buttons, "n of N" live count; focusable labelled region; native swipe; controls hidden without JS. |
 | Stat | Impact number + label (final value in HTML) |
 | Quote | Testimonial or pull quote with attribution |
 | Callout | Annotated note / key decision |

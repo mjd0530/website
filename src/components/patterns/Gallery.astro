@@ -19,7 +19,7 @@ interface Props {
   ratio?: string;
 }
 
-const { label, items, ratio = '3 / 1' } = Astro.props;
+const { label, items, ratio = 'auto' } = Astro.props;
 const many = items.length > 1;
 ---
 
@@ -120,6 +120,11 @@ const many = items.length > 1;
 
   .scroller:not(:has(> :nth-child(2))) {
     grid-auto-columns: 100%;
+  }
+
+  /* Cards keep each image's own shape, so heights can differ between items */
+  .scroller {
+    align-items: start;
   }
 
   .item {

@@ -22,11 +22,12 @@ test('home links every project card and spotlight to its case study', async ({ p
 
 test('gallery next button advances the count', async ({ page }) => {
   await page.goto('/work/magic-move/');
-  const gallery = page.locator('[data-gallery]').first();
+  // First gallery that has controls (more than one item)
+  const gallery = page.locator('[data-gallery]:has([data-count])').first();
   await gallery.scrollIntoViewIfNeeded();
-  await expect(gallery.locator('[data-count]')).toHaveText('1 of 3');
+  await expect(gallery.locator('[data-count]')).toHaveText('1 of 2');
   await gallery.getByRole('button', { name: 'Next image' }).click();
-  await expect(gallery.locator('[data-count]')).toHaveText('2 of 3');
+  await expect(gallery.locator('[data-count]')).toHaveText('2 of 2');
   await expect(gallery.getByRole('button', { name: 'Previous image' })).toBeEnabled();
 });
 

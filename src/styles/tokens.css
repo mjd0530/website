@@ -103,6 +103,15 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
+  /* ── Full-screen viewer (dark in every theme) ──────────── */
+  --color-scrim: rgb(8 9 13 / 0.97);
+  --color-on-scrim: var(--ink-50);
+  --color-on-scrim-muted: var(--ink-300);
+  --color-on-scrim-control: rgb(255 255 255 / 0.08);
+  --color-on-scrim-control-hover: rgb(255 255 255 / 0.16);
+  --color-on-scrim-border: rgb(255 255 255 / 0.45);
+  --color-on-scrim-focus: var(--yellow-300);
+
   /* ── Focus ──────────────────────────────────────────────── */
   --focus-width: 2px;
   --focus-offset: 3px;
