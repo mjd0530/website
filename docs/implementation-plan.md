@@ -14,7 +14,7 @@ _Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `
 
 ## Phase 3 — Design strategy
 - [x] Mike adds design images to `design/reference/` (home, case study)
-- [ ] New portrait at full resolution (monogram parked)
+- [x] New portrait (src/assets/portrait.jpg; monogram parked)
 - [x] Color palettes for light / dark / contrast with measured ratios
 - [x] Type scale and spacing values
 - [ ] Navigation, interaction and motion details
