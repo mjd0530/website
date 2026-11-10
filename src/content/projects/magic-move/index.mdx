@@ -62,6 +62,8 @@ order: 1
 import CaseStudySection from '../../../components/sections/CaseStudySection.astro';
 import Gallery from '../../../components/patterns/Gallery.astro';
 import MediaGrid from '../../../components/patterns/MediaGrid.astro';
+import Video from '../../../components/primitives/Video.astro';
+import earlyConceptPoster from './images/early-concept-poster.jpg';
 import processMapping from './images/process-mapping.png';
 import midFlows from './images/mid-fidelity-flows.png';
 import highFlows from './images/high-fidelity-flows.png';
@@ -126,6 +128,14 @@ Placeholder. The flows you explored and how the experience map shaped the direct
 ## Low-fidelity prototyping and user research
 
 Placeholder. What you tested, with whom, and what changed as a result.
+
+<Video
+  src="/media/magic-move/early-concept.mp4"
+  poster={earlyConceptPoster}
+  title="Magic Move early concept prototype"
+  duration="0:40"
+  description="A 40-second silent prototype filmed from above. A phone with a photo gallery is held next to a laptop; the Magic Move window opens on the laptop showing the phone's recent photos. A finger then drags photos from that window onto the laptop screen by touch, and the phone is set down beside the laptop while the window stays open."
+/>
 
 <Gallery
   label="Prototyping and user research"
