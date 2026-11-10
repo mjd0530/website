@@ -13,12 +13,12 @@ _Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `
 - [x] project-brief, design-direction, design-system (skeleton), sitemap, technical-decisions, component-library (plan), implementation-plan
 
 ## Phase 3 — Design strategy
-- [ ] Mike adds design images to `design/reference/`
-- [ ] Monogram SVG and new portrait
-- [ ] Color palettes for light / dark / contrast with measured ratios
-- [ ] Type scale and spacing values
+- [x] Mike adds design images to `design/reference/` (home, case study)
+- [ ] New portrait at full resolution (monogram parked)
+- [x] Color palettes for light / dark / contrast with measured ratios
+- [x] Type scale and spacing values
 - [ ] Navigation, interaction and motion details
-- [ ] Case study page design (desktop + mobile)
+- [x] Case study page design (desktop reference + approved responsive layout)
 
 ## Phase 4 — Technical setup
 - [x] Scaffold Astro 7 (TypeScript strict), Prettier, ESLint, `astro check`

@@ -7,10 +7,17 @@
   white-space: nowrap;
 }
 
+/* Small muted label (Role, Scope, Awards), sentence case as in the reference designs */
 .meta {
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
+  font-family: var(--font-text);
+  font-size: var(--text-label);
   line-height: var(--leading-meta);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.subtitle {
+  font-family: var(--font-text);
+  font-size: var(--text-subtitle);
+  line-height: var(--leading-heading);
+  color: var(--color-text-muted);
 }

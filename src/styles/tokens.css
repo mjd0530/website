@@ -1,107 +1,167 @@
 /*
- * PLACEHOLDER VALUES. Phase 3 replaces colour, type scale and easing values
- * from Mike's design images (docs/design-system.md). Names are final; values are not.
+ * Design tokens. Values come from Mike's reference designs (design/reference/,
+ * sampled 2026-11-10) and are documented with contrast ratios in docs/design-system.md.
  * Components use semantic tokens only; primitives are never referenced outside this file.
  */
 
 :root {
-  /* Primitives */
-  --neutral-0: #ffffff;
-  --neutral-50: #f6f6f4;
-  --neutral-100: #ebebe8;
-  --neutral-300: #c5c5c0;
-  --neutral-500: #6b6b66;
-  --neutral-600: #5a5a55;
-  --neutral-700: #3d3d3a;
-  --neutral-800: #262624;
-  --neutral-900: #171716;
-  --neutral-950: #0b0b0c;
-  --blue-300: #7cb8ec;
-  --blue-600: #1074bc;
+  /* ── Primitives ─────────────────────────────────────────── */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Light canvas: sampled from the reference wash */
+  --mist-50: #f4f7fe;
+  --mist-wash-blue: #eef6ff;
+  --mist-wash-aqua: #f0f9fe;
+  --mist-wash-violet: #f3f1fe;
+  --slate-200: #e2e8f0; /* card hairline, sampled */
+  --slate-500: #7c8598;
+  --slate-600: #5f6470;
+
+  /* Dark canvas */
+  --ink-950: #0c0e15;
+  --ink-900: #151926;
+  --ink-800: #262c3c;
+  --ink-wash-navy: #141a2b;
+  --ink-wash-aubergine: #1a1530;
+  --ink-wash-teal: #0e1a24;
+  --ink-500: #6c7589;
+  --ink-300: #a6adbb;
+  --ink-50: #f3f5f9;
+
+  /* Accent: violet from the Smart Share / Magic Move cover rule (#523cd1), tuned for contrast */
+  --violet-600: #4b35c9;
+  --violet-300: #a99bff;
   --yellow-300: #ffd84d;
 
-  /* Typography */
+  /* ── Typography ─────────────────────────────────────────── */
   --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-text: 'Instrument Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --text-display: clamp(3rem, 2rem + 5vw, 7rem);
-  --text-h1: clamp(2.5rem, 1.75rem + 3.5vw, 4.5rem);
-  --text-h2: clamp(1.875rem, 1.5rem + 1.75vw, 3rem);
-  --text-h3: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
-  --text-h4: clamp(1.1875rem, 1.125rem + 0.3vw, 1.375rem);
-  --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --text-small: 0.9375rem;
-  --text-meta: 0.8125rem;
+  /* Fluid between 375px and 1440px viewports */
+  --text-display: clamp(2.25rem, 1.55rem + 3vw, 3.5rem); /* 36 → 56, reserved */
+  --text-h1: clamp(1.875rem, 1.57rem + 1.31vw, 2.75rem); /* 30 → 44, page / case study title */
+  --text-h2: clamp(
+    1.5rem,
+    1.41rem + 0.38vw,
+    1.75rem
+  ); /* 24 → 28, section heads, "Work", intro name */
+  --text-h3: clamp(1.25rem, 1.21rem + 0.19vw, 1.375rem); /* 20 → 22 */
+  --text-h4: clamp(1.0625rem, 1.04rem + 0.09vw, 1.125rem); /* 17 → 18 */
+  --text-subtitle: clamp(1.125rem, 1.08rem + 0.19vw, 1.25rem); /* 18 → 20, gray "Headline" */
+  --text-body: clamp(1.0625rem, 1.04rem + 0.09vw, 1.125rem); /* 17 → 18 */
+  --text-ui: 0.9375rem; /* 15, nav and controls */
+  --text-small: 0.9375rem; /* 15, captions */
+  --text-label: 0.8125rem; /* 13, Role / Scope / Awards labels */
+  --text-meta: var(--text-label);
 
-  --leading-tight: 1.05;
+  --tracking-display: -0.01em;
+
+  --leading-tight: 1.1;
   --leading-heading: 1.2;
   --leading-body: 1.55;
+  --leading-ui: 1.3;
   --leading-meta: 1.3;
 
-  --measure: 68ch;
+  --measure: 70ch;
 
-  /* Spacing: 4px base */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
-  --space-11: 10rem;
-  --space-12: 12rem;
+  /* ── Spacing: 4px base ──────────────────────────────────── */
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.5rem; /* 24 */
+  --space-6: 2rem; /* 32 */
+  --space-7: 3rem; /* 48 */
+  --space-8: 4rem; /* 64 */
+  --space-9: 6rem; /* 96 */
+  --space-10: 8rem; /* 128 */
+  --space-11: 10rem; /* 160 */
+  --space-12: 12rem; /* 192 */
 
-  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
-  --content-max: 80rem;
-  --tap-target: 2.75rem;
+  --section-gap: clamp(3rem, 2.3rem + 3vw, 5rem); /* 48 → 80 between page sections */
+  --stack-gap: clamp(2rem, 1.65rem + 1.5vw, 3rem); /* 32 → 48 between case-study blocks */
 
-  /* Motion */
+  /* ── Layout ─────────────────────────────────────────────── */
+  --gutter: 1rem; /* mobile 16 */
+  --content-max: 91rem; /* 1456: 1440 frame with 120 gutters → ~1200 content */
+  --rail-width: 11.5rem; /* 184, left rail in the reference */
+  --rail-gap: clamp(2.5rem, 5.5vw, 5rem); /* → 80 at 1440 */
+  --card-gap: clamp(1rem, 0.6rem + 1.6vw, 2rem); /* 16 → 32 */
+  --radius-card: clamp(1.25rem, 1.03rem + 0.94vw, 1.75rem); /* 20 → 28 */
+  --radius-control: 0.5rem;
+  --tap-target: 2.75rem; /* 44 */
+
+  /* ── Motion ─────────────────────────────────────────────── */
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Focus */
+  /* ── Focus ──────────────────────────────────────────────── */
   --focus-width: 2px;
   --focus-offset: 3px;
 }
 
-/* Light (default) */
+@media (min-width: 40em) {
+  :root {
+    --gutter: 2rem; /* tablet 32 */
+  }
+}
+
+@media (min-width: 64em) {
+  :root {
+    --gutter: clamp(2.5rem, 8.33vw, 7.5rem); /* desktop → 120 at 1440 */
+  }
+}
+
+/* ── Light (default) ──────────────────────────────────────── */
 :root,
 [data-theme='light'] {
   color-scheme: light;
-  --color-surface: var(--neutral-50);
-  --color-surface-raised: var(--neutral-0);
-  --color-text: var(--neutral-900);
-  --color-text-muted: var(--neutral-600);
-  --color-border: var(--neutral-500);
-  --color-accent: var(--blue-600);
-  --color-focus: var(--blue-600);
+  --color-surface: var(--mist-50);
+  --color-surface-raised: var(--white);
+  --color-wash-1: var(--mist-wash-blue);
+  --color-wash-2: var(--mist-wash-violet);
+  --color-wash-3: var(--mist-wash-aqua);
+  --color-text: var(--black);
+  --color-text-muted: var(--slate-600);
+  --color-border-subtle: var(--slate-200);
+  --color-border: var(--slate-500);
+  --color-accent: var(--violet-600);
+  --color-focus: var(--violet-600);
 }
 
+/* ── Dark ─────────────────────────────────────────────────── */
 [data-theme='dark'] {
   color-scheme: dark;
-  --color-surface: var(--neutral-950);
-  --color-surface-raised: var(--neutral-900);
-  --color-text: var(--neutral-50);
-  --color-text-muted: var(--neutral-300);
-  --color-border: var(--neutral-500);
-  --color-accent: var(--blue-300);
-  --color-focus: var(--blue-300);
+  --color-surface: var(--ink-950);
+  --color-surface-raised: var(--ink-900);
+  --color-wash-1: var(--ink-wash-navy);
+  --color-wash-2: var(--ink-wash-aubergine);
+  --color-wash-3: var(--ink-wash-teal);
+  --color-text: var(--ink-50);
+  --color-text-muted: var(--ink-300);
+  --color-border-subtle: var(--ink-800);
+  --color-border: var(--ink-500);
+  --color-accent: var(--violet-300);
+  --color-focus: var(--violet-300);
 }
 
+/* ── High contrast: flat black, no wash, visible edges everywhere ── */
 [data-theme='contrast'] {
   color-scheme: dark;
-  --color-surface: #000000;
-  --color-surface-raised: #000000;
-  --color-text: #ffffff;
-  --color-text-muted: #ffffff;
-  --color-border: #ffffff;
+  --color-surface: var(--black);
+  --color-surface-raised: var(--black);
+  --color-wash-1: var(--black);
+  --color-wash-2: var(--black);
+  --color-wash-3: var(--black);
+  --color-text: var(--white);
+  --color-text-muted: var(--white);
+  --color-border-subtle: var(--white);
+  --color-border: var(--white);
   --color-accent: var(--yellow-300);
   --color-focus: var(--yellow-300);
   --focus-width: 4px;
