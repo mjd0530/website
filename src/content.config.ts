@@ -31,6 +31,17 @@ const projects = defineCollection({
         .optional(),
       cover: media,
       hero: media,
+      // Optional film shown first on the case study instead of the hero image. Never autoplays.
+      video: z
+        .object({
+          src: z.string().startsWith('/media/'),
+          poster: image(),
+          title: z.string(),
+          description: z.string().optional(),
+          captions: z.string().optional(),
+          duration: z.string().optional(),
+        })
+        .optional(),
       // Home spotlight: one wide image, then two.
       spotlight: z.tuple([media, media, media]),
       // Case-study table of contents. Each id must match a <Section id> in the body.

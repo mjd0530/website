@@ -1,0 +1,208 @@
+---
+/**
+ * A video card that never autoplays. Shows an optimized poster with a large
+ * play button; native controls take over once playing. Optional captions
+ * track, and an optional text description (for videos whose visuals carry
+ * information the audio doesn't, e.g. music-only product films).
+ */
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  /** Public path, e.g. /media/magic-move/smart-share.mp4 */
+  src: string;
+  poster: ImageMetadata;
+  /** Accessible name, e.g. "Lenovo Aura Edition Smart Share film" */
+  title: string;
+  /** Public path to a WebVTT captions file (needed when there is speech) */
+  captions?: string;
+  /** Plain-text description of what the video shows */
+  description?: string;
+  /** e.g. "0:53" — shown on the play button */
+  duration?: string;
+  ratio?: string;
+}
+
+const {
+  src,
+  poster,
+  title,
+  captions,
+  description,
+  duration,
+  ratio = `${poster.width} / ${poster.height}`,
+} = Astro.props;
+
+const posterImg = await getImage({
+  src: poster,
+  width: Math.min(poster.width, 1920),
+  format: 'webp',
+});
+const descId = description ? `video-desc-${Math.random().toString(36).slice(2, 8)}` : undefined;
+---
+
+<figure class="video" data-video>
+  <div class="frame" style={`--ratio: ${ratio}`}>
+    <video
+      preload="none"
+      playsinline
+      controls
+      poster={posterImg.src}
+      aria-label={title}
+      aria-describedby={descId}
+      data-player
+    >
+      <source src={src} type="video/mp4" />
+      {captions && <track kind="captions" src={captions} srclang="en" label="English" default />}
+      <p>
+        Your browser can't play this video. <a href={src}>Download the video</a>.
+      </p>
+    </video>
+    <button type="button" class="play" data-play hidden>
+      <span class="pill">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5.5v13l11-6.5z"></path>
+          </svg>
+        </span>
+        <span>
+          Play video<span class="visually-hidden">: {title}</span>
+        </span>
+        {duration && <span class="duration">{duration}</span>}
+      </span>
+    </button>
+  </div>
+  {description && (
+    <details class="description">
+      <summary>Video description</summary>
+      <p id={descId}>{description}</p>
+    </details>
+  )}
+</figure>
+
+<script>
+  for (const fig of document.querySelectorAll<HTMLElement>('[data-video]')) {
+    const video = fig.querySelector<HTMLVideoElement>('[data-player]')!;
+    const play = fig.querySelector<HTMLButtonElement>('[data-play]')!;
+    // With JS: poster + big play button; native controls appear once started.
+    // Without JS: native controls from the start (set below only when JS runs).
+    video.controls = false;
+    play.hidden = false;
+    play.addEventListener('click', () => {
+      play.hidden = true;
+      video.controls = true;
+      video.play();
+      video.focus();
+    });
+    video.addEventListener('play', () => {
+      play.hidden = true;
+      video.controls = true;
+    });
+  }
+</script>
+
+<style>
+  .frame {
+    position: relative;
+    aspect-ratio: var(--ratio);
+    overflow: hidden;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--color-surface-raised);
+  }
+
+  :global([data-theme='contrast']) .frame {
+    border: 2px solid var(--color-border);
+  }
+
+  /* Whole poster is the button; the visible control is a pill in the corner */
+  .play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    padding: var(--space-4);
+    color: var(--color-text);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .play[hidden] {
+    display: none;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) var(--space-4) var(--space-1) var(--space-1);
+    font-size: var(--text-ui);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 999px;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    color: var(--color-surface-raised);
+    background: var(--color-text);
+    border-radius: 50%;
+  }
+
+  .icon svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-inline-start: 0.15rem;
+    fill: currentColor;
+  }
+
+  .play:hover .pill {
+    transform: scale(1.03);
+  }
+
+  .duration {
+    color: var(--color-text-muted);
+  }
+
+  :global([data-theme='contrast']) .pill {
+    border: 2px solid var(--color-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .play:hover .pill {
+      transform: none;
+    }
+  }
+
+  .description {
+    margin-block-start: var(--space-3);
+    font-size: var(--text-ui);
+  }
+
+  .description summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .description p {
+    margin-block-start: var(--space-2);
+  }
+</style>
