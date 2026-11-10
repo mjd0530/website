@@ -17,6 +17,7 @@
   --slate-200: #e2e8f0; /* card hairline, sampled */
   --slate-500: #7c8598;
   --slate-600: #5f6470;
+  --slate-700: #3d424d;
 
   /* Dark canvas */
   --ink-950: #0c0e15;
@@ -104,13 +105,16 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* ── Full-screen viewer: frosted white in light and dark ─ */
-  --color-scrim: rgb(255 255 255 / 0.88);
-  --color-scrim-blur: 24px;
+  --color-scrim: rgb(255 255 255 / 0.55);
+  --color-scrim-blur: 20px;
+  --color-scrim-bar: rgb(
+    255 255 255 / 0.85
+  ); /* toolbar strip: keeps caption/count contrast over any page */
   --color-on-scrim: var(--black);
-  --color-on-scrim-muted: var(--slate-600);
+  --color-on-scrim-muted: var(--slate-700); /* darker than page muted: the scrim is translucent */
   --color-on-scrim-control: rgb(255 255 255 / 0.7);
   --color-on-scrim-control-hover: var(--white);
-  --color-on-scrim-border: var(--slate-500);
+  --color-on-scrim-border: var(--slate-600);
   --color-on-scrim-focus: var(--violet-600);
   --color-on-scrim-image-edge: var(--slate-200);
 
@@ -181,6 +185,7 @@
   --focus-width: 4px;
   --color-scrim: var(--black);
   --color-scrim-blur: 0px;
+  --color-scrim-bar: var(--black);
   --color-on-scrim: var(--white);
   --color-on-scrim-muted: var(--white);
   --color-on-scrim-control: var(--black);
