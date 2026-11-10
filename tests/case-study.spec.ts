@@ -13,11 +13,25 @@ for (const path of caseStudies) {
   });
 }
 
-test('home links every project card and spotlight to its case study', async ({ page }) => {
+test('home cards jump to their spotlight; spotlights link to the case study', async ({ page }) => {
   await page.goto('/');
   for (const path of caseStudies) {
-    await expect(page.locator(`a[href="${path}"]`)).toHaveCount(2);
+    const id = path.split('/')[2];
+    await expect(page.locator(`.work-grid a[href="#project-${id}"]`)).toHaveCount(1);
+    await expect(page.locator(`#project-${id} a[href="${path}"]`)).toHaveCount(1);
   }
+});
+
+test('clicking a work card scrolls to its spotlight, below the sticky header', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.locator('.work-grid a[href="#project-vantage"]').click();
+  const spotlight = page.locator('#project-vantage');
+  await expect(spotlight).toBeInViewport();
+  const header = await page.locator('[data-site-header]').boundingBox();
+  const box = await spotlight.boundingBox();
+  expect(box!.y).toBeGreaterThanOrEqual(header!.height);
+  await expect(spotlight.getByRole('link', { name: /View case study/ })).toBeInViewport();
 });
 
 test('gallery next button advances the count', async ({ page }) => {

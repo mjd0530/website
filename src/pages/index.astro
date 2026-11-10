@@ -39,7 +39,7 @@ const projects = (await getCollection('projects', (p) => p.data.status === 'publ
         <div class="work-grid">
           {projects.map((p, i) => (
             <ProjectCard
-              href={`/work/${p.id}/`}
+              href={`#project-${p.id}`}
               title={p.data.title}
               client={p.data.client}
               cover={p.data.cover}

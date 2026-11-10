@@ -1,5 +1,7 @@
 html {
   scroll-padding-block-start: calc(var(--header-height) + var(--space-5));
+  /* In-page jumps (Work cards → spotlights) glide; reduced motion makes them instant (below) */
+  scroll-behavior: smooth;
   background: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-text);
