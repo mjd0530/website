@@ -42,6 +42,13 @@ spotlight:                          # exactly 3: wide, then two
   - { src: ./wide.png, alt: "…" }
   - { src: ./a.png, alt: "…" }
   - { src: ./b.png, alt: "…" }
+video:                              # optional; replaces the hero image, never autoplays
+  src: /media/<slug>/<name>.mp4      # file lives in public/media/<slug>/
+  poster: ./images/<name>-poster.jpg
+  title: "…"
+  duration: "0:53"
+  description: "…"                  # what the film shows (needed when visuals carry meaning)
+  captions: /media/<slug>/<name>.vtt  # required if there is speech
 sections:                           # TOC; each id needs a <CaseStudySection id>
   - { id: overview, label: Overview }   # overview = the page header
   - { id: impact, label: Impact }
@@ -91,4 +98,10 @@ src/content/projects/magic-move/
 - **Body images (galleries, grids):** import at the top of the MDX, then pass the import:
   `import flow1 from './images/flow-1.png';` and `{ src: flow1, alt: '…' }`.
 - **Portrait:** `src/assets/portrait.jpg`, square, at least 400px.
+- **Video:** keep the original in `design/source/<project>/video/`. Make a web copy (H.264, faststart, ~3 Mbps at 1080p) and a poster frame:
+  ```bash
+  ffmpeg -i design/source/<project>/video/<file>.mp4 -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k public/media/<slug>/<name>.mp4
+  ffmpeg -ss 3 -i design/source/<project>/video/<file>.mp4 -frames:v 1 -q:v 2 src/content/projects/<slug>/images/<name>-poster.jpg
+  ```
+  Keep web copies under ~25 MB (GitHub warns at 50 MB, rejects at 100 MB).
 - Never commit confidential or unreleased material: this repo is public.
