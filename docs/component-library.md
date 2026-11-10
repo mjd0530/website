@@ -26,7 +26,7 @@ Example: <ComponentName … />
 | Button | Actions; variants primary / secondary / ghost; renders `<a>` when given `href` |
 | Link | Inline and standalone links; external-link indicator |
 | Icon | Inline SVG icon set, `aria-hidden` unless labelled |
-| Logo | Monogram SVG, `currentColor` |
+| Logo | _Parked:_ monogram not used in v1 |
 | Tag | Scope/skill chips (static, not buttons) |
 | Heading | Level vs visual size decoupled (`as="h2" size="h1"`) |
 | Prose | Long-form typography wrapper for MDX |
@@ -60,10 +60,11 @@ Example: <ComponentName … />
 ## Sections — `src/components/sections/`
 | Component | Purpose |
 | --- | --- |
-| SiteHeader | Logo, NavMenu, ThemeSwitcher |
+| SiteHeader | NavMenu (Home · About · Resume · Contact), ThemeSwitcher at row end |
 | SiteFooter | Contact links, resume, copyright |
 | Hero | Home positioning statement |
-| FeaturedWork | List of featured ProjectCards |
+| FeaturedWork | "Work" heading + 2×2 grid of ProjectCards |
+| ProjectSpotlight | Per-project home section: rail (title, subtitle, summary, "View case study →") + column (one wide image over two 2-up images). One per project, in `order` |
 | CaseStudyHeader | Title, summary, MetaList, Stats, cover |
 | CaseStudySection | Titled, anchored body section |
 | NextProject | Link to the next case study |
@@ -72,6 +73,6 @@ Example: <ComponentName … />
 ## Layouts — `src/layouts/`
 | Layout | Purpose |
 | --- | --- |
-| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions |
+| BaseLayout | `<head>`, SEO/OG meta, fonts, theme bootstrap script, header/footer, View Transitions. **Built (Phase 4, bare).** Props: `title: string`, `description: string`. Slots: default (inside `<main id="main">`), `header`, `footer`. Includes skip link and canonical URL. Header/footer components and View Transitions come in Phase 5. |
 | PageLayout | Standard page |
 | CaseStudyLayout | Header + TOC + MDX body + NextProject |

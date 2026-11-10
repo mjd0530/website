@@ -5,8 +5,8 @@ _Last updated: 2026-11-09_
 ## Pages
 | URL | Page | Template | Content |
 | --- | --- | --- | --- |
-| `/` | Home | PageLayout | Hero (positioning line, current role, Cary NC), 3 featured projects, About teaser, contact CTA |
-| `/work/` | Work | PageLayout | All projects; featured first, then "Earlier work" (if kept) |
+| `/` | Home | PageLayout | Left rail: intro (name, portrait, Cary line, philosophy, current role). Right: "Work" 2×2 project card grid, then one ProjectSpotlight per project |
+| `/work/` | Work | PageLayout | All projects, featured first |
 | `/work/magic-move/` | Case study | CaseStudyLayout | Magic Move |
 | `/work/hello-design-system/` | Case study | CaseStudyLayout | Hello Design System |
 | `/work/vantage/` | Case study | CaseStudyLayout | Vantage |
@@ -16,7 +16,7 @@ _Last updated: 2026-11-09_
 | `/404` | Not found | PageLayout | Friendly message, links home and to Work |
 
 ## Navigation
-- Primary: Work, About, Contact. The monogram links home. Theme switcher in the header.
+- Primary: Home · About · Resume · Contact (text links, left-aligned; active page bold, `aria-current="page"`). No logo in v1. Theme switcher at the right end of the nav row.
 - Mobile: a disclosure menu button (`aria-expanded`), full-width panel, focus managed; no hamburger-only icon without a label.
 - Footer: contact links, resume, theme switcher (duplicate), copyright.
 
