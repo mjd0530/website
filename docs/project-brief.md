@@ -38,4 +38,3 @@ Replace the 2019 mikedemar.com with a modern, minimal, editorial portfolio that 
 
 ## Open questions
 _Resolved 2026-11-09: domain is at Gandi with DNS in Route 53 (see ADR-003); Bronto and Intuit work is retired._
-- New portrait at full resolution (monogram parked for v1).
