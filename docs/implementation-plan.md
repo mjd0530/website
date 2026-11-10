@@ -45,7 +45,7 @@ _Last updated: 2026-11-09 · Current phase: **3 + 4** (Phase 4 tooling done on `
 - [ ] Lighthouse budgets; image weights
 - [ ] SEO: titles, descriptions, OG images, sitemap.xml, robots.txt
 - [ ] `security-review`, `code-review`
-- [ ] DNS cut-over; HTTPS enforced; retire S3 bucket
+- [ ] DNS cut-over; HTTPS enforced; retire S3 bucket — _deferred (2026-11-10): content first_
 
 ## Gates (each phase)
 Build, check and tests pass · visual QA in the browser · docs updated · Mike approves.

@@ -4,7 +4,7 @@ const path = '/work/magic-move/';
 
 test('case study video is first and does not autoplay', async ({ page }) => {
   await page.goto(path);
-  const video = page.locator('[data-video] video');
+  const video = page.locator('.cs-header [data-video] video');
   await expect(video).toHaveCount(1);
   await expect(video).not.toHaveAttribute('autoplay');
   await expect(video).toHaveAttribute('preload', 'none');
@@ -22,10 +22,10 @@ test('case study video is first and does not autoplay', async ({ page }) => {
 
 test('play button starts the video and hands over to native controls', async ({ page }) => {
   await page.goto(path);
-  const play = page.getByRole('button', { name: /Play video/ });
+  const play = page.getByRole('button', { name: /Play video.*Lenovo Aura/ });
   await expect(play).toBeVisible();
   await play.click();
-  const video = page.locator('[data-video] video');
+  const video = page.locator('.cs-header [data-video] video');
   await expect(play).toBeHidden();
   await expect(video).toHaveJSProperty('controls', true);
   await expect
@@ -35,7 +35,18 @@ test('play button starts the video and hands over to native controls', async ({ 
 
 test('video has a text description', async ({ page }) => {
   await page.goto(path);
-  const details = page.locator('[data-video] details');
+  const details = page.locator('[data-video] details').first();
   await details.getByText('Video description').click();
   await expect(details.locator('p')).toContainText('Smart Share');
+});
+
+test('no video on the page autoplays', async ({ page }) => {
+  await page.goto(path);
+  const videos = page.locator('[data-video] video');
+  await expect(videos).toHaveCount(2);
+  await page.waitForTimeout(800);
+  for (const v of await videos.all()) {
+    await expect(v).not.toHaveAttribute('autoplay');
+    expect(await v.evaluate((el: HTMLVideoElement) => el.paused)).toBe(true);
+  }
 });
