@@ -18,7 +18,7 @@ const [wide, a, b] = spotlight;
 const headingId = `spotlight-${project.id}`;
 ---
 
-<section class="spotlight rail-layout" aria-labelledby={headingId}>
+<section id={`project-${project.id}`} class="spotlight rail-layout" aria-labelledby={headingId}>
   <div class="text">
     <h2 id={headingId}>{title}</h2>
     <p class="subtitle">{subtitle}</p>
