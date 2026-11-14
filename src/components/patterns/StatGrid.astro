@@ -31,6 +31,13 @@ const { items, tone = 'neutral' } = Astro.props;
     list-style: none;
   }
 
+  /* Phones fit two cards a row: an odd last card spans the row instead of sitting alone */
+  @media (max-width: 39.99em) {
+    li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
   li {
     display: flex;
     flex-direction: column;
