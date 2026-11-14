@@ -1,16 +1,14 @@
 ---
 title: Tap to Launch
-subtitle: From the Magic Move concept to a tap interaction shipped in Lenovo Smart Connect
-summary: 'I led UX for Magic Move, a Project Fuji concept: tap your phone to a Lenovo PC and your photos are right there. It launched as Smart Share on Aura Edition PCs and now ships in Lenovo Smart Connect as Tap to Launch.'
-intro:
-  - 'The hard part wasn’t moving files. It was removing every step between what someone meant to do and getting it done on the other screen. One idea, three names: Magic Move → Smart Share → Tap to Launch. The names changed; the interaction held.'
-experiences:
-  - title: Multi-platform
-    text: Android, iOS and Windows apps that behave as one experience.
-  - title: Transfer photos
-    text: Drag photos from your phone straight into any app on your PC.
-  - title: Tap to Launch
-    text: Tap your phone against the side of the PC and Smart Share opens.
+subtitle: Defining the signature Lenovo Aura Edition experience, phone to PC in one tap
+summary: Moving a photo from phone to PC used to mean email, chat or a cable. As UX lead for Tap to Launch (internally, Magic Move), I turned it into a single tap.
+impact:
+  - { value: '11', label: 'Aura Edition devices at launch' }
+  - { value: '+3', label: 'more PC lines after launch' }
+  - {
+      value: 'Tap',
+      label: 'became the Aura Edition signature gesture, from photos to pairing accessories',
+    }
 client: Lenovo UXD · Project Fuji
 years: 2023–2026
 role: Lead UX Designer
@@ -67,7 +65,7 @@ video:
     both screens. It ends on the Lenovo and Intel Core Ultra logos.
 sections:
   - { id: overview, label: Overview }
-  - { id: impact, label: Impact }
+  - { id: impact, label: Challenge }
   - { id: process, label: Process }
   - { id: delivery, label: Delivery }
   - { id: outcome, label: Outcome }
@@ -80,6 +78,7 @@ import Gallery from '../../../components/patterns/Gallery.astro';
 import MediaGrid from '../../../components/patterns/MediaGrid.astro';
 import Video from '../../../components/primitives/Video.astro';
 import StatGrid from '../../../components/patterns/StatGrid.astro';
+import KeyExperiences from '../../../components/patterns/KeyExperiences.astro';
 import earlyConceptPoster from './images/early-concept-poster.jpg';
 import processMapping from './images/process-mapping.png';
 import midFlows from './images/mid-fidelity-flows.png';
@@ -88,10 +87,16 @@ import benchmark from './images/benchmark-testing.png';
 import tapShare from './images/tap-and-share.jpg';
 import hiFiMockups from './images/high-fidelity-mockups.png';
 import deliveryBoard from './images/delivery-board.png';
+import filmTap from './images/film-tap.jpg';
+import filmLaunch from './images/film-launch.jpg';
+import filmGallery from './images/film-gallery.jpg';
+import filmDrag from './images/film-drag.jpg';
+import filmTransfer from './images/film-transfer.jpg';
+import filmSync from './images/film-sync-galleries.jpg';
 
 <CaseStudySection id="impact">
 
-## The challenge
+## Challenge
 
 Getting a photo from your phone to your PC was possible, but never effortless. In Smart Share research, most people emailed photos to themselves, and many used chat or cloud apps instead.
 
@@ -107,35 +112,50 @@ We asked a different question:
 
 > What if moving something between devices felt like physically handing it over?
 
-{/* TODO(mike): before/after journey image */}
+That question raised harder ones. Would people actually want to tap their phone against the side of their PC? Would an unfamiliar gesture feel natural, or just awkward?
 
-<Gallery
-  label="Before and after"
-  items={[
-    {
-      alt: 'The existing multi-step phone-to-PC transfer workflow beside the new one: phone, tap, PC',
-      label: 'Before: email, chat, cloud, cable. After: phone, tap, PC.',
-    },
-  ]}
+And could it even be built? We needed hardware and engineering teams to tell us whether a laptop could reliably sense a tap at all. We had a vision, and a long road ahead.
+
+<Video
+  src="/media/magic-move/early-concept.mp4"
+  poster={earlyConceptPoster}
+  title="Magic Move early concept prototype"
+  duration="0:40"
+  description="A 40-second silent prototype filmed from above. A phone with a photo gallery is held next to a laptop; the Magic Move window opens on the laptop showing the phone's recent photos. A finger then drags photos from that window onto the laptop screen by touch, and the phone is set down beside the laptop while the window stays open."
 />
-
-## Impact
-
-Smart Share launched on all 11 Aura Edition devices, then spread to consumer, commercial and all-in-one PCs. The tap became the main way in: most repeat launches skipped menus and shortcuts entirely. People who used it gave it a System Usability Scale score of 86, well above the average of 68.
-
-## Collaboration
-
-Magic Move sat between hardware, software and two outside partners, with teams spread across the US, China, Japan and Norway, so most of my job was keeping one experience intact across all of them. As the lead and primary designer, I owned the experience end to end, working with product management, hardware and software engineering, and our partners.
-
-I presented the work regularly to our executive design director and to directors in product management and engineering, and it was shown to Lenovo’s CEO, Yang Yuanqing. The UX specification became the shared reference that kept those teams building the same thing.
 
 </CaseStudySection>
 
 <CaseStudySection id="process">
 
-## Defining the experience
+## Process
 
-We started with the experience, then wove in the technology, cost, and the hardware constraints of Lenovo PCs, iPhones and Android phones. Early work mapped user journeys and analyzed competitors. Then we envisioned how the tap should look and feel, and what it could do, focusing on three key experiences: Android, iOS and Windows apps that work as one; moving photos from phone to PC and back again; and Tap to Launch, where a simple tap of the phone against the side of the PC opens the app instantly.
+### Collaboration
+
+Magic Move sat between hardware, software and two outside partners, with teams spread across the US, China, Japan and Norway, so most of my job was keeping one experience intact across all of them. As the lead and primary designer, I owned the experience end to end, working with product management, hardware and software engineering, and our partners.
+
+I presented the work regularly to our executive design director and to directors in product management and engineering, and it was shown to Lenovo’s CEO, Yang Yuanqing. The UX specification became the shared reference that kept those teams building the same thing.
+
+### Defining the experience
+
+We started with the experience, then wove in the technology, cost, and the hardware constraints of Lenovo PCs, iPhones and Android phones. Early work mapped user journeys and analyzed competitors. Then we envisioned how the tap should look and feel, and what it could do, focusing on three key experiences:
+
+<KeyExperiences
+  items={[
+    {
+      title: 'Multi-platform',
+      text: 'Android, iOS and Windows apps that behave as one experience.',
+    },
+    {
+      title: 'Transfer photos',
+      text: 'Drag photos from your phone straight into any app on your PC, and back again.',
+    },
+    {
+      title: 'Tap to Launch',
+      text: 'Tap your phone against the side of the PC and Smart Share opens instantly.',
+    },
+  ]}
+/>
 
 Six principles kept us honest: clear, familiar, cross-platform, simple, trustworthy and secure.
 
@@ -154,23 +174,41 @@ Six principles kept us honest: clear, familiar, cross-platform, simple, trustwor
   ]}
 />
 
-{/* TODO(mike): 3–5 polished frames */}
-
 <Gallery
   label="Tap, launch, gallery, drag, transfer"
   ratio="16 / 9"
   items={[
-    { alt: 'Magic Move frame: tap', label: '1 · Tap' },
-    { alt: 'Magic Move frame: launch', label: '2 · Launch' },
-    { alt: 'Magic Move frame: gallery', label: '3 · Gallery' },
-    { alt: 'Magic Move frame: drag', label: '4 · Drag' },
-    { alt: 'Magic Move frame: transfer', label: '5 · Transfer' },
+    {
+      src: filmTap,
+      alt: 'A hand holds a phone beside a Lenovo laptop, with a Tap and share label between them',
+      label: '1 · Tap',
+    },
+    {
+      src: filmLaunch,
+      alt: 'Smart Share opens on the PC with a Drop photos to your PC prompt over a photo',
+      label: '2 · Launch',
+    },
+    {
+      src: filmGallery,
+      alt: 'A grid of the phone’s recent photos shown on the PC',
+      label: '3 · Gallery',
+    },
+    {
+      src: filmDrag,
+      alt: 'A photo being dragged out of the Smart Share recent photos panel next to Photoshop',
+      label: '4 · Drag',
+    },
+    {
+      src: filmTransfer,
+      alt: 'The transferred photo open in Photoshop on the PC',
+      label: '5 · Transfer',
+    },
   ]}
 />
 
 > The UI wasn’t the core idea. The interaction between the physical devices was the product.
 
-## Designing beyond the screen
+### Designing beyond the screen
 
 Magic Move couldn’t be designed as UI alone. A tap had to be sensed, recognized and answered: hardware sensing, Intel Unison, Elliptic Labs’ virtual tap, the tap target on the chassis, how the phone was held, and what each device was doing at the time.
 
@@ -188,7 +226,7 @@ I wrote the Magic Move UX specification to pin that down. It defined how the sys
   ]}
 />
 
-## Flows and experience mapping
+### Flows and experience mapping
 
 I mapped the end-to-end flows for tap to launch, drag and drop, proximity detection, and sharing photos and links.
 
@@ -210,7 +248,7 @@ I mapped the end-to-end flows for tap to launch, drag and drop, proximity detect
   ]}
 />
 
-## Prototyping and research
+### Prototyping and research
 
 We built a working prototype early: hold the phone near the laptop, and its photos appear on screen, ready to drag. Then we tested it across three studies and 37 participant sessions, each answering a different question.
 
@@ -219,14 +257,6 @@ We built a working prototype early: hold the phone near the laptop, and its phot
 3. **What does it need for everyday use?** Smart Share study led by Antoniea Richardson, May 2024, 16 participants. “Tap the phone” was too vague without a demonstration, so onboarding got animated guidance. 15 of 16 wanted control over photo access while the phone was locked, so permissions and an on/off control moved into the core experience.
 
 Research never told us to drop the gesture. It showed what had to surround it: guidance, feedback, bulk actions, a PC-native layout and trust controls.
-
-<Video
-  src="/media/magic-move/early-concept.mp4"
-  poster={earlyConceptPoster}
-  title="Magic Move early concept prototype"
-  duration="0:40"
-  description="A 40-second silent prototype filmed from above. A phone with a photo gallery is held next to a laptop; the Magic Move window opens on the laptop showing the phone's recent photos. A finger then drags photos from that window onto the laptop screen by touch, and the phone is set down beside the laptop while the window stays open."
-/>
 
 <Gallery
   label="Prototyping and user research"
@@ -265,7 +295,11 @@ Smart Share shipped on 11 Lenovo Aura Edition PCs in September 2024. Through lau
       alt: 'Delivery board of final desktop screens and laptop renders for each step of the flow',
       label: 'Delivery screens',
     },
-    { alt: 'Delivery image 4', label: 'Delivery image 4' },
+    {
+      src: filmSync,
+      alt: 'Phone and PC showing the same photo gallery, with a Synchronize galleries label',
+      label: 'Synchronize galleries',
+    },
   ]}
 />
 

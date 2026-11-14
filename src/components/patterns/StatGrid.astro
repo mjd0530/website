@@ -6,12 +6,14 @@
  */
 interface Props {
   items: { value: string; label: string }[];
+  /** 'accent' for results (case study Impact), so they read apart from problem stats */
+  tone?: 'neutral' | 'accent';
 }
 
-const { items } = Astro.props;
+const { items, tone = 'neutral' } = Astro.props;
 ---
 
-<ul class="stats">
+<ul class:list={['stats', { accent: tone === 'accent' }]}>
   {items.map((s) => (
     <li>
       <span class="value">{s.value}</span> <span class="label">{s.label}</span>
@@ -54,5 +56,20 @@ const { items } = Astro.props;
     font-size: var(--text-small);
     line-height: var(--leading-ui);
     color: var(--color-text-muted);
+  }
+
+  /* Results: accent value on a faint accent tint */
+  .accent li {
+    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface-raised));
+    border-color: color-mix(in srgb, var(--color-accent) 20%, var(--color-border-subtle));
+  }
+
+  .accent .value {
+    color: var(--color-accent);
+  }
+
+  :global([data-theme='contrast']) .accent li {
+    background: var(--color-surface-raised);
+    border-color: var(--color-border);
   }
 </style>

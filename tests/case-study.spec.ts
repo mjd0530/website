@@ -82,9 +82,12 @@ test('cards in a gallery are all the same size', async ({ page }) => {
   }
 });
 
-test('Magic Move header lists its key user experiences', async ({ page }) => {
+test('Magic Move lists its key user experiences in the process section', async ({ page }) => {
   await page.goto('/work/magic-move/');
   const block = page.getByRole('region', { name: 'Key user experiences' });
   await expect(block.getByRole('listitem')).toHaveCount(3);
+  await expect(
+    page.locator('#section-overview').getByRole('region', { name: 'Key user experiences' }),
+  ).toHaveCount(0);
   await expect(block.getByRole('heading', { name: 'Tap to Launch' })).toBeVisible();
 });

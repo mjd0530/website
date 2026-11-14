@@ -21,38 +21,43 @@ interface Props {
 
 // Every card in a gallery shares one shape (3:1, from the reference design).
 // Images fill the card and crop from the centre; the viewer shows them whole.
-const { label, items, ratio = '3 / 1' } = Astro.props;
+const { label, items: all, ratio = '3 / 1' } = Astro.props;
+// Empty slots (no src) show as placeholders in dev so layouts can be planned,
+// but never ship: the production build drops them, and an empty gallery renders nothing.
+const items = import.meta.env.PROD ? all.filter((i) => i.src) : all;
 const many = items.length > 1;
 ---
 
-<div class="gallery" data-gallery>
-  <div
-    class="scroller"
-    role="region"
-    aria-label={label}
-    tabindex={many ? 0 : undefined}
-    data-scroller
-  >
-    {items.map((item) => (
-      <div class="item" data-item>
-        <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
-      </div>
-    ))}
-  </div>
-  {many && (
-    <div class="controls" hidden data-controls>
-      <span class="count meta" aria-live="polite" data-count>
-        1 of {items.length}
-      </span>
-      <button type="button" aria-label="Previous image" data-prev>
-        <span aria-hidden="true">←</span>
-      </button>
-      <button type="button" aria-label="Next image" data-next>
-        <span aria-hidden="true">→</span>
-      </button>
+{items.length > 0 && (
+  <div class="gallery" data-gallery>
+    <div
+      class="scroller"
+      role="region"
+      aria-label={label}
+      tabindex={many ? 0 : undefined}
+      data-scroller
+    >
+      {items.map((item) => (
+        <div class="item" data-item>
+          <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
+        </div>
+      ))}
     </div>
-  )}
-</div>
+    {many && (
+      <div class="controls" hidden data-controls>
+        <span class="count meta" aria-live="polite" data-count>
+          1 of {items.length}
+        </span>
+        <button type="button" aria-label="Previous image" data-prev>
+          <span aria-hidden="true">←</span>
+        </button>
+        <button type="button" aria-label="Next image" data-next>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    )}
+  </div>
+)}
 
 <script>
   for (const g of document.querySelectorAll<HTMLElement>('[data-gallery]')) {

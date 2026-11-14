@@ -28,8 +28,6 @@ title: Smart Share / Magic Move     # required
 subtitle: One-line headline         # required, gray line under the title
 summary: Outcome-first sentence(s). # required, home spotlight + case-study intro
 intro: ["…"]                        # optional, extra overview paragraph(s), case-study header only
-experiences:                        # optional, 1–4 "Key user experiences" in the header
-  - { title: "…", text: "…" }
 client: Lenovo UXD · Project Fuji   # required (screen-reader text on the card)
 years: "2023–2026"                  # required (not displayed)
 role: Lead UX Designer              # required
