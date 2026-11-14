@@ -1,8 +1,9 @@
 ---
 /**
  * Home spotlight for one project: rail text (title, subtitle, summary, link)
- * beside one wide image over two smaller ones. Stacks below 1024px; on mobile
- * the two smaller images become a swipe row.
+ * beside one wide image over two smaller ones, or a single hero image on its own
+ * (taller, so more of it shows). Stacks below 1024px; on mobile the two smaller
+ * images become a swipe row.
  */
 import Media from '../primitives/Media.astro';
 import type { CollectionEntry } from 'astro:content';
@@ -15,6 +16,7 @@ const { project } = Astro.props;
 const { title, subtitle, summary, spotlight } = project.data;
 const href = `/work/${project.id}/`;
 const [wide, a, b] = spotlight;
+const solo = !a || !b;
 const headingId = `spotlight-${project.id}`;
 ---
 
@@ -29,19 +31,36 @@ const headingId = `spotlight-${project.id}`;
     </a>
   </div>
   <div class="images">
-    <Media {...wide} ratio="950 / 378" sizes="(min-width: 64em) 66vw, 100vw" />
-    <div class="pair" role="region" aria-label={`${title} images`} tabindex="0">
+    {/* Images are a second, larger target for the same case study link: hidden
+        from assistive tech and the tab order, since "View case study" already names it */}
+    <a class="shot" href={href} tabindex="-1" aria-hidden="true">
       <Media
-        {...a}
-        ratio="458 / 258"
-        sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
+        {...wide}
+        decorative
+        ratio={solo ? '950 / 528' : '950 / 378'}
+        sizes="(min-width: 64em) 66vw, 100vw"
       />
-      <Media
-        {...b}
-        ratio="458 / 258"
-        sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
-      />
-    </div>
+    </a>
+    {!solo && (
+      <div class="pair" role="region" aria-label={`${title} images`} tabindex="0">
+        <a class="shot" href={href} tabindex="-1" aria-hidden="true">
+          <Media
+            {...a}
+            decorative
+            ratio="458 / 258"
+            sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
+          />
+        </a>
+        <a class="shot" href={href} tabindex="-1" aria-hidden="true">
+          <Media
+            {...b}
+            decorative
+            ratio="458 / 258"
+            sizes="(min-width: 64em) 32vw, (min-width: 40em) 50vw, 85vw"
+          />
+        </a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -111,6 +130,28 @@ const headingId = `spotlight-${project.id}`;
       grid-auto-flow: row;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       overflow: visible;
+    }
+  }
+  /* Same lift as the work cards: the image opens the case study */
+  .shot {
+    display: block;
+    border-radius: var(--radius-card);
+  }
+
+  .shot :global(.media) {
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .shot:hover :global(.media) {
+    transform: translateY(-2px);
+    border-color: var(--color-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shot:hover :global(.media) {
+      transform: none;
     }
   }
 </style>

@@ -39,7 +39,7 @@ impact:                             # optional, 0–4
 # Image slots: src optional while assets are gathered (placeholder tile shown)
 cover: { src: ./cover.png, alt: "…", label: "…" }
 hero: { src: ./hero.png, alt: "…" }
-spotlight:                          # exactly 3: wide, then two
+spotlight:                          # 1 hero image, or 3: wide, then two
   - { src: ./wide.png, alt: "…" }
   - { src: ./a.png, alt: "…" }
   - { src: ./b.png, alt: "…" }

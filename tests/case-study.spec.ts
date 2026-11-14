@@ -18,7 +18,16 @@ test('home cards jump to their spotlight; spotlights link to the case study', as
   for (const path of caseStudies) {
     const id = path.split('/')[2];
     await expect(page.locator(`.work-grid a[href="#project-${id}"]`)).toHaveCount(1);
-    await expect(page.locator(`#project-${id} a[href="${path}"]`)).toHaveCount(1);
+    const spotlight = page.locator(`#project-${id}`);
+    // One named link for assistive tech; the images link to the same page but stay hidden
+    await expect(spotlight.getByRole('link', { name: /View case study/ })).toHaveAttribute(
+      'href',
+      path,
+    );
+    await expect(spotlight.getByRole('link')).toHaveCount(1);
+    const shots = spotlight.locator('a.shot');
+    await expect(shots.first()).toHaveAttribute('href', path);
+    for (const shot of await shots.all()) await expect(shot).toHaveAttribute('href', path);
   }
 });
 

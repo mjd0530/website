@@ -44,8 +44,8 @@ const projects = defineCollection({
           duration: z.string().optional(),
         })
         .optional(),
-      // Home spotlight: one wide image, then two.
-      spotlight: z.tuple([media, media, media]),
+      // Home spotlight: one hero image on its own, or one wide image then two.
+      spotlight: z.union([z.tuple([media]), z.tuple([media, media, media])]),
       // Case-study table of contents. Each id must match a <Section id> in the body.
       sections: z.array(z.object({ id: z.string(), label: z.string() })).min(1),
       accent: z

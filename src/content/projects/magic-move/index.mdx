@@ -1,7 +1,7 @@
 ---
 title: Tap to Launch
-subtitle: Defining the signature Lenovo Aura Edition experience, phone to PC in one tap
-summary: Moving a photo from phone to PC used to mean email, chat or a cable. As UX lead for Tap to Launch (internally, Magic Move), I turned it into a single tap.
+subtitle: A signature feature of Lenovo Aura Edition PCs
+summary: I led UX for the tap that sends photos from phone to PC, from a rough prototype to launch at IFA 2024 on 11 Aura Edition PCs.
 impact:
   - { value: '11', label: 'Aura Edition devices at launch' }
   - { value: '+3', label: 'more PC lines after launch' }
@@ -40,16 +40,6 @@ spotlight:
       src: ./images/tap-and-share.jpg,
       alt: 'Smart Share open on a Lenovo laptop next to a phone showing the same photos',
       label: 'Tap and share, laptop to phone',
-    }
-  - {
-      src: ./images/high-fidelity-mockups.png,
-      alt: 'High-fidelity Magic Move mockups showing photo selection and multi-photo drag states',
-      label: 'High-fidelity mockups',
-    }
-  - {
-      src: ./images/mid-fidelity-flows.png,
-      alt: 'Mid-fidelity experience flows for tap to launch, drag and drop, and proximity detection',
-      label: 'Mid-fidelity experience flows',
     }
 video:
   src: /media/magic-move/smart-share.mp4
@@ -90,6 +80,13 @@ import deliveryBoard from './images/delivery-board.png';
 import filmSync from './images/film-sync-galleries.jpg';
 import filmLaunch from './images/film-launch.jpg';
 import filmDrag from './images/film-drag.jpg';
+import screenOnboardingTransfer from './images/screen-1-onboarding-transfer.jpg';
+import screenOnboardingKey from './images/screen-2-onboarding-key.jpg';
+import screenOnboardingTap from './images/screen-3-onboarding-tap.jpg';
+import screenRecentPhotos from './images/screen-4-recent-photos.jpg';
+import screenDrag from './images/screen-5-drag.jpg';
+import screenTransferring from './images/screen-6-transferring.jpg';
+import screenDropToPhone from './images/screen-7-drop-to-phone.jpg';
 
 <CaseStudySection id="impact">
 
@@ -208,11 +205,6 @@ Mid-fidelity flows worked out tap to launch, drag and drop, proximity detection,
       alt: 'High-fidelity mockups of the Magic Move photo view, selection mode and drag states, with annotations',
       label: 'High-fidelity mockups',
     },
-    {
-      src: deliveryBoard,
-      alt: 'Delivery board of final desktop screens and laptop renders for each step of the flow',
-      label: 'Final screens',
-    },
   ]}
 />
 
@@ -261,6 +253,8 @@ In September 2024, Smart Share launched at IFA in Berlin as a signature feature 
 
 Through launch, I stayed close to engineering, answering questions as they came up and protecting the hero use cases from drift or redirection. This is what made it out the door.
 
+{/* TODO(mike): capture Smart Connect Tap to Launch screens and add them to this carousel */}
+
 <Gallery
   label="The shipped experience"
   ratio="16 / 9"
@@ -288,6 +282,70 @@ Through launch, I stayed close to engineering, answering questions as they came 
       alt: 'Phone and PC showing the same photo gallery, with a Synchronize galleries label',
       label: 'Synchronize galleries',
       text: 'Phone and PC show the same photos, so moving between them stops being a task.',
+    },
+  ]}
+/>
+
+The final screens take people from first run to their first transfer:
+
+<Gallery
+  label="Final delivery screens"
+  ratio="16 / 9"
+  items={[
+    {
+      src: screenOnboardingTransfer,
+      alt: 'Magic Move onboarding card titled Transfer photos from your PC to your phone, explaining that drag and drop works in reverse too',
+      label: 'Onboarding: both directions',
+      text: 'First run shows that photos move from PC to phone too, not only the other way.',
+    },
+    {
+      src: screenOnboardingKey,
+      alt: 'Magic Move onboarding card titled Use the Magic Key, showing the F11 key that opens and closes the app',
+      label: 'Onboarding: the Magic Key',
+      text: 'F11 opens and closes the app, the keyboard fallback the research called for.',
+    },
+    {
+      src: screenOnboardingTap,
+      alt: 'Magic Move onboarding card titled Experience the Magic Tap, showing a phone tapped against the side of a laptop',
+      label: 'Onboarding: the Magic Tap',
+      text: 'The tap is taught before people try it, so the first one works.',
+    },
+    {
+      src: screenRecentPhotos,
+      alt: 'Magic Move window on the Windows desktop showing a grid of the phone’s recent photos',
+      label: 'Your recent photos',
+      text: 'The phone’s latest photos, ready on the PC the moment the app opens.',
+    },
+    {
+      src: screenDrag,
+      alt: 'A photo being dragged out of the Magic Move window onto the desktop, with a plus badge on the cursor',
+      label: 'Drag out',
+      text: 'Photos lift off the grid with a clear drag state and drop anywhere on the PC.',
+    },
+    {
+      src: screenTransferring,
+      alt: 'Magic Move window showing a Transferring 1 photo progress message with a Cancel link',
+      label: 'Transferring',
+      text: 'A progress line confirms the transfer, with a way to cancel.',
+    },
+    {
+      src: screenDropToPhone,
+      alt: 'Magic Move window turned into a blue drop zone reading Drop photos to your phone while a file is dragged onto it',
+      label: 'Drop photos to your phone',
+      text: 'Drag a file onto the window and it becomes a drop zone for sending to the phone.',
+    },
+  ]}
+/>
+
+<Gallery
+  label="Delivery file"
+  ratio="auto"
+  items={[
+    {
+      src: deliveryBoard,
+      alt: 'Delivery board of final desktop screens and laptop renders for each step of the flow',
+      label: 'The delivery file',
+      text: 'Every final screen and laptop render, one for each step of the flow, handed to engineering as the build reference.',
     },
   ]}
 />
