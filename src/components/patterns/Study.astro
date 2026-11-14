@@ -1,0 +1,68 @@
+---
+/**
+ * One research study in a case study: the question it set out to answer, set
+ * like a pull statement (display face, accent rule), then a meta line (method,
+ * date, who) and two short parts, what we saw and what changed.
+ * Used in MDX under a "### …research" subsection, so the question is an h4.
+ */
+interface Props {
+  question: string;
+  meta: string;
+  saw: string;
+  changed: string;
+}
+
+const { question, meta, saw, changed } = Astro.props;
+---
+
+<section class="study">
+  <h4>{question}</h4>
+  <p class="meta">{meta}</p>
+  <dl>
+    <div>
+      <dt class="meta">What we saw</dt>
+      <dd>{saw}</dd>
+    </div>
+    <div>
+      <dt class="meta">What changed</dt>
+      <dd>{changed}</dd>
+    </div>
+  </dl>
+</section>
+
+<style>
+  .study {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+    padding-inline-start: var(--space-5);
+    border-inline-start: 3px solid var(--color-accent);
+  }
+
+  h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-display);
+  }
+
+  dl {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-3) 0 0;
+  }
+
+  @media (min-width: 48em) {
+    dl {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+</style>

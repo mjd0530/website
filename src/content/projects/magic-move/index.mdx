@@ -75,10 +75,10 @@ order: 1
 
 import CaseStudySection from '../../../components/sections/CaseStudySection.astro';
 import Gallery from '../../../components/patterns/Gallery.astro';
-import MediaGrid from '../../../components/patterns/MediaGrid.astro';
 import Video from '../../../components/primitives/Video.astro';
 import StatGrid from '../../../components/patterns/StatGrid.astro';
 import KeyExperiences from '../../../components/patterns/KeyExperiences.astro';
+import Study from '../../../components/patterns/Study.astro';
 import earlyConceptPoster from './images/early-concept-poster.jpg';
 import processMapping from './images/process-mapping.png';
 import midFlows from './images/mid-fidelity-flows.png';
@@ -87,12 +87,9 @@ import benchmark from './images/benchmark-testing.png';
 import tapShare from './images/tap-and-share.jpg';
 import hiFiMockups from './images/high-fidelity-mockups.png';
 import deliveryBoard from './images/delivery-board.png';
-import filmTap from './images/film-tap.jpg';
-import filmLaunch from './images/film-launch.jpg';
-import filmGallery from './images/film-gallery.jpg';
-import filmDrag from './images/film-drag.jpg';
-import filmTransfer from './images/film-transfer.jpg';
 import filmSync from './images/film-sync-galleries.jpg';
+import filmLaunch from './images/film-launch.jpg';
+import filmDrag from './images/film-drag.jpg';
 
 <CaseStudySection id="impact">
 
@@ -159,8 +156,6 @@ We started with the experience, then wove in the technology, cost, and the hardw
 
 Six principles kept us honest: clear, familiar, cross-platform, simple, trustworthy and secure.
 
-{/* TODO(mike): workshop material, sketches and 2–3 early Figma concepts */}
-
 <Gallery
   label="Early exploration"
   items={[
@@ -169,71 +164,34 @@ Six principles kept us honest: clear, familiar, cross-platform, simple, trustwor
       alt: 'Planning board with sections for design process and next steps, key user experiences, competitive analysis, and key user journeys',
       label: 'Journey and competitive mapping board',
     },
-    { alt: 'Workshop material and sketches', label: 'Workshop material and sketches' },
-    { alt: 'Early Figma concepts for Magic Move', label: 'Early Figma concepts' },
-  ]}
-/>
-
-<Gallery
-  label="Tap, launch, gallery, drag, transfer"
-  ratio="16 / 9"
-  items={[
-    {
-      src: filmTap,
-      alt: 'A hand holds a phone beside a Lenovo laptop, with a Tap and share label between them',
-      label: '1 · Tap',
-    },
-    {
-      src: filmLaunch,
-      alt: 'Smart Share opens on the PC with a Drop photos to your PC prompt over a photo',
-      label: '2 · Launch',
-    },
-    {
-      src: filmGallery,
-      alt: 'A grid of the phone’s recent photos shown on the PC',
-      label: '3 · Gallery',
-    },
-    {
-      src: filmDrag,
-      alt: 'A photo being dragged out of the Smart Share recent photos panel next to Photoshop',
-      label: '4 · Drag',
-    },
-    {
-      src: filmTransfer,
-      alt: 'The transferred photo open in Photoshop on the PC',
-      label: '5 · Transfer',
-    },
   ]}
 />
 
 > The UI wasn’t the core idea. The interaction between the physical devices was the product.
 
-### Designing beyond the screen
+### Low-fidelity flows
 
-Magic Move couldn’t be designed as UI alone. A tap had to be sensed, recognized and answered: hardware sensing, Intel Unison, Elliptic Labs’ virtual tap, the tap target on the chassis, how the phone was held, and what each device was doing at the time.
-
-I wrote the Magic Move UX specification to pin that down. It defined how the system should respond to a real-world gesture, and gave engineering one reference for building it and for arguing tradeoffs.
-
-{/* TODO(mike): one annotated spec example */}
-
-<Gallery
-  label="UX specification"
-  items={[
-    {
-      alt: 'Annotated UX specification example: physical gesture, sensor, recognition, software response, with notes on tap location, angle, orientation and application response',
-      label: 'UX spec: gesture → sensor → recognition → software response',
-    },
-  ]}
-/>
-
-### Flows and experience mapping
-
-I mapped the end-to-end flows for tap to launch, drag and drop, proximity detection, and sharing photos and links.
+I started with experience mapping and low-fidelity flows for the core journey: connecting the phone and laptop, the first-run experience, tap to launch and photo transfer. These flows became the benchmark we tested against.
 
 {/* TODO(mike): what the map changed, e.g. a feature cut, a reordered flow, or a gap you found */}
 
 <Gallery
-  label="User flows and experience mapping"
+  label="Low-fidelity flows"
+  items={[
+    {
+      src: benchmark,
+      alt: 'Low-fidelity benchmark testing flow: phone and laptop connection, first-run experience, tap to launch and photo transfer steps',
+      label: 'Benchmark testing flow',
+    },
+  ]}
+/>
+
+### Mid- to high-fidelity design
+
+Mid-fidelity flows worked out tap to launch, drag and drop, proximity detection, and sharing photos and links. High-fidelity flows then took the whole journey end to end, including the mobile app.
+
+<Gallery
+  label="Mid- and high-fidelity flows"
   items={[
     {
       src: midFlows,
@@ -245,46 +203,6 @@ I mapped the end-to-end flows for tap to launch, drag and drop, proximity detect
       alt: 'High-fidelity end-to-end flow, including tap to launch and the mobile app',
       label: 'High-fidelity end-to-end flow',
     },
-  ]}
-/>
-
-### Prototyping and research
-
-We built a working prototype early: hold the phone near the laptop, and its photos appear on screen, ready to drag. Then we tested it across three studies and 37 participant sessions, each answering a different question.
-
-1. **Will people understand the gesture?** Gorilla testing, Dec 2023, 6 sessions. People tapped at different angles, too lightly, or held the phone to the laptop like NFC. One worried about damaging the devices. The question became how to make the tap forgiving and teachable, so the design added tap guidance, success feedback, error recovery and first-use education.
-2. **Does the interaction model work?** Magic Move usability study with UX researcher Peggy He, 2023, 15 hybrid workers and creatives. Tapping made the link between devices clearest, so it became the primary path, with F11 as the fallback. Drag and drop worked, but seven people clicked a photo before finding they could drag it, so discoverability became the priority. People moved photos in batches, so multi-select joined the core flow and the PC layout stopped mirroring the phone.
-3. **What does it need for everyday use?** Smart Share study led by Antoniea Richardson, May 2024, 16 participants. “Tap the phone” was too vague without a demonstration, so onboarding got animated guidance. 15 of 16 wanted control over photo access while the phone was locked, so permissions and an on/off control moved into the core experience.
-
-Research never told us to drop the gesture. It showed what had to surround it: guidance, feedback, bulk actions, a PC-native layout and trust controls.
-
-<Gallery
-  label="Prototyping and user research"
-  items={[
-    {
-      src: benchmark,
-      alt: 'Low-fidelity benchmark testing flow: phone and laptop connection, first-run experience, tap to launch and photo transfer steps',
-      label: 'Benchmark testing flow',
-    },
-    { alt: 'Research findings', label: 'Research findings' },
-  ]}
-/>
-
-</CaseStudySection>
-
-<CaseStudySection id="delivery">
-
-## Delivery
-
-Smart Share shipped on 11 Lenovo Aura Edition PCs in September 2024. Through launch, I answered engineering’s questions as they came up and protected the hero use cases from drift or redirection.
-
-<MediaGrid
-  items={[
-    {
-      src: tapShare,
-      alt: 'Tap and share: photos move from a phone to Smart Share on a Lenovo laptop',
-      label: 'Tap and share',
-    },
     {
       src: hiFiMockups,
       alt: 'High-fidelity mockups of the Magic Move photo view, selection mode and drag states, with annotations',
@@ -293,12 +211,83 @@ Smart Share shipped on 11 Lenovo Aura Edition PCs in September 2024. Through lau
     {
       src: deliveryBoard,
       alt: 'Delivery board of final desktop screens and laptop renders for each step of the flow',
-      label: 'Delivery screens',
+      label: 'Final screens',
+    },
+  ]}
+/>
+
+### Prototyping and research
+
+We built a working prototype early: hold the phone near the laptop, and its photos appear on screen, ready to drag. Then we tested it across three studies, each answering a different question.
+
+<StatGrid
+  items={[
+    { value: '3', label: 'studies, 2023 to May 2024' },
+    { value: '37', label: 'participant sessions' },
+    { value: '14 of 16', label: 'rated PC-to-phone transfer very easy' },
+  ]}
+/>
+
+<Study
+  question="Will people understand the gesture?"
+  meta="Gorilla testing · Dec 2023 · 6 sessions"
+  saw="People tapped at different angles, too lightly, or held the phone to the laptop like NFC. One worried about damaging the devices."
+  changed="The question became how to make the tap forgiving and teachable, so the design added tap guidance, success feedback, error recovery and first-use education."
+/>
+
+<Study
+  question="Does the interaction model work?"
+  meta="Magic Move usability study with UX researcher Peggy He · 2023 · 15 hybrid workers and creatives"
+  saw="Tapping made the link between devices clearest. Drag and drop worked, but seven people clicked a photo before finding they could drag it. People moved photos in batches."
+  changed="Tap became the primary path, with F11 as the fallback. Discoverability became the priority, multi-select joined the core flow, and the PC layout stopped mirroring the phone."
+/>
+
+<Study
+  question="What does it need for everyday use?"
+  meta="Smart Share study led by Antoniea Richardson · May 2024 · 16 participants"
+  saw="“Tap the phone” was too vague without a demonstration. 15 of 16 participants wanted control over photo access while the phone was locked."
+  changed="Onboarding got animated guidance, and permissions and an on/off control moved into the core experience."
+/>
+
+Research never told us to drop the gesture. It showed what had to surround it: guidance, feedback, bulk actions, a PC-native layout and trust controls.
+
+</CaseStudySection>
+
+<CaseStudySection id="delivery">
+
+## Delivery
+
+In September 2024, Smart Share shipped on 11 Lenovo Aura Edition PCs. Tap your phone against the side of the laptop, and your latest photos are on the screen, ready to drop into whatever you’re working on.
+
+Through launch, I stayed close to engineering, answering questions as they came up and protecting the hero use cases from drift or redirection. This is what made it out the door.
+
+<Gallery
+  label="The shipped experience"
+  ratio="16 / 9"
+  items={[
+    {
+      src: tapShare,
+      alt: 'Smart Share open on a Lenovo laptop beside a phone showing the same photos, with a Tap and share label between them',
+      label: 'Tap and share',
+      text: 'One tap on the side of the laptop opens Smart Share with the phone’s recent photos.',
+    },
+    {
+      src: filmLaunch,
+      alt: 'Smart Share opens on the PC with a Drop photos to your PC prompt over a photo',
+      label: 'Drop photos to your PC',
+      text: 'A clear prompt shows where the photo will land, so the first drag feels safe.',
+    },
+    {
+      src: filmDrag,
+      alt: 'A photo being dragged out of the Smart Share recent photos panel next to Photoshop',
+      label: 'Drag into any app',
+      text: 'Photos go straight from the panel into Photoshop, a chat or anywhere else on the PC.',
     },
     {
       src: filmSync,
       alt: 'Phone and PC showing the same photo gallery, with a Synchronize galleries label',
       label: 'Synchronize galleries',
+      text: 'Phone and PC show the same photos, so moving between them stops being a task.',
     },
   ]}
 />
@@ -309,6 +298,12 @@ Smart Share shipped on 11 Lenovo Aura Edition PCs in September 2024. Through lau
 
 ## Outcome
 
-The tap worked: it became how people opened Smart Share. The idea also outlived its first product, carrying into Lenovo Smart Connect as Tap to Launch. The same gesture also became Tap to Pair on Aura Edition PCs, connecting accessories like earphones, headsets and mice with a tap.
+Seeing the tap ship is still one of the proudest moments of my career. In September 2024, Smart Share launched at IFA in Berlin as a signature feature of the Lenovo Aura Edition, on 11 devices at once. A gesture we first tested in six quick Gorilla sessions was now the star of Lenovo’s product film.
+
+> One tap, from a rough prototype on a desk to a signature feature of Lenovo’s Aura Edition PCs.
+
+And it kept going. The tap became the main way people opened Smart Share. It spread to more consumer, commercial and all-in-one PCs, carried into Lenovo Smart Connect as Tap to Launch, and grew into Tap to Pair, connecting earphones, headsets and mice with the same gesture. The Aura Edition team’s work earned a Lenovo Corporate Award for Team Excellence.
+
+I’m deeply grateful I got to lead the UX for it, and to the engineers, product managers, researchers and partners across four countries who made a tap feel like magic. Projects like this are why I love designing where hardware meets software.
 
 </CaseStudySection>

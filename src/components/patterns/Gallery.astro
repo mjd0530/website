@@ -11,6 +11,8 @@ interface Item {
   src?: ImageMetadata;
   alt: string;
   label?: string;
+  /** Optional visible caption under the card: `label` in bold, then this line */
+  text?: string;
 }
 
 interface Props {
@@ -37,11 +39,21 @@ const many = items.length > 1;
       tabindex={many ? 0 : undefined}
       data-scroller
     >
-      {items.map((item) => (
-        <div class="item" data-item>
-          <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
-        </div>
-      ))}
+      {items.map(({ text, ...item }) =>
+        text ? (
+          <figure class="item" data-item>
+            <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
+            <figcaption>
+              {item.label && <strong>{item.label}</strong>}
+              <span>{text}</span>
+            </figcaption>
+          </figure>
+        ) : (
+          <div class="item" data-item>
+            <Media {...item} ratio={ratio} sizes="(min-width: 64em) 66vw, 92vw" />
+          </div>
+        ),
+      )}
     </div>
     {many && (
       <div class="controls" hidden data-controls>
@@ -131,6 +143,29 @@ const many = items.length > 1;
 
   .item {
     scroll-snap-align: start;
+  }
+
+  figure.item {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  figcaption {
+    display: grid;
+    gap: var(--space-1);
+    max-width: 52ch;
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+
+  figcaption strong {
+    font-weight: 600;
+  }
+
+  figcaption span {
+    color: var(--color-text-muted);
   }
 
   .controls {
