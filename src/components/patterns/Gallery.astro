@@ -130,7 +130,8 @@ const many = items.length > 1;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    border-radius: var(--radius-card);
+    /* No border-radius here: overflow clips to it and cuts into captions.
+       Media rounds its own corners. */
   }
 
   .scroller::-webkit-scrollbar {
