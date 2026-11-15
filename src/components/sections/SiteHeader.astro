@@ -1,6 +1,7 @@
 ---
 import NavMenu from '../patterns/NavMenu.astro';
 import ThemeSwitcher from '../patterns/ThemeSwitcher.astro';
+import MdosLink from '../patterns/MdosLink.astro';
 import { primaryNav } from '../../data/site';
 
 interface Props {
@@ -13,7 +14,10 @@ const { current } = Astro.props;
 <header class="site-header" data-site-header>
   <div class="container bar">
     <NavMenu items={primaryNav} current={current} />
-    <ThemeSwitcher />
+    <div class="actions">
+      <ThemeSwitcher />
+      <MdosLink />
+    </div>
   </div>
 </header>
 
@@ -78,5 +82,11 @@ const { current } = Astro.props;
     justify-content: space-between;
     gap: var(--space-4);
     padding-block: var(--header-pad-block);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
   }
 </style>

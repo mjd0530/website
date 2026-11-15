@@ -18,3 +18,7 @@ export const footerLinks = [
   { label: 'Dribbble', href: profiles.dribbble },
   { label: 'Resume', href: '/resume/' },
 ];
+
+// MDOS: the same portfolio as a retro desktop OS (repo mjd0530/mdos).
+// TODO(mike): switch to https://os.mikedemar.com/ once its DNS is set up (MDOS D-013).
+export const mdosUrl = 'https://mjd0530.github.io/mdos/';
