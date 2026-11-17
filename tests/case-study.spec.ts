@@ -13,11 +13,10 @@ for (const path of caseStudies) {
   });
 }
 
-test('home cards jump to their spotlight; spotlights link to the case study', async ({ page }) => {
+test('home spotlights link to the case study', async ({ page }) => {
   await page.goto('/');
   for (const path of caseStudies) {
     const id = path.split('/')[2];
-    await expect(page.locator(`.work-grid a[href="#project-${id}"]`)).toHaveCount(1);
     const spotlight = page.locator(`#project-${id}`);
     // One named link for assistive tech; the images link to the same page but stay hidden
     await expect(spotlight.getByRole('link', { name: /View case study/ })).toHaveAttribute(
@@ -29,18 +28,6 @@ test('home cards jump to their spotlight; spotlights link to the case study', as
     await expect(shots.first()).toHaveAttribute('href', path);
     for (const shot of await shots.all()) await expect(shot).toHaveAttribute('href', path);
   }
-});
-
-test('clicking a work card scrolls to its spotlight, below the sticky header', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await page.locator('.work-grid a[href="#project-vantage"]').click();
-  const spotlight = page.locator('#project-vantage');
-  await expect(spotlight).toBeInViewport();
-  const header = await page.locator('[data-site-header]').boundingBox();
-  const box = await spotlight.boundingBox();
-  expect(box!.y).toBeGreaterThanOrEqual(header!.height);
-  await expect(spotlight.getByRole('link', { name: /View case study/ })).toBeInViewport();
 });
 
 test('gallery next button advances the count', async ({ page }) => {
@@ -66,15 +53,6 @@ test('compact table of contents sticks and jumps on small screens', async ({ pag
   await summary.click();
   await page.locator('.toc-compact').getByRole('link', { name: 'Delivery' }).click();
   await expect(page.locator('#section-delivery')).toBeInViewport();
-});
-
-test('work cards fill the column on phones', async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 800 });
-  await page.goto('/');
-  const card = page.locator('.work-grid article').first();
-  const box = await card.boundingBox();
-  // 375 minus two 16px gutters
-  expect(box!.width).toBeGreaterThan(330);
 });
 
 test('cards in a gallery are all the same size', async ({ page }) => {

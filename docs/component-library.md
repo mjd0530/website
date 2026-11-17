@@ -68,7 +68,7 @@ Example: <ComponentName … />
 | SiteHeader | **Built.** Props: `current: string`. NavMenu (items from `src/data/site.ts`) left, ThemeSwitcher right. Sticky with a frosted backdrop (80% surface + 16px blur); hairline appears once scrolled. Solid in high contrast, under `prefers-reduced-transparency`, or without backdrop-filter. Height token `--header-height` offsets other sticky elements and anchor scrolling. |
 | SiteFooter | **Built.** No props. Hairline rule within the content column, © year, LinkedIn · Dribbble · Resume (from `src/data/site.ts`). TODO(mike): public email. |
 | Hero | Home positioning statement |
-| FeaturedWork | "Work" heading + 2×2 grid of ProjectCards |
+| FeaturedWork | Removed from home 2026-11-17; spotlights follow the intro directly |
 | ProjectSpotlight | **Built.** Props: `project` (collection entry). Rail: h2 title, small subtitle, summary, "View case study →". Column: wide image (950:378) over two 16:9 images; the pair is a swipe row on phones. One per project, in `order`. |
 | CaseStudyHeader | Title, summary, MetaList, Stats, cover |
 | CaseStudySection | **Built.** Props: `id`. TOC target (`id="section-{id}"`) wrapping h2 blocks in MDX; handles flow spacing. |

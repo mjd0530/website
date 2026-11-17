@@ -45,8 +45,8 @@ Mike asked for a proposal for tablet and mobile, since the reference frames are 
 | --- | --- | --- | --- |
 | Gutters | 120px at 1440 (fluid `clamp(24px, 8vw, 120px)`) | 32px | 16px |
 | Nav | Text links left, theme button right | Same | Same 4 links inline (they fit at 360px); wrap to two lines only under ~340px or at high zoom. No hamburger: four short links don't need hiding. Theme button becomes icon-only. |
-| Home intro | Left rail, sticky while the Work grid scrolls | A band above Work: 96px portrait left, name and the three paragraphs right | Stacked: 64px portrait beside the name, paragraphs below |
-| Work grid | 2×2 | 2×2 (cards ~340px) | 1 column; cards keep a 16:9 cover |
+| Home intro | Full-width band above the spotlights: rail-width (184px) portrait in the rail, display-size name and bio in the content column on the same edge as the spotlight images | 96px portrait left, name and the three paragraphs right | Stacked: 64px portrait beside the name, paragraphs below |
+| Work grid | Removed 2026-11-17 (Mike: the cards only jumped to the spotlights and repeated their images) | — | — |
 | Spotlight | Rail text left; hero over two 2-up images right | Text above images; hero full width, 2-up below | Text above images; hero, then the two images as a swipe row |
 | Case study nav | Left rail: Back plus section list, sticky | "← Back" above the title; sticky "On this page" bar under the nav that expands to the section list | Same as tablet |
 | Case study header | Title, subtitle, intro, Role \| Scope, Awards | Same; Role and Scope stay side by side | Role and Scope stack |

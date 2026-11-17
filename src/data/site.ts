@@ -11,11 +11,13 @@ export const primaryNav = [
 export const profiles = {
   linkedin: 'https://www.linkedin.com/in/mikedemar/',
   dribbble: 'https://dribbble.com/mikedemar',
+  x: 'https://x.com/mikedemar',
 };
 
 export const footerLinks = [
   { label: 'LinkedIn', href: profiles.linkedin },
   { label: 'Dribbble', href: profiles.dribbble },
+  { label: 'X', href: profiles.x },
   { label: 'Resume', href: '/resume/' },
 ];
 
