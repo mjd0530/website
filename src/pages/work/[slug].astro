@@ -22,9 +22,25 @@ export async function getStaticPaths() {
 }
 
 const { project, next } = Astro.props;
-const { title, subtitle, summary, intro, impact, role, scope, awards, hero, video, sections } =
-  project.data;
+const {
+  title,
+  subtitle,
+  subtitleLink,
+  summary,
+  intro,
+  impact,
+  role,
+  scope,
+  awards,
+  hero,
+  video,
+  sections,
+} = project.data;
 const { Content } = await render(project);
+
+// Split the subtitle around its linked phrase, if it has one
+const [subtitleBefore, ...rest] = subtitleLink ? subtitle.split(subtitleLink.text) : [subtitle];
+const subtitleAfter = rest.join(subtitleLink?.text ?? '');
 
 const meta = [
   { label: 'Role', value: role },
@@ -45,7 +61,21 @@ const meta = [
     <article class="body">
       <header id="section-overview" class="cs-header" data-toc-target>
         <h1>{title}</h1>
-        <p class="subtitle">{subtitle}</p>
+        <p class="subtitle">
+          {subtitleLink ? (
+            <>
+              {subtitleBefore}
+              <a href={subtitleLink.href}>
+                {subtitleLink.text}
+                {subtitleLink.label && <span class="visually-hidden">: {subtitleLink.label}</span>}
+                <span aria-hidden="true">&nbsp;↗</span>
+              </a>
+              {subtitleAfter}
+            </>
+          ) : (
+            subtitle
+          )}
+        </p>
         <p>{summary}</p>
         {intro?.map((para) => (
           <p>{para}</p>

@@ -26,6 +26,7 @@ One folder per project: `src/content/projects/<slug>/index.mdx` plus its images.
 ```yaml
 title: Smart Share / Magic Move     # required
 subtitle: One-line headline         # required, gray line under the title
+subtitleLink: { text, href, label? } # optional; links `text` inside the subtitle on the case study page only
 summary: Outcome-first sentence(s). # required, home spotlight + case-study intro
 intro: ["…"]                        # optional, extra overview paragraph(s), case-study header only
 client: Lenovo UXD · Project Fuji   # required (screen-reader text on the card)
