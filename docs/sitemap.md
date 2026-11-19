@@ -7,7 +7,7 @@ _Last updated: 2026-11-09_
 | --- | --- | --- | --- |
 | `/` | Home | PageLayout | Left rail: intro (name, portrait, Cary line, philosophy, current role). Right: "Work" 2×2 project card grid, then one ProjectSpotlight per project |
 | `/work/` | Work | PageLayout | All projects, featured first |
-| `/work/magic-move/` | Case study | CaseStudyLayout | Magic Move |
+| `/work/tap-to-launch/` | Case study | CaseStudyLayout | Tap to Launch (was `/work/magic-move/`, which redirects here) |
 | `/work/hello-design-system/` | Case study | CaseStudyLayout | Hello Design System |
 | `/work/vantage/` | Case study | CaseStudyLayout | Vantage |
 | `/about/` | About | PageLayout | Portrait, bio, point of view, experience, patents, resume links |
@@ -80,7 +80,7 @@ Each group is a `<CaseStudySection id="…">` wrapping one or more `##` headings
 Put each project's images in its own folder, next to its `index.mdx`:
 
 ```
-src/content/projects/magic-move/
+src/content/projects/tap-to-launch/
   index.mdx
   images/
     cover.png  hero.png  spotlight-wide.png  spotlight-a.png  spotlight-b.png

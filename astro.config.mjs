@@ -8,4 +8,8 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
+  // Old case-study address from before the Tap to Launch rename (2026-11-19)
+  redirects: {
+    '/work/magic-move/': '/work/tap-to-launch/',
+  },
 });

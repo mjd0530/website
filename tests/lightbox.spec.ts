@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const page_ = '/work/magic-move/';
+const page_ = '/work/tap-to-launch/';
 
 test('clicking an image card opens the full-screen viewer', async ({ page }) => {
   await page.goto(page_);

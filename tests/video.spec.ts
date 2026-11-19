@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const path = '/work/magic-move/';
+const path = '/work/tap-to-launch/';
 
 test('case study video is first and does not autoplay', async ({ page }) => {
   await page.goto(path);

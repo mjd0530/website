@@ -62,3 +62,8 @@ _2026-11-09 · Accepted_
 **Lighthouse.** `lighthouserc.json` asserts Performance ≥ 0.95, Accessibility 1, SEO 1 (Best Practices warns below 0.95). Reports are written to `.lighthouseci/reports`, not public storage.
 **CI/CD.** `.github/workflows/ci.yml`: every push and PR runs check, lint, build, tests and Lighthouse; pushes to `main` then build with `withastro/action@v6` and deploy with `actions/deploy-pages@v5`.
 **One-time setup (Mike).** Repo Settings → Pages → Source: GitHub Actions. Custom domain is set by `public/CNAME`; DNS cut-over follows ADR-003.
+
+## ADR-009 Case-study slug: Tap to Launch
+_2026-11-19 · Accepted_
+
+The Magic Move case study moves from `/work/magic-move/` to `/work/tap-to-launch/` to match its title and the feature's final public name. `astro.config.mjs` redirects the old address. Media files keep their `/media/magic-move/` paths, which visitors rarely see.

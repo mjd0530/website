@@ -66,7 +66,7 @@ test('header fits at 320px without horizontal scroll', async ({ page }) => {
 });
 
 test('header stays visible while scrolling', async ({ page }) => {
-  await page.goto('/work/magic-move/');
+  await page.goto('/work/tap-to-launch/');
   const header = page.locator('[data-site-header]');
   await expect(header).not.toHaveAttribute('data-scrolled');
   await page.mouse.wheel(0, 1500);
@@ -77,7 +77,7 @@ test('header stays visible while scrolling', async ({ page }) => {
 });
 
 test('anchored sections land below the sticky header', async ({ page }) => {
-  await page.goto('/work/magic-move/#section-delivery');
+  await page.goto('/work/tap-to-launch/#section-delivery');
   const header = await page.locator('[data-site-header]').boundingBox();
   const heading = await page.getByRole('heading', { name: 'Delivery' }).boundingBox();
   expect(heading!.y).toBeGreaterThanOrEqual(header!.height);

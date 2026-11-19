@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const caseStudies = ['/work/magic-move/', '/work/hello-design-system/', '/work/vantage/'];
+const caseStudies = ['/work/tap-to-launch/', '/work/hello-design-system/', '/work/vantage/'];
 
 for (const path of caseStudies) {
   test(`${path}: every table-of-contents link has a target`, async ({ page }) => {
@@ -31,7 +31,7 @@ test('home spotlights link to the case study', async ({ page }) => {
 });
 
 test('gallery next button advances the count', async ({ page }) => {
-  await page.goto('/work/magic-move/');
+  await page.goto('/work/tap-to-launch/');
   // First gallery that has controls (more than one item)
   const gallery = page.locator('[data-gallery]:has([data-count])').first();
   await gallery.scrollIntoViewIfNeeded();
@@ -45,7 +45,7 @@ test('gallery next button advances the count', async ({ page }) => {
 
 test('compact table of contents sticks and jumps on small screens', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 700 });
-  await page.goto('/work/magic-move/');
+  await page.goto('/work/tap-to-launch/');
   const summary = page.getByText('On this page', { exact: true });
   await expect(summary).toBeVisible();
   await page.mouse.wheel(0, 2000);
@@ -56,7 +56,7 @@ test('compact table of contents sticks and jumps on small screens', async ({ pag
 });
 
 test('cards in a gallery are all the same size', async ({ page }) => {
-  await page.goto('/work/magic-move/');
+  await page.goto('/work/tap-to-launch/');
   for (const gallery of await page.locator('[data-gallery]').all()) {
     const boxes = await gallery
       .locator('[data-item] .media')
@@ -70,7 +70,7 @@ test('cards in a gallery are all the same size', async ({ page }) => {
 });
 
 test('Magic Move lists its key user experiences in the process section', async ({ page }) => {
-  await page.goto('/work/magic-move/');
+  await page.goto('/work/tap-to-launch/');
   const block = page.getByRole('region', { name: 'Key user experiences' });
   await expect(block.getByRole('listitem')).toHaveCount(3);
   await expect(
