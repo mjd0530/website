@@ -57,7 +57,7 @@ test('hover shows the short label tooltip; Escape hides it', async ({ page, isMo
   await expect(tip).toHaveCSS('opacity', '0');
 });
 
-for (const theme of ['light', 'dark', 'contrast']) {
+for (const theme of ['light', 'dark']) {
   test(`viewer has no axe violations when open (${theme})`, async ({ page }) => {
     await page.addInitScript((t) => localStorage.setItem('theme', t), theme);
     await page.goto(page_);

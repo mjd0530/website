@@ -32,12 +32,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <!--
-      Theme resolution before first paint: saved choice → prefers-contrast: more
-      → prefers-color-scheme → light. Must stay inline to avoid a flash.
+      Theme resolution before first paint: saved choice → prefers-color-scheme
+      → light. Must stay inline to avoid a flash. The high-contrast theme is
+      paused (tokens kept in tokens.css), so a saved 'contrast' falls through.
     -->
     <script is:inline>
       (() => {
-        const themes = ['light', 'dark', 'contrast'];
+        const themes = ['light', 'dark'];
         let saved = null;
         try {
           saved = localStorage.getItem('theme');
@@ -46,11 +47,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         }
         const theme = themes.includes(saved)
           ? saved
-          : matchMedia('(prefers-contrast: more)').matches
-            ? 'contrast'
-            : matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light';
+          : matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
         document.documentElement.dataset.theme = theme;
       })();
     </script>

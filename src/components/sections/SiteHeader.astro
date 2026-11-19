@@ -1,6 +1,6 @@
 ---
 import NavMenu from '../patterns/NavMenu.astro';
-import ThemeSwitcher from '../patterns/ThemeSwitcher.astro';
+import ThemeToggle from '../patterns/ThemeToggle.astro';
 import MdosLink from '../patterns/MdosLink.astro';
 import { primaryNav } from '../../data/site';
 
@@ -15,7 +15,7 @@ const { current } = Astro.props;
   <div class="container bar">
     <NavMenu items={primaryNav} current={current} />
     <div class="actions">
-      <ThemeSwitcher />
+      <ThemeToggle />
       <MdosLink />
     </div>
   </div>

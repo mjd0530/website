@@ -28,10 +28,13 @@ test('theme follows prefers-color-scheme when nothing is saved', async ({ page }
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
-test('theme follows prefers-contrast: more before colour scheme', async ({ page }) => {
+test('a saved contrast theme falls back to system preference while it is paused', async ({
+  page,
+}) => {
+  await page.addInitScript(() => localStorage.setItem('theme', 'contrast'));
   await page.emulateMedia({ colorScheme: 'dark', contrast: 'more' });
   await page.goto('/');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'contrast');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
 test('a saved theme wins over system preferences', async ({ page }) => {

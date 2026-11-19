@@ -10,4 +10,5 @@ export const pages = [
   '/404.html',
 ] as const;
 
-export const themes = ['light', 'dark', 'contrast'] as const;
+// 'contrast' is paused; add it back here when the high-contrast theme returns.
+export const themes = ['light', 'dark'] as const;

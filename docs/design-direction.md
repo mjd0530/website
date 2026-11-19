@@ -100,3 +100,4 @@ Poppins and Roboto were considered and rejected: both read as template defaults 
 | 2026-11-10 | Nav: Home · About · Resume · Contact, left-aligned as designed; theme switcher at the right end of the same row (Claude's call, delegated by Mike) |
 | 2026-11-10 | Home: every project gets a spotlight below the 2×2 grid, in the Magic Move pattern |
 | 2026-11-10 | Mobile and tablet layout approved (see Responsive layout) |
+| 2026-11-19 | High-contrast theme paused; the Theme dropdown is replaced by a sun/moon light ⇄ dark toggle at the right of the header (Mike) |

@@ -28,7 +28,7 @@ Source of truth: `docs/` (brief, design direction, design system, components, si
 
 ## Components
 - Reuse before creating. Extend with a prop/variant before adding a near-duplicate.
-- Every component: typed `Props`, semantic tokens only (no raw hex/px outside `tokens.css`), works in all 3 themes and at all breakpoints, keyboard + screen-reader correct.
+- Every component: typed `Props`, semantic tokens only (no raw hex/px outside `tokens.css`), works in light and dark (and the paused contrast theme where already styled) and at all breakpoints, keyboard + screen-reader correct.
 - Document each in `docs/component-library.md` (purpose, props, variants, a11y notes, example) when created or changed.
 - Avoid speculative abstraction; three real uses before generalizing.
 
@@ -50,10 +50,10 @@ Source of truth: `docs/` (brief, design direction, design system, components, si
 - No single-key shortcuts, scroll-jacking, or custom cursors. Never render content that only appears after animation.
 
 ## Themes
-- `light`, `dark`, `contrast` via `[data-theme]` on `<html>`. Primitive tokens → semantic tokens; components use semantic only.
-- Resolution: saved choice → `prefers-contrast: more` → `prefers-color-scheme` → light. Inline head script prevents flash. Persist in `localStorage` (wrapped in try/catch).
+- `light` and `dark` via `[data-theme]` on `<html>`, switched by the sun/moon ThemeToggle in the header. `contrast` is **paused** (2026-11-19): its tokens and `[data-theme='contrast']` rules stay in place but it is not offered or auto-selected, and tests cover light and dark only. Primitive tokens → semantic tokens; components use semantic only.
+- Resolution: saved choice (light/dark) → `prefers-color-scheme` → light. Inline head script prevents flash. Persist in `localStorage` (wrapped in try/catch).
 - Contrast theme is its own design: pure surfaces, borders on interactive elements, underlined links, thick focus; also support `forced-colors`.
-- Switcher is a labelled radio group, announced to screen readers.
+- Toggle is one `role="switch"` button named "Dark theme" (on = dark), announced to screen readers.
 
 ## Motion
 - Purposeful and quick: 150–400ms, tokenised easings. Prefer opacity/transform.
@@ -71,7 +71,7 @@ Source of truth: `docs/` (brief, design direction, design system, components, si
 
 ## Verify before calling it done
 - `npm run check && npm run build && npm run test` pass.
-- Look at it in the built-in browser at mobile/tablet/desktop in all three themes, keyboard-only, and with reduced motion.
+- Look at it in the built-in browser at mobile/tablet/desktop in light and dark, keyboard-only, and with reduced motion.
 - axe: zero violations. Lighthouse: Performance ≥ 95, Accessibility 100, SEO 100.
 - Report what was verified and what was not.
 

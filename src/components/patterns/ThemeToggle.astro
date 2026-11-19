@@ -1,0 +1,201 @@
+---
+/**
+ * Theme toggle: one switch with a sun (light) and a moon (dark). The thumb
+ * slides under the active icon. Exposed as role="switch" named "Dark theme",
+ * so screen readers hear "Dark theme, switch, on/off"; Space or Enter flips it.
+ * The choice is applied to <html data-theme> and saved to localStorage;
+ * BaseLayout's inline script restores it before paint.
+ * Hidden until JS runs, since without JS the theme cannot change.
+ */
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  role="switch"
+  aria-checked="false"
+  aria-label="Dark theme"
+  data-theme-toggle
+  hidden
+>
+  <span class="track" aria-hidden="true">
+    <span class="thumb"></span>
+    <svg class="icon icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"></path>
+    </svg>
+    <svg class="icon icon-moon" viewBox="0 0 24 24">
+      <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path>
+    </svg>
+  </span>
+</button>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  if (toggle) {
+    const html = document.documentElement;
+    const sync = () => toggle.setAttribute('aria-checked', String(html.dataset.theme === 'dark'));
+
+    toggle.addEventListener('click', () => {
+      const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        // Storage blocked: the theme still applies for this page view.
+      }
+      // Icon entrance animations only after a real toggle, never on page load.
+      toggle.toggleAttribute('data-animate', true);
+      sync();
+    });
+
+    sync();
+    toggle.hidden = false;
+  }
+</script>
+
+<style>
+  /* The button is the 44px target; the visible track sits centred inside it. */
+  .theme-toggle {
+    --track-w: 3.75rem; /* 60 */
+    --track-h: 2rem; /* 32 */
+    --track-pad: 0.1875rem; /* 3 */
+    --thumb: calc(var(--track-h) - 2 * var(--track-pad) - 2px); /* inside the 1px border */
+
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--tap-target);
+    min-height: var(--tap-target);
+    padding: 0;
+    color: var(--color-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .theme-toggle[hidden] {
+    display: none;
+  }
+
+  .track {
+    position: relative;
+    display: grid;
+    /* Icon columns match the thumb exactly, so each icon centres on it. */
+    grid-template-columns: var(--thumb) 1fr var(--thumb);
+    align-items: center;
+    width: var(--track-w);
+    height: var(--track-h);
+    padding: var(--track-pad);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .theme-toggle:hover .track {
+    border-color: var(--color-text);
+  }
+
+  .thumb {
+    position: absolute;
+    inset-block-start: var(--track-pad);
+    inset-inline-start: var(--track-pad);
+    width: var(--thumb);
+    height: var(--thumb);
+    background: var(--color-accent);
+    border-radius: 50%;
+  }
+
+  .theme-toggle[aria-checked='true'] .thumb {
+    transform: translateX(calc(var(--track-w) - 2 * var(--track-pad) - 2px - var(--thumb)));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .thumb {
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+    .icon {
+      transition: color var(--duration-base) var(--ease-out);
+    }
+
+    /*
+     * The newly active icon plays a short entrance as the thumb arrives:
+     * the sun spins in a quarter turn, the moon rocks in from a tilt.
+     * Re-matching the selector on each toggle restarts the animation.
+     */
+    .theme-toggle[data-animate][aria-checked='false'] .icon-sun {
+      animation: sun-on var(--duration-slow) var(--ease-spring);
+    }
+
+    .theme-toggle[data-animate][aria-checked='true'] .icon-moon {
+      animation: moon-on var(--duration-slow) var(--ease-spring);
+    }
+  }
+
+  @keyframes sun-on {
+    from {
+      transform: rotate(-90deg) scale(0.6);
+    }
+    to {
+      transform: rotate(0) scale(1);
+    }
+  }
+
+  @keyframes moon-on {
+    0% {
+      transform: rotate(35deg) scale(0.6);
+    }
+    60% {
+      transform: rotate(-10deg) scale(1.05);
+    }
+    100% {
+      transform: rotate(0) scale(1);
+    }
+  }
+
+  .icon {
+    position: relative; /* above the thumb */
+    justify-self: center;
+    grid-row: 1;
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-sun {
+    grid-column: 1;
+  }
+
+  .icon-moon {
+    grid-column: 3;
+  }
+
+  /* Active icon sits on the accent thumb; surface-raised on accent is ≥ 4.5:1 in both themes. */
+  .theme-toggle[aria-checked='false'] .icon-sun,
+  .theme-toggle[aria-checked='true'] .icon-moon {
+    color: var(--color-surface-raised);
+  }
+
+  @media (forced-colors: active) {
+    .track {
+      forced-color-adjust: none;
+      background: Canvas;
+      border-color: ButtonText;
+    }
+    .thumb {
+      background: Highlight;
+    }
+    .icon {
+      color: ButtonText;
+    }
+    .theme-toggle[aria-checked='false'] .icon-sun,
+    .theme-toggle[aria-checked='true'] .icon-moon {
+      color: HighlightText;
+    }
+  }
+</style>

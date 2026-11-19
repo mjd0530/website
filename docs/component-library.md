@@ -45,7 +45,7 @@ Example: <ComponentName … />
 ## Patterns — `src/components/patterns/`
 | Component | Purpose |
 | --- | --- |
-| ThemeSwitcher | **Built.** No props. Disclosure button (`aria-expanded`, accessible name "Theme: Light" etc.; visible "Theme" label from 640px up, icon-only below) opening a `fieldset` radio group Light / Dark / High contrast. Choosing applies `html[data-theme]` and saves to `localStorage`. Closes on Escape (focus returns to the button), outside click or focus leaving. Hidden until JS runs. Token-styled radios (3:1 ring in every theme); native radios under `forced-colors`. |
+| ThemeToggle | **Built.** No props. A single `<button role="switch">` named "Dark theme" (`aria-checked` = dark). Visible pill track (60×32, 1px `--color-border`) with a sun on the left and a moon on the right; an accent thumb slides under the active icon (motion off under `prefers-reduced-motion`). Space/Enter or click flips light ⇄ dark, applies `html[data-theme]` and saves to `localStorage`. 44px target. Hidden until JS runs. System colours under `forced-colors`. Replaced the ThemeSwitcher disclosure on 2026-11-19 when the high-contrast theme was paused. |
 | NavMenu | **Built.** Props: `items: {label, href}[]`, `current: string` (pathname), `label?` (default "Primary"). Inline text links at every width (no hamburger); current page bold + `aria-current="page"` (underlined in high contrast); 44px tall targets. |
 | ProjectCard | **Built.** Props: `href`, `title`, `client`, `cover`, `headingLevel?`, `priority?`. Whole card is one link (on home: `#project-<slug>`, a smooth in-page jump to that project's spotlight; the spotlight links to the case study); cover art fills the tile (art should show the project name); title + client are visually hidden for screen readers. Lift on hover (none under reduced motion). |
 | MetaList | **Built.** Props: `items: {label, value: string \| string[]}[]`. Laid out by shape: text values share a row (first takes only its width, the next the rest; stacks below 640px); array values span the full width as plain text joined with " · ". Case study header order: Role, Awards, then Focus. |
@@ -65,7 +65,7 @@ Example: <ComponentName … />
 ## Sections — `src/components/sections/`
 | Component | Purpose |
 | --- | --- |
-| SiteHeader | **Built.** Props: `current: string`. NavMenu (items from `src/data/site.ts`) left, ThemeSwitcher right. Sticky with a frosted backdrop (80% surface + 16px blur); hairline appears once scrolled. Solid in high contrast, under `prefers-reduced-transparency`, or without backdrop-filter. Height token `--header-height` offsets other sticky elements and anchor scrolling. |
+| SiteHeader | **Built.** Props: `current: string`. NavMenu (items from `src/data/site.ts`) left, ThemeToggle right. Sticky with a frosted backdrop (80% surface + 16px blur); hairline appears once scrolled. Solid in high contrast, under `prefers-reduced-transparency`, or without backdrop-filter. Height token `--header-height` offsets other sticky elements and anchor scrolling. |
 | SiteFooter | **Built.** No props. Hairline rule within the content column, © year, LinkedIn · Dribbble · Resume (from `src/data/site.ts`). TODO(mike): public email. |
 | Hero | Home positioning statement |
 | FeaturedWork | Removed from home 2026-11-17; spotlights follow the intro directly |
