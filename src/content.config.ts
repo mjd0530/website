@@ -39,6 +39,7 @@ const projects = defineCollection({
           src: z.string().startsWith('/media/'),
           poster: image(),
           title: z.string(),
+          summary: z.string().optional(),
           description: z.string().optional(),
           captions: z.string().optional(),
           duration: z.string().optional(),

@@ -16,6 +16,8 @@ interface Props {
   title: string;
   /** Public path to a WebVTT captions file (needed when there is speech) */
   captions?: string;
+  /** One visible sentence under the video: what it is and why it matters */
+  summary?: string;
   /** Plain-text description of what the video shows */
   description?: string;
   /** e.g. "0:53" — shown on the play button */
@@ -28,6 +30,7 @@ const {
   poster,
   title,
   captions,
+  summary,
   description,
   duration,
   ratio = `${poster.width} / ${poster.height}`,
@@ -72,9 +75,15 @@ const descId = description ? `video-desc-${Math.random().toString(36).slice(2, 8
       </span>
     </button>
   </div>
+  {summary && <figcaption class="summary">{summary}</figcaption>}
   {description && (
     <details class="description">
-      <summary>Video description</summary>
+      <summary>
+        Video description
+        <svg class="chevron" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M4 6l4 4 4-4"></path>
+        </svg>
+      </summary>
       <p id={descId}>{description}</p>
     </details>
   )}
@@ -189,6 +198,17 @@ const descId = description ? `video-desc-${Math.random().toString(36).slice(2, 8
     }
   }
 
+  .summary {
+    margin-block-start: var(--space-3);
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+
+  .summary + .description {
+    margin-block-start: 0;
+  }
+
   .description {
     margin-block-start: var(--space-3);
     font-size: var(--text-ui);
@@ -197,9 +217,36 @@ const descId = description ? `video-desc-${Math.random().toString(36).slice(2, 8
   .description summary {
     display: inline-flex;
     align-items: center;
+    gap: var(--space-2);
     min-height: var(--tap-target);
     color: var(--color-text-muted);
     cursor: pointer;
+  }
+
+  /* Points down when closed, up when open, so it's clear text appears below */
+  .chevron {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .description[open] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .description summary:hover {
+    color: var(--color-text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chevron {
+      transition: none;
+    }
   }
 
   .description p {
