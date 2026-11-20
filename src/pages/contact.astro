@@ -1,0 +1,23 @@
+---
+// Placeholder until the Contact page is built in Phase 5.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profiles } from '../data/site';
+---
+
+<BaseLayout title="Contact" description="Get in touch with Mike DeMar.">
+  <div class="container stub">
+    <h1>Contact</h1>
+    <p>
+      The best way to reach me for now is <a href={profiles.linkedin}>LinkedIn</a>. You can also
+      find my work on <a href={profiles.dribbble}>Dribbble</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .stub {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: var(--space-8);
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found" description="This page doesn't exist.">
+  <div class="container not-found">
+    <p class="meta">404</p>
+    <h1>Page not found</h1>
+    <p>
+      This page doesn't exist or has moved. <a href="/">Go to the home page</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: var(--space-10);
+  }
+
+  .not-found .meta {
+    color: var(--color-text-muted);
+  }
+</style>

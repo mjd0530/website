@@ -1,0 +1,90 @@
+---
+/**
+ * A table-of-contents target in a case study body. Groups one or more h2
+ * blocks; its `id` must match an entry in the project's `sections` frontmatter.
+ */
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section id={`section-${id}`} class="cs-section" data-toc-target>
+  <slot />
+</section>
+
+<style>
+  /* Each section is a chapter (Challenge, Process, Delivery, Outcome): a hairline
+     rule and its h2 open it. Subsections inside it use h3. */
+  .cs-section {
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-border-subtle);
+  }
+
+  :global([data-theme='contrast']) .cs-section {
+    border-block-start-color: var(--color-border);
+  }
+
+  /* Flow spacing: tight under headings, generous before the next heading.
+     Paragraphs sit about 0.6 of a line apart. */
+  .cs-section > :global(* + *) {
+    margin-block-start: var(--space-4);
+  }
+
+  .cs-section > :global(h2) {
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+  }
+
+  .cs-section > :global(h2 + *) {
+    margin-block-start: var(--space-4);
+  }
+
+  .cs-section > :global(* + .stats),
+  .cs-section > :global(.stats + p),
+  .cs-section > :global(* + .experiences),
+  .cs-section > :global(.experiences + *),
+  .cs-section > :global(* + .study),
+  .cs-section > :global(.study + *),
+  .cs-section > :global(* + .gallery),
+  .cs-section > :global(* + .media-grid),
+  .cs-section > :global(* + .video) {
+    margin-block-start: var(--space-6);
+  }
+
+  /* Pull statement (MDX "> …"): the section's key idea in the display face,
+     set off by an accent rule. A measure in rem, not ch: the condensed display
+     face makes ch tiny. Balanced lines avoid a one-word last line. */
+  .cs-section > :global(blockquote) {
+    max-width: 34rem;
+    margin-inline: 0;
+    padding-block: var(--space-1);
+    padding-inline-start: var(--space-5);
+    border-inline-start: 3px solid var(--color-accent);
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+
+  .cs-section > :global(blockquote p) {
+    max-width: none;
+  }
+
+  .cs-section > :global(* + blockquote),
+  .cs-section > :global(blockquote + *) {
+    margin-block-start: var(--space-6);
+  }
+
+  /* Subsection heads: one fixed gap above, whatever comes before (kept last so
+     it wins over the media and quote rules); close to the chapter head */
+  .cs-section > :global(* + h3) {
+    margin-block-start: var(--stack-gap);
+  }
+
+  .cs-section > :global(h2 + h3) {
+    margin-block-start: var(--space-5);
+  }
+</style>

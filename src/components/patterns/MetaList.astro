@@ -1,0 +1,51 @@
+---
+/**
+ * Label / value pairs for a case study header, laid out by shape:
+ * short text values share a row (the first takes only the width it needs,
+ * the last takes the rest); list values span the full width as text joined with " · ".
+ */
+interface Props {
+  items: { label: string; value: string | string[] }[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="meta-list">
+  {items.map((i) => (
+    <div class:list={{ wide: Array.isArray(i.value) }}>
+      <dt class="meta">{i.label}</dt>
+      <dd>{Array.isArray(i.value) ? i.value.join(' · ') : i.value}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .meta-list {
+    display: grid;
+    gap: var(--space-5) var(--space-8);
+    margin: var(--space-2) 0 0;
+    max-width: 60rem;
+  }
+
+  @media (min-width: 40em) {
+    .meta-list {
+      grid-template-columns: max-content minmax(0, 1fr);
+    }
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+
+  dd {
+    max-width: 52ch;
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-ui);
+    line-height: var(--leading-body);
+  }
+
+  .wide dd {
+    max-width: none;
+  }
+</style>

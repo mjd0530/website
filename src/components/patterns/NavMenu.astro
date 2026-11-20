@@ -1,0 +1,70 @@
+---
+/**
+ * Primary navigation: text links, current page in bold with aria-current.
+ * Stays inline at every width (four short links fit at 360px); wraps only when it must.
+ */
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: NavItem[];
+  /** Current pathname, e.g. Astro.url.pathname */
+  current: string;
+  label?: string;
+}
+
+const { items, current, label = 'Primary' } = Astro.props;
+const isCurrent = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
+---
+
+<nav class="nav" aria-label={label}>
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: clamp(var(--space-1), 3vw, var(--space-6));
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding-inline: var(--space-2);
+    margin-inline: calc(var(--space-2) * -1);
+    font-size: var(--text-ui);
+    line-height: var(--leading-ui);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+
+  a[aria-current='page'] {
+    font-weight: 600;
+  }
+
+  :global([data-theme='contrast']) a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+  }
+</style>

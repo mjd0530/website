@@ -1,0 +1,89 @@
+---
+/**
+ * Headline impact numbers. Each stat reads as one phrase ("86 System Usability Scale
+ * score"), so it is a list item with the value first. Up to four share a row; exactly
+ * four sit 2 × 2.
+ * Final values are in the HTML: no count-up animation.
+ */
+interface Props {
+  items: { value: string; label: string }[];
+  /** 'accent' for results (case study Impact), so they read apart from problem stats */
+  tone?: 'neutral' | 'accent';
+}
+
+const { items, tone = 'neutral' } = Astro.props;
+---
+
+<ul class:list={['stats', { accent: tone === 'accent', four: items.length === 4 }]}>
+  {items.map((s) => (
+    <li>
+      <span class="value">{s.value}</span> <span class="label">{s.label}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  /* 2–4 cards share the row evenly; 2 columns on phones */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(9.5rem, 100%), 1fr));
+    gap: var(--card-gap);
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Four cards sit 2 × 2: four in a row is too narrow for values like "80–88%",
+     and three-plus-one leaves the last card alone */
+  .stats.four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Phones fit two cards a row: an odd last card spans the row instead of sitting alone */
+  @media (max-width: 39.99em) {
+    li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+  }
+
+  :global([data-theme='contrast']) li {
+    border: 2px solid var(--color-border);
+  }
+
+  .value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .label {
+    font-size: var(--text-small);
+    line-height: var(--leading-ui);
+    color: var(--color-text-muted);
+  }
+
+  /* Results: accent value on a faint accent tint */
+  .accent li {
+    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface-raised));
+    border-color: color-mix(in srgb, var(--color-accent) 20%, var(--color-border-subtle));
+  }
+
+  .accent .value {
+    color: var(--color-accent);
+  }
+
+  :global([data-theme='contrast']) .accent li {
+    background: var(--color-surface-raised);
+    border-color: var(--color-border);
+  }
+</style>

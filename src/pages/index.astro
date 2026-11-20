@@ -1,0 +1,178 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.jpg';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profiles } from '../data/site';
+import ProjectSpotlight from '../components/sections/ProjectSpotlight.astro';
+
+const projects = (await getCollection('projects', (p) => p.data.status === 'public')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Mike DeMar"
+  description="Mike DeMar is a UX design leader in the Raleigh-Durham area of North Carolina, leading a team of UX designers at Lenovo."
+>
+  <div class="container home">
+    <section class="intro rail-layout" aria-labelledby="intro-title">
+      <Image
+        class="portrait"
+        src={portrait}
+        alt="Mike DeMar smiling, wearing glasses and a plaid shirt, with autumn leaves behind him"
+        widths={[128, 192, 368]}
+        sizes="(min-width: 64em) 184px, (min-width: 40em) 96px, 64px"
+        loading="eager"
+      />
+      <h1 id="intro-title">Hi, I'm Mike DeMar</h1>
+      <div class="bio">
+        <p class="lead">
+          I'm a UX design leader based in the Raleigh-Durham area of North Carolina.
+        </p>
+        <p>
+          I specialize in product design and human-centered experiences, with a particular interest
+          in how hardware, software, design systems, and emerging technologies come together to
+          create meaningful products and experiences that make a positive difference in people's
+          lives.
+        </p>
+        <p>I'm currently a Lead UX Designer at Lenovo.</p>
+        <ul class="social" aria-label="Elsewhere">
+          <li>
+            <a href={profiles.linkedin}>
+              LinkedIn<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={profiles.dribbble}>
+              Dribbble<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={profiles.x}>
+              X<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    {projects.map((p) => (
+      <ProjectSpotlight project={p} />
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    display: grid;
+    gap: var(--section-gap);
+    padding-block: var(--space-6) 0;
+  }
+
+  /* Mobile: small portrait beside the name, bio below */
+  .intro {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-5) var(--space-4);
+    align-items: center;
+  }
+
+  .intro h1 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: var(--text-h1);
+  }
+
+  .portrait {
+    grid-column: 1;
+    grid-row: 1;
+    width: 4rem;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  :global([data-theme='contrast']) .portrait {
+    border: 2px solid var(--color-border);
+  }
+
+  .bio {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+    line-height: var(--leading-body);
+  }
+
+  .bio .lead {
+    font-size: var(--text-subtitle);
+  }
+
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-ui);
+  }
+
+  /* Same treatment as "View case study" in the spotlights */
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .social a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  :global([data-theme='contrast']) .social a {
+    text-decoration: underline;
+  }
+
+  /* Tablet and up: portrait on its own column, name and bio beside it */
+  @media (min-width: 40em) {
+    .intro {
+      grid-template-columns: 6rem minmax(0, 1fr);
+      align-items: start;
+      row-gap: var(--space-5);
+    }
+
+    .portrait {
+      width: 6rem;
+      grid-row: 1 / span 2;
+    }
+
+    .bio {
+      grid-column: 2;
+    }
+  }
+
+  /* Desktop: portrait sits in the same rail the spotlights use, so the intro and
+     the project text below line up on one edge */
+  @media (min-width: 64em) {
+    .intro {
+      grid-template-columns: var(--rail-width) minmax(0, 1fr);
+      /* The shared rail gap, so the intro text starts on the same edge as the
+         spotlight images below */
+      column-gap: var(--rail-gap);
+    }
+
+    .portrait {
+      width: var(--rail-width);
+    }
+
+    .intro h1 {
+      font-size: var(--text-display);
+    }
+  }
+</style>

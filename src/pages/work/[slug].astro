@@ -1,0 +1,222 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Media from '../../components/primitives/Media.astro';
+import Video from '../../components/primitives/Video.astro';
+import MetaList from '../../components/patterns/MetaList.astro';
+import StatGrid from '../../components/patterns/StatGrid.astro';
+import TOC from '../../components/patterns/TOC.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', (p) => p.data.status === 'public')).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  // Each case study ends by pointing to the next one in order, wrapping to the first
+  return projects.map((project, i) => {
+    const next = projects[(i + 1) % projects.length];
+    return {
+      params: { slug: project.id },
+      props: { project, next: next.id === project.id ? undefined : next },
+    };
+  });
+}
+
+const { project, next } = Astro.props;
+const {
+  title,
+  subtitle,
+  subtitleLink,
+  summary,
+  intro,
+  impact,
+  role,
+  scope,
+  awards,
+  hero,
+  video,
+  sections,
+} = project.data;
+const { Content } = await render(project);
+
+// Split the subtitle around its linked phrase, if it has one
+const [subtitleBefore, ...rest] = subtitleLink ? subtitle.split(subtitleLink.text) : [subtitle];
+const subtitleAfter = rest.join(subtitleLink?.text ?? '');
+
+const meta = [
+  { label: 'Role', value: role },
+  ...(awards ? [{ label: 'Awards', value: awards }] : []),
+  { label: 'Focus', value: scope },
+];
+---
+
+<BaseLayout title={title} description={summary}>
+  <div class="container rail-layout case-study">
+    <aside class="rail">
+      <a class="back" href="/#work-title">
+        <span aria-hidden="true">←&nbsp;</span>Back
+      </a>
+      <TOC sections={sections} />
+    </aside>
+
+    <article class="body">
+      <header id="section-overview" class="cs-header" data-toc-target>
+        <h1>{title}</h1>
+        <p class="subtitle">
+          {subtitleLink ? (
+            <>
+              {subtitleBefore}
+              <a href={subtitleLink.href}>
+                {subtitleLink.text}
+                {subtitleLink.label && <span class="visually-hidden">: {subtitleLink.label}</span>}
+                <span aria-hidden="true">&nbsp;↗</span>
+              </a>
+              {subtitleAfter}
+            </>
+          ) : (
+            subtitle
+          )}
+        </p>
+        <p>{summary}</p>
+        {intro?.map((para) => (
+          <p>{para}</p>
+        ))}
+        {impact && (
+          <section class="impact" aria-labelledby="impact-title">
+            <h2 id="impact-title" class="meta">
+              Impact
+            </h2>
+            <StatGrid items={impact} tone="accent" />
+          </section>
+        )}
+        <MetaList items={meta} />
+        {video ? (
+          <Video {...video} ratio="16 / 9" />
+        ) : (
+          <Media {...hero} ratio="950 / 528" priority sizes="(min-width: 64em) 66vw, 100vw" />
+        )}
+      </header>
+      <div class="content">
+        <Content />
+      </div>
+      {next && (
+        <nav class="next" aria-label="Next case study">
+          <a href={`/work/${next.id}/`}>
+            <span class="meta">Next case study</span>
+            <span class="next-title">
+              {next.data.title}
+              <span aria-hidden="true">&nbsp;→</span>
+            </span>
+          </a>
+        </nav>
+      )}
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding-block-start: var(--space-6);
+  }
+
+  /* Below desktop the rail dissolves so the compact TOC can stick for the whole page */
+  .rail {
+    display: contents;
+  }
+
+  @media (min-width: 64em) {
+    .rail {
+      display: grid;
+      gap: var(--space-5);
+      align-content: start;
+      position: sticky;
+      inset-block-start: var(--sticky-top);
+      align-self: start;
+    }
+  }
+
+  .back {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    font-size: var(--text-ui);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .back:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--section-gap);
+    min-width: 0;
+  }
+
+  .cs-header {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cs-header h1 + .subtitle {
+    margin-block-start: calc(var(--space-2) * -1);
+  }
+
+  .impact {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+  }
+
+  .impact h2 {
+    font-family: var(--font-text);
+    letter-spacing: normal;
+  }
+
+  .cs-header :global(.media),
+  .cs-header :global(.video) {
+    margin-block-start: var(--space-5);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--section-gap);
+  }
+
+  /* Closing link to the next case study: a full-width card, the whole card is the target */
+  .next a {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    color: var(--color-text);
+    text-decoration: none;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+  }
+
+  .next a:hover .next-title {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .next a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  :global([data-theme='contrast']) .next a {
+    border: 2px solid var(--color-border);
+  }
+
+  .next-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+  }
+</style>

@@ -1,0 +1,73 @@
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
+
+// Content model: docs/sitemap.md. A missing required field fails the build.
+const projects = defineCollection({
+  loader: glob({ pattern: '**/index.mdx', base: './src/content/projects' }),
+  schema: ({ image }) => {
+    // An image slot. `src` is optional while real assets are being gathered:
+    // without it the site renders a labelled placeholder tile. `alt` is always required
+    // ("" only for decorative images).
+    const media = z.object({
+      src: image().optional(),
+      alt: z.string(),
+      label: z.string().optional(),
+    });
+
+    return z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        // Optional link on part of the subtitle, case study page only. `text` must appear in
+        // `subtitle`; `label` is extra screen-reader context, like the body's external links.
+        subtitleLink: z
+          .object({ text: z.string(), href: z.string().url(), label: z.string().optional() })
+          .optional(),
+        summary: z.string(),
+        // Extra overview paragraph(s) shown only in the case study header, after the summary
+        intro: z.array(z.string()).optional(),
+        client: z.string(),
+        years: z.string(),
+        role: z.string(),
+        scope: z.array(z.string()).min(1),
+        awards: z.string().optional(),
+        team: z.string().optional(),
+        impact: z
+          .array(z.object({ value: z.string(), label: z.string() }))
+          .max(4)
+          .optional(),
+        cover: media,
+        hero: media,
+        // Optional film shown first on the case study instead of the hero image. Never autoplays.
+        video: z
+          .object({
+            src: z.string().startsWith('/media/'),
+            poster: image(),
+            title: z.string(),
+            summary: z.string().optional(),
+            description: z.string().optional(),
+            captions: z.string().optional(),
+            duration: z.string().optional(),
+          })
+          .optional(),
+        // Home spotlight: one hero image on its own, or one wide image then two.
+        spotlight: z.union([z.tuple([media]), z.tuple([media, media, media])]),
+        // Case-study table of contents. Each id must match a <Section id> in the body.
+        sections: z.array(z.object({ id: z.string(), label: z.string() })).min(1),
+        accent: z
+          .string()
+          .regex(/^#[0-9a-f]{6}$/i)
+          .optional(),
+        featured: z.boolean().default(false),
+        order: z.number().int(),
+        status: z.enum(['public', 'archive']).default('public'),
+      })
+      .refine((d) => !d.subtitleLink || d.subtitle.includes(d.subtitleLink.text), {
+        message: 'subtitleLink.text must appear in subtitle',
+        path: ['subtitleLink'],
+      });
+  },
+});
+
+export const collections = { projects };

@@ -1,0 +1,61 @@
+---
+title: Hello Design System
+subtitle: 'Placeholder headline: one line on what Hello Design System is'
+# TODO(mike): all fields below are placeholders
+summary: Placeholder summary. Lead with the outcome, then what the system is and your part in it.
+client: Lenovo UXD
+years: TBD
+role: Role to come
+scope: [Design systems]
+cover: { alt: 'Hello Design System cover', label: 'Cover art (shows the project name)' }
+hero: { alt: 'Hello Design System overview', label: 'Hero image' }
+spotlight:
+  - { alt: 'Hello Design System key visual', label: 'Wide key visual' }
+  - { alt: 'Component examples', label: 'Components' }
+  - { alt: 'Token examples', label: 'Tokens' }
+sections:
+  - { id: overview, label: Overview }
+  - { id: impact, label: Impact }
+  - { id: process, label: Process }
+  - { id: outcome, label: Outcome }
+order: 2
+---
+
+import CaseStudySection from '../../../components/sections/CaseStudySection.astro';
+import Gallery from '../../../components/patterns/Gallery.astro';
+
+<CaseStudySection id="impact">
+
+## Challenge
+
+Placeholder.
+
+## Impact
+
+Placeholder.
+
+</CaseStudySection>
+
+<CaseStudySection id="process">
+
+## Process
+
+Placeholder.
+
+<Gallery
+  label="Process"
+  items={[
+    { alt: 'Process image 1', label: 'Process image 1' },
+    { alt: 'Process image 2', label: 'Process image 2' },
+  ]}
+/>
+
+</CaseStudySection>
+
+<CaseStudySection id="outcome">
+
+## Outcome
+
+Placeholder.
+
+</CaseStudySection>
