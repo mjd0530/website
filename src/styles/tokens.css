@@ -105,7 +105,7 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* small overshoot, for playful UI details */
 
-  /* ── Full-screen viewer: frosted white in light and dark ─ */
+  /* ── Full-screen viewer: frosted white (dark and contrast themes override) ─ */
   --color-scrim: rgb(255 255 255 / 0.55);
   --color-scrim-blur: 20px;
   --color-scrim-bar: rgb(
@@ -167,6 +167,16 @@
   --color-border: var(--ink-500);
   --color-accent: var(--violet-300);
   --color-focus: var(--violet-300);
+  /* Full-screen viewer: frosted ink to match the dark page */
+  --color-scrim: rgb(12 14 21 / 0.7); /* ink-950 */
+  --color-scrim-bar: rgb(21 25 38 / 0.9); /* ink-900: keeps caption/count contrast over any page */
+  --color-on-scrim: var(--ink-50);
+  --color-on-scrim-muted: var(--ink-300);
+  --color-on-scrim-control: rgb(38 44 60 / 0.7); /* ink-800 */
+  --color-on-scrim-control-hover: var(--ink-800);
+  --color-on-scrim-border: var(--ink-500);
+  --color-on-scrim-focus: var(--violet-300);
+  --color-on-scrim-image-edge: var(--ink-800);
 }
 
 /* ── High contrast: flat black, no wash, visible edges everywhere ── */
