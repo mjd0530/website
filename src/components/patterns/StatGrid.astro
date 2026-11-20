@@ -1,7 +1,8 @@
 ---
 /**
- * Headline impact numbers. Each stat reads as one phrase ("40% of 1,484 Aura
- * owners used Smart Share"), so it is a list item with the value first.
+ * Headline impact numbers. Each stat reads as one phrase ("86 System Usability Scale
+ * score"), so it is a list item with the value first. Up to four share a row; exactly
+ * four sit 2 × 2.
  * Final values are in the HTML: no count-up animation.
  */
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 const { items, tone = 'neutral' } = Astro.props;
 ---
 
-<ul class:list={['stats', { accent: tone === 'accent' }]}>
+<ul class:list={['stats', { accent: tone === 'accent', four: items.length === 4 }]}>
   {items.map((s) => (
     <li>
       <span class="value">{s.value}</span> <span class="label">{s.label}</span>
@@ -29,6 +30,12 @@ const { items, tone = 'neutral' } = Astro.props;
     gap: var(--card-gap);
     padding: 0;
     list-style: none;
+  }
+
+  /* Four cards sit 2 × 2: four in a row is too narrow for values like "80–88%",
+     and three-plus-one leaves the last card alone */
+  .stats.four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   /* Phones fit two cards a row: an odd last card spans the row instead of sitting alone */
