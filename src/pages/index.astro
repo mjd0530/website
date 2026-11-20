@@ -27,20 +27,32 @@ const projects = (await getCollection('projects', (p) => p.data.status === 'publ
       />
       <h1 id="intro-title">Hi, I'm Mike DeMar</h1>
       <div class="bio">
-        <p class="lead">I'm a UX design leader based in the Raleigh-Durham area of North Carolina.</p>
+        <p class="lead">
+          I'm a UX design leader based in the Raleigh-Durham area of North Carolina.
+        </p>
         <p>
           I specialize in product design and human-centered experiences, with a particular interest
           in how hardware, software, design systems, and emerging technologies come together to
           create meaningful products and experiences that make a positive difference in people's
           lives.
         </p>
-        <p>
-          I'm currently a Lead UX Designer at Lenovo.
-        </p>
+        <p>I'm currently a Lead UX Designer at Lenovo.</p>
         <ul class="social" aria-label="Elsewhere">
-          <li><a href={profiles.linkedin}>LinkedIn<span aria-hidden="true">&nbsp;↗</span></a></li>
-          <li><a href={profiles.dribbble}>Dribbble<span aria-hidden="true">&nbsp;↗</span></a></li>
-          <li><a href={profiles.x}>X<span aria-hidden="true">&nbsp;↗</span></a></li>
+          <li>
+            <a href={profiles.linkedin}>
+              LinkedIn<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={profiles.dribbble}>
+              Dribbble<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={profiles.x}>
+              X<span aria-hidden="true">&nbsp;↗</span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>
