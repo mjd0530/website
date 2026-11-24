@@ -88,11 +88,18 @@ export const patents = [
 export const awards = [
   {
     name: 'Lenovo Corporate Award, Team Excellence',
-    detail: 'Project Fuji Aura experience',
-    year: 'FY24/25',
+    detail: 'Project Fuji / Aura experience',
+    year: '2025',
   },
-  // TODO(mike): confirm the year (LinkedIn post is about 2023).
-  { name: 'Thought Leadership Award', detail: 'Lenovo User Experience Design', year: '2023' },
+  {
+    name: 'Circle of Excellence “Dream Team” Award',
+    detail: 'Lenovo Group Operations · One Lenovo Cake Design System',
+    year: '2024',
+  },
+  { name: 'VP Team Excellence Award', detail: 'Lenovo', year: '2024' },
+  { name: 'One Lenovo Award', detail: 'Lenovo UXD & PDO', year: '2024' },
+  { name: 'CSW Team Excellence Award', detail: 'Lenovo', year: '2023' },
+  { name: 'Thought Leadership Award', detail: 'Lenovo UXD & PDO', year: '2023' },
   { name: 'Citrix All-Star Award', detail: 'Citrix', year: '2018' },
   { name: 'Intuit Spotlight Award, Drive for Results', detail: 'Three awards', year: '2013' },
   {
