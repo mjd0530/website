@@ -97,9 +97,17 @@ export const awards = [
     year: '2024',
   },
   { name: 'VP Team Excellence Award', detail: 'Lenovo', year: '2024' },
-  { name: 'One Lenovo Award', detail: 'Lenovo UXD & PDO', year: '2024' },
-  { name: 'CSW Team Excellence Award', detail: 'Lenovo', year: '2023' },
-  { name: 'Thought Leadership Award', detail: 'Lenovo UXD & PDO', year: '2023' },
+  {
+    name: 'One Lenovo Award',
+    detail: 'Lenovo User Experience Design and Product Diversity Office',
+    year: '2024',
+  },
+  { name: 'Team Excellence Award', detail: 'Lenovo Cloud and Software', year: '2023' },
+  {
+    name: 'Thought Leadership Award',
+    detail: 'Lenovo User Experience Design and Product Diversity Office',
+    year: '2023',
+  },
   { name: 'Citrix All-Star Award', detail: 'Citrix', year: '2018' },
   { name: 'Intuit Spotlight Award, Drive for Results', detail: 'Three awards', year: '2013' },
   {
