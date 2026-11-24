@@ -1,19 +1,358 @@
 ---
-// Placeholder until the Resume page is built in Phase 5.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { email, profiles } from '../data/site';
+import {
+  headline,
+  summary,
+  experience,
+  earlier,
+  patents,
+  awards,
+  education,
+  volunteer,
+  skills,
+  pdfPath,
+} from '../data/resume';
 ---
 
-<BaseLayout title="Resume" description="Resume of Mike DeMar, UX and product designer.">
-  <div class="container stub">
-    <h1>Resume</h1>
-    <p>This page is on the way.</p>
-  </div>
+<BaseLayout
+  title="Resume"
+  description="Resume of Mike DeMar, Lead UX Designer at Lenovo, designing products since 2008."
+>
+  <article class="container resume">
+    <header class="resume-header rail-layout">
+      <div class="title">
+        <h1>Mike DeMar</h1>
+        <p class="subtitle">{headline}</p>
+      </div>
+      <div class="intro">
+        <p class="summary">{summary}</p>
+        <ul class="contact" aria-label="Contact">
+          <li>Raleigh-Durham, NC</li>
+          <li>
+            <a href={`mailto:${email}`}>{email}</a>
+          </li>
+          <li class="screen-only">
+            <a href={profiles.linkedin}>LinkedIn</a>
+          </li>
+          <li class="print-only">mikedemar.com</li>
+          <li class="print-only">linkedin.com/in/mikedemar</li>
+        </ul>
+        <p class="screen-only download">
+          <a href={pdfPath} download>
+            Download PDF
+          </a>
+        </p>
+      </div>
+    </header>
+
+    <section class="rail-layout block" aria-labelledby="experience">
+      <h2 id="experience">Experience</h2>
+      <div class="entries">
+        {experience.map((job) => (
+          <div class="job">
+            <h3>{job.company}</h3>
+            <ul class="roles">
+              {job.roles.map((r) => (
+                <li>
+                  <span class="role">{r.title}</span>
+                  <span class="meta dates">{r.dates}</span>
+                </li>
+              ))}
+            </ul>
+            <ul class="points">
+              {job.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div class="job">
+          <h3>Earlier</h3>
+          <ul class="roles">
+            {earlier.map((e) => (
+              <li>
+                <span class="role">
+                  {e.title}, {e.company}
+                </span>
+                <span class="meta dates">{e.dates}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="rail-layout block" aria-labelledby="recognition">
+      <h2 id="recognition">Recognition</h2>
+      <div class="entries">
+        <div class="job">
+          <h3>Design patents</h3>
+          <ul class="roles">
+            {patents.map((p) => (
+              <li>
+                <span class="role">
+                  {p.name}
+                  <span class="meta detail">{p.id}</span>
+                </span>
+                <span class="meta dates">{p.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="job">
+          <h3>Awards</h3>
+          <ul class="roles">
+            {awards.map((a) => (
+              <li>
+                <span class="role">
+                  {a.name}
+                  <span class="meta detail">{a.detail}</span>
+                </span>
+                <span class="meta dates">{a.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="rail-layout block" aria-labelledby="education">
+      <h2 id="education">Education</h2>
+      <ul class="roles entries">
+        <li>
+          <span class="role">
+            {education.degree}
+            <span class="meta detail">{education.school}</span>
+          </span>
+          <span class="meta dates">{education.year}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="rail-layout block" aria-labelledby="skills">
+      <h2 id="skills">Skills</h2>
+      <p class="entries skills">{skills.join(' · ')}</p>
+    </section>
+
+    <section class="rail-layout block" aria-labelledby="volunteer">
+      <h2 id="volunteer">Volunteer</h2>
+      <ul class="roles entries">
+        <li>
+          <span class="role">
+            {volunteer.role}
+            <span class="meta detail">{volunteer.org}</span>
+          </span>
+          <span class="meta dates">{volunteer.dates}</span>
+        </li>
+      </ul>
+    </section>
+  </article>
 </BaseLayout>
 
 <style>
-  .stub {
+  .resume {
+    display: grid;
+    gap: var(--section-gap);
+    padding-block: var(--space-6) var(--section-gap);
+  }
+
+  .title {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  .intro {
     display: grid;
     gap: var(--space-5);
-    padding-block: var(--space-8);
+    max-width: var(--measure);
+  }
+
+  .summary {
+    font-size: var(--text-subtitle);
+    line-height: var(--leading-body);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-ui);
+  }
+
+  .download a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text);
+    font-size: var(--text-ui);
+    text-decoration: none;
+  }
+
+  .download a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .block h2 {
+    font-size: var(--text-h2);
+  }
+
+  .entries {
+    display: grid;
+    gap: var(--space-7);
+    max-width: var(--measure);
+    margin: 0;
+  }
+
+  .job {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  h3 {
+    font-family: var(--font-text);
+    font-size: var(--text-h3);
+    font-weight: 500;
+  }
+
+  .roles {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .roles li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-5);
+  }
+
+  .role {
+    font-weight: 500;
+  }
+
+  .detail {
+    display: block;
+    margin-block-start: var(--space-1);
+    font-weight: 400;
+  }
+
+  .dates {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .points {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 0;
+    padding-inline-start: 1.1em;
+    line-height: var(--leading-body);
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  /* Print: one clean black-on-white document. The downloadable PDF is printed from this. */
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.5in 0.6in;
+    }
+
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.skip-link),
+    .screen-only {
+      display: none !important;
+    }
+
+    .print-only {
+      display: list-item;
+    }
+
+    :global(html),
+    :global(body) {
+      background: #fff !important;
+      color: #000 !important;
+    }
+
+    .resume {
+      gap: 12pt;
+      padding: 0;
+      max-width: none;
+      font-size: 9.5pt;
+    }
+
+    .resume.rail-layout,
+    .resume :global(.rail-layout) {
+      grid-template-columns: 1.1in minmax(0, 1fr);
+      column-gap: 0.25in;
+    }
+
+    h1 {
+      font-size: 24pt;
+    }
+
+    .subtitle {
+      font-size: 11pt;
+    }
+
+    .subtitle,
+    .meta {
+      color: #444 !important;
+      font-size: 8.5pt;
+    }
+
+    .summary,
+    .contact {
+      font-size: 9.5pt;
+    }
+
+    .intro,
+    .entries {
+      max-width: none;
+      gap: 8pt;
+    }
+
+    .block h2 {
+      font-size: 13pt;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+    }
+
+    .job,
+    .roles li {
+      break-inside: avoid;
+    }
+
+    .job,
+    .roles,
+    .points,
+    .detail {
+      gap: 2pt;
+      margin-block-start: 0;
+    }
+
+    a {
+      color: #000 !important;
+      text-decoration: none;
+    }
   }
 </style>

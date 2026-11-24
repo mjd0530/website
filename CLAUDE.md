@@ -17,7 +17,7 @@ Source of truth: `docs/` (brief, design direction, design system, components, si
 - Plain CSS: tokens as custom properties, `@layer reset, tokens, base, layout, components, utilities`. No Tailwind, no CSS-in-JS.
 - Zero client JS by default. Interactivity = small vanilla scripts in components; a framework island needs a documented reason.
 - No new dependency without stating why and the alternative.
-- Commands: `npm run dev` · `npm run build` · `npm run preview` · `npm run check` · `npm run test` (Playwright + axe) · `npm run lint`.
+- Commands: `npm run dev` · `npm run build` · `npm run preview` · `npm run check` · `npm run test` (Playwright + axe) · `npm run lint` · `npm run resume:pdf` (regenerates `public/mike-demar-resume.pdf` from the built `/resume/` page; run after `build`, then build again).
 
 ## Structure
 - `src/styles/` tokens, reset, typography, layout
