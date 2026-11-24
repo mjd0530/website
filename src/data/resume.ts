@@ -15,34 +15,34 @@ export interface Job {
 export const headline = 'Lead UX Designer';
 
 export const summary =
-  "I design at the intersection of hardware, software, and AI. At Lenovo I lead a team of designers while staying hands-on in the work, from early vision and concepts through shipped products. I've been designing products since 2008, across consumer devices, enterprise software, and design systems.";
+  "I design at the intersection of hardware, software, and AI. For 18 years I've taken products from early vision to ship, across consumer devices, enterprise software, and design systems. Today I lead a team of designers at Lenovo while staying hands-on in the work.";
 
 export const experience: Job[] = [
   {
     company: 'Lenovo',
     roles: [{ title: 'Lead UX Designer', dates: 'Apr 2022 – Present' }],
     points: [
-      'Led the design team behind Smart Share, a cross-platform experience that connects phones and PCs with a tap, from vision and rough concepts to launch at IFA 2024 on 11 Lenovo Aura Edition PCs. The tap later carried into Lenovo Smart Connect as Tap to Launch.',
-      'Smart Share scored 86 on the System Usability Scale in an owner study of 1,484 people. 80–88% of repeat launches came from the tap, and about 70% of active users engaged with it weekly.',
-      // TODO(mike): say what your part was in the Figma move and the Cake design system.
-      'Helped move the UX design organization from Adobe XD to Figma and kick off its design system.',
-      // TODO(mike): add a line on Vantage once that case study is written.
+      'Lead a team of 5 designers, setting direction and raising the bar through design process, workshops, hiring, mentoring, and culture.',
+      'Design hardware, software, and AI experiences across Lenovo’s PC portfolio, including Lenovo Vantage, Lenovo Device Orchestration, and Lenovo IT Assist (LITA).',
+      'Drive Hello (HelloPC), the Lenovo design system, as its lead designer, and evangelize it across product teams.',
+      'Championed the design organization’s move from Adobe XD to Figma.',
+      'Build design-to-code workflows with Claude Code that take designs straight into working code.',
+      'Took Smart Share, a signature feature of Lenovo Aura Edition PCs, from vision to launch at IFA 2024 on 11 PCs.',
     ],
   },
   {
     company: 'Citrix',
     roles: [{ title: 'Senior Product Designer', dates: 'Jul 2018 – Apr 2022' }],
     points: [
-      'Designed for Citrix Workspace, the flagship product, with designers, engineers, and product managers: system models, vision concepts, prototypes, and detailed product features.',
-      'Helped establish the Citrix Design System and its team, focused on tooling, team process, and component design and documentation. Ran design system reviews with engineering to keep design and code in sync.',
-      'Named inventor on two US design patents for Workspace.',
+      'Designed Citrix Workspace, the flagship product, from system models and vision concepts to prototypes and detailed features.',
+      'Helped found the Citrix Design System and its team, owning tooling, process, and component documentation, and ran reviews with engineering to keep design and code in sync.',
     ],
   },
   {
-    company: 'Oracle + Bronto',
+    company: 'Bronto (acquired by Oracle)',
     roles: [{ title: 'Lead Product Designer', dates: 'Jul 2015 – Jul 2018' }],
     points: [
-      'Lead designer on a cross-functional UX team serving several product teams. Built design team process and culture through critiques, show-and-tells, and workshops.',
+      'Led design on a cross-functional UX team serving several product teams, and built its process and culture through critiques, show-and-tells, and workshops.',
       'Led the UI redesign by building and evolving a living style guide, giving the platform and its apps one shared design language.',
     ],
   },
@@ -50,21 +50,21 @@ export const experience: Job[] = [
     company: 'Teradata',
     roles: [{ title: 'UX Architect', dates: 'Mar 2014 – Jul 2015' }],
     points: [
-      'Visual and interaction design for a suite of data products, with high-fidelity mockups and working prototypes for engineering, product, and QA. Ran lean user tests to iterate quickly on flows and wireframes.',
+      'Designed a suite of data products, delivering high-fidelity mockups and working prototypes to engineering, product, and QA, and running lean user tests to iterate quickly.',
     ],
   },
   {
     company: 'Medfusion',
     roles: [{ title: 'UI/UX Designer', dates: 'Sep 2013 – Mar 2014' }],
     points: [
-      'Lead designer on the innovation and product management team, rapidly prototyping patient and provider web apps.',
+      'Led design on the innovation and product management team, rapidly prototyping patient and provider web apps.',
     ],
   },
   {
     company: 'Intuit',
     roles: [{ title: 'Visual Designer', dates: 'Nov 2012 – Sep 2013' }],
     points: [
-      'Designed patient portal websites for health care practices on the XD team, and prototyped lean experiments for future Intuit products. Three Spotlight Awards for Drive for Results.',
+      'Designed patient portal websites for health care practices and prototyped lean experiments for future Intuit products.',
     ],
   },
 ];
@@ -121,7 +121,10 @@ export const skills = [
   'Design systems',
   'User research',
   'UX specifications',
+  'Design leadership',
+  'Mentoring',
   'Cross-functional leadership',
+  'Design to code',
   'Figma',
 ];
 
