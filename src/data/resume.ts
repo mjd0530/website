@@ -96,7 +96,7 @@ export const awards = [
     detail: 'Lenovo Group Operations · One Lenovo Cake Design System',
     year: '2024',
   },
-  { name: 'VP Team Excellence Award', detail: 'Lenovo', year: '2024' },
+  { name: 'VP Team Excellence Award', detail: 'Lenovo · Cake Design Language Team', year: '2024' },
   {
     name: 'One Lenovo Award',
     detail: 'Lenovo User Experience Design and Product Diversity Office',
