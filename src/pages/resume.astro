@@ -40,6 +40,9 @@ import {
         </ul>
         <p class="screen-only download">
           <a href={pdfPath} download>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"></path>
+            </svg>
             Download PDF
           </a>
         </p>
@@ -187,6 +190,7 @@ import {
   .download a {
     display: inline-flex;
     align-items: center;
+    gap: var(--space-2);
     min-height: 2.75rem;
     padding-inline: var(--space-5);
     border: 1px solid var(--color-border);
@@ -194,6 +198,16 @@ import {
     color: var(--color-text);
     font-size: var(--text-ui);
     text-decoration: none;
+  }
+
+  .download .icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .download a:hover {
