@@ -108,7 +108,7 @@ export const awards = [
     detail: 'Lenovo User Experience Design and Product Diversity Office',
     year: '2023',
   },
-  { name: 'Citrix All-Star Award', detail: 'Citrix', year: '2018' },
+  { name: 'Citrix All-Star Award', detail: 'Citrix Workspace', year: '2018' },
   {
     name: 'Intuit Spotlight Award, Drive for Results',
     detail: 'iPad consumer prototypes · L.E.A.D campaign designs',
