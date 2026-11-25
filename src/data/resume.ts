@@ -23,11 +23,12 @@ export const experience: Job[] = [
     roles: [{ title: 'Lead UX Designer', dates: 'Apr 2022 – Present' }],
     points: [
       'Lead a team of 5 designers, setting direction and raising the bar through design process, workshops, hiring, mentoring, and culture.',
+      'Drive Hello (HelloPC), the Lenovo design system, as its lead designer, and evangelize it across product teams. Recognized with a Circle of Excellence “Dream Team” Award and a VP Team Excellence Award for the One Lenovo Cake design language.',
+      'Took Smart Share, a signature feature of Lenovo Aura Edition PCs, from vision to launch at IFA 2024 on 11 PCs, earning a Lenovo Corporate Team Excellence Award.',
+      'Align product, engineering, and outside partners across the US, China, Japan, and Norway, presenting regularly to executive leadership. My UX specifications become the shared reference teams build from.',
       'Design hardware, software, and AI experiences across Lenovo’s PC portfolio, including Lenovo Vantage, Lenovo Device Orchestration, and Lenovo IT Assist (LITA).',
-      'Drive Hello (HelloPC), the Lenovo design system, as its lead designer, and evangelize it across product teams.',
-      'Championed the design organization’s move from Adobe XD to Figma.',
       'Build design-to-code workflows with Claude Code that take designs straight into working code.',
-      'Took Smart Share, a signature feature of Lenovo Aura Edition PCs, from vision to launch at IFA 2024 on 11 PCs.',
+      'Championed the design organization’s move from Adobe XD to Figma.',
     ],
   },
   {
