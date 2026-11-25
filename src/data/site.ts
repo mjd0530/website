@@ -7,7 +7,8 @@ export const primaryNav = [
   { label: 'Contact', href: '/contact/' },
 ];
 
-// TODO(mike): add a public contact email if you want one listed.
+export const email = 'mjd0530@gmail.com';
+
 export const profiles = {
   linkedin: 'https://www.linkedin.com/in/mikedemar/',
   dribbble: 'https://dribbble.com/mikedemar',

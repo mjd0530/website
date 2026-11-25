@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "test": "playwright test",
     "lhci": "lhci autorun",
-    "image": "node scripts/prepare-image.mjs"
+    "image": "node scripts/prepare-image.mjs",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.3",
