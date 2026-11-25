@@ -131,6 +131,7 @@ export const volunteer = {
 
 export const skills = [
   'Experience strategy',
+  'AI experience design',
   'Interaction design',
   'Prototyping',
   'Design systems',
@@ -139,7 +140,7 @@ export const skills = [
   'Design leadership',
   'Mentoring',
   'Cross-functional leadership',
-  'Design to code',
+  'AI-assisted design to code',
   'Figma',
 ];
 
