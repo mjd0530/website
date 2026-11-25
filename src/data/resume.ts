@@ -109,7 +109,11 @@ export const awards = [
     year: '2023',
   },
   { name: 'Citrix All-Star Award', detail: 'Citrix', year: '2018' },
-  { name: 'Intuit Spotlight Award, Drive for Results', detail: 'Three awards', year: '2013' },
+  {
+    name: 'Intuit Spotlight Award, Drive for Results',
+    detail: 'iPad consumer prototypes · L.E.A.D campaign designs',
+    year: '2013',
+  },
   {
     name: '1st Place, Interactive Design & Animation',
     detail: 'ECU School of Art Undergraduate Exhibition',
